@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# EstateIn Project Setup Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Quick Start
 
-Currently, two official plugins are available:
+1. **Clone the repository**
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Installed Dependencies
 
-## React Compiler
+### Main Dependencies
+- `react` & `react-dom` - React 19 for UI components
+- `classnames` - Utility for conditional CSS classes
+- `swiper` - Modern slider/carousel library
+- `@a1rth/css-normalize` - CSS normalization for consistent styling across browsers
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Development Dependencies
+- `typescript` - Type safety and better developer experience
+- `vite` - Fast build tool and development server
+- `sass` - CSS preprocessor with advanced features
+- `eslint` - Code linting and quality checks
+- `@svgr/rollup` & `vite-plugin-svgr` - Import SVG files as React components
+- `postcss-pxtorem` - Convert px to rem units for better responsiveness
 
-## Expanding the ESLint configuration
+## ⚙️ Project Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🔧 Built-in Configuration
+- **Auto imports with `@/` prefix** - Path aliases already configured (`@/` → `/src/`)
+- **SVG support** - Import SVGs as React components: `import Icon from './icon.svg?react'`
+- **TypeScript** - Full type support configured
+- **SASS/SCSS** - Preprocessor with module system (`@use` instead of deprecated `@import`)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 📁 Project Structure
+```
+src/
+├── @/                    # Alias for all imports from src
+├── assets/              # Static files (images, fonts, icons)
+├── components/          # Reusable React components
+├── styles/             # Global and module styles
+└── ...                 # Other source directories
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Available Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint code analysis
+- `npm run preview` - Preview production build locally
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 💡 Important Notes
+
+1. **Use `@/` for imports** instead of relative paths (`@/components/Button` instead of `../../components/Button`)
+2. **SVG imports** require `?react` suffix: `import Icon from './icon.svg?react'`
+3. **SASS imports** use `@use` syntax (old `@import` is deprecated)
+4. **CSS normalization** is automatically applied via `@a1rth/css-normalize`
+
+## 🐛 Troubleshooting
+
+If auto-imports with `@/` don't work:
+1. Ensure VS Code uses workspace TypeScript version
+2. Restart VS Code TypeScript server (`Ctrl+Shift+P` → "TypeScript: Restart TS Server")
+3. Check if `tsconfig.json` exists with proper path aliases
+
+## 📄 License
+
+Private repository - All rights reserved.
