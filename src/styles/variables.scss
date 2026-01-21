@@ -1,0 +1,40 @@
+@use "./helpers/index.scss" as *;
+:root {
+    --color-white: #fff;
+    --color-black: #000;
+    --color-red: #e65757;
+    --color-light-gray: rgba(255, 255, 255, 0.75);
+    --color-transparent-gray: rgba(255, 255, 255, 0.05);
+    --color-dark-green:#1B2316;
+
+
+    --border: 2px solid var(--color-light-gray);
+    --border-large: 2px solid rgba(255, 255, 255, 0.27);
+    --border-small: 2px solid rgba(255, 255, 255, 0.45);
+    --border-smaller: 2px solid rgba(255, 255, 255, 0.75);
+
+    --border-radius-xl: 155px;
+    --border-radius-l: 77px;
+    --border-radius-m: 45px;
+    --border-radius-s: 12px;
+    --border-radius-xs: 8px;
+
+    --border-width-l: 4px;
+    --border-width-m: 2px;
+    --border-width-s: 1px;
+
+
+    --font-family-main: 'Inter', sans-serif; 
+
+
+    --container-width: #{fluid-to-laptop($container-desktop-width, $container-laptop-width)};
+
+    --container-padding-x: 50px;
+
+
+    --section-padding-y: #{fluid(75,40)};
+
+
+    --transition-duration: 0.2s;
+    --transition-duration-longer: 0.4s;
+}
