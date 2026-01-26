@@ -1,13 +1,21 @@
+import Content from "@/layouts/Content"
+import Header from "@/layouts/Header"
 import "@/styles/globals.scss"
+import { Outlet } from "react-router-dom"
 
-import Home from "@/pages/Home"
 
 function App() {
 
   return (
     <>
-      <Home />
+      <Header />
+      <main className="Entatein">
+        <Content>
+          <Outlet />
+        </Content>
+      </main>
     </>
+    
   )
 }
 

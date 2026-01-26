@@ -1,0 +1,98 @@
+@use "@/styles/globals.scss" as *;
+
+.learn-more {
+    margin: 0 0 0 0 ;
+    padding: 0;
+    border: none;
+    border-bottom: var(--border);
+    width: 100%;
+    height: 64px;
+    color: var(--color-white);
+    position: relative;
+    background-color: transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mobile {
+        width: 100%;
+        max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+        margin-inline: auto;
+        padding-inline: var(--container-padding-x);
+        justify-content: space-between;
+    }
+
+    &-bg {
+        z-index: -1;
+        width: 100%; //1566px
+        object-fit: fill;
+        height: 100%; //1046px
+        position: absolute;
+    }
+
+    &__information {
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        column-gap: 12px;
+
+        &-text {
+            text-wrap: nowrap;
+            font-size: fluid(18,12);
+        }
+
+        &-link {
+            position: relative;
+
+            @include hover {
+                transform: scale(1.1);
+            }
+            
+
+            &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 0.5px;
+                background-color: var(--color-white);
+                bottom: 5px;
+            }
+
+            span {
+                font-size: fluid(18,12);
+            }
+        }
+
+
+        @include laptop {
+            column-gap: 6px;
+        }
+    }
+
+    &-close-button {
+        position: absolute;
+        right: 32px;
+        background-color: transparent;
+        
+
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+         div {
+            border-radius: var(--border-radius-l);
+            background-color: var(--color-white-transparent-10);
+            width: fluid(32,26) !important;
+            height: fluid(32,26) !important;
+        }
+
+        @include mobile {
+            position: static;
+        }
+        
+    }
+}

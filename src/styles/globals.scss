@@ -4,6 +4,12 @@
 @use "./utils.scss" as *;
 @use "@a1rth/css-normalize" as *;
 
+@forward "./helpers/index.scss";
+@forward "./fonts.scss" ;
+@forward "./variables.scss" ;
+@forward "./utils.scss" ;
+@forward "@a1rth/css-normalize" ;
+
 
 
 html {
@@ -11,7 +17,7 @@ html {
         overflow: hidden;
     }
 
-    overflow-x: hidden;
+    // overflow-x: hidden;
 }
 body {
     @include fluid-text(18, 14);
@@ -19,11 +25,11 @@ body {
     display: flex;
     flex-direction: column;
     font-family: var(--font-family-main);
-    color: var(--color-light-gray);
-    background: black;
+    color: var(--color-white);
+    background: var(--color-gray-08);
     font-weight: 500;
-    line-height: 1.2;
-    overflow-x: hidden;
+    line-height: 1.5;
+    // overflow-x: hidden;
 }
 main {
     flex-grow: 1;
@@ -40,7 +46,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-    color: var(--color-light-gray);
+    color: var(--color-white);
     margin: 0;
 }
 h1,
@@ -104,9 +110,9 @@ a {
     min-width: 0;
 }
 
-/* * {
+/*  * {
     outline: 1px solid white !important;
-}  */ 
+} */  
 
 /* .header, .main > *:not(:nth-last-child(2)), .footer {
     display: none !important;

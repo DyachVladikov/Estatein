@@ -1,8 +1,33 @@
 @use "./helpers/index.scss" as *;
 
+/*
+
+ExtraBlack – 950
+
+Black – 900
+
+ExtraBold – 800
+
+Bold – 700
+
+SemiBold – 600
+
+Medium – 500
+
+Normal – 400
+
+SemiLight – 350
+
+Light – 300
+
+ExtraLight – 200
+
+Thin – 100 */
+
 :root {
     --color-white: #fff;
     --color-black: #000;
+    --color-white-transparent-10: rgba(255,255,255,0.2);
 
     --color-purple-60: #703BF7; 
     --color-purple-65: #8254F8; 
@@ -28,11 +53,12 @@
     --color-gray-60: #999999;
 
 
-    --border: 1px solid var(--color-gray-1);
+    --border: 1px solid var(--color-gray-15);
     --border-large: 2px solid rgba(255, 255, 255, 0.27);
     --border-small: 2px solid rgba(255, 255, 255, 0.45);
     --border-smaller: 2px solid rgba(255, 255, 255, 0.75);
-
+    
+    --border-radius-l: 75px;
     --border-radius-m: 28px;
     --border-radius-s: 12px;
     --border-radius-xs: 10px;
@@ -48,7 +74,7 @@
 
     --container-width: #{fluid-to-laptop($container-desktop-width, $container-laptop-width)};
 
-    --container-padding-x: 50px;
+    --container-padding-x: #{fluid(50,16)};
 
 
     --section-padding-y: #{fluid(155,80)};

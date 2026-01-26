@@ -1,4 +1,4 @@
-# EstateIn Project Setup Guide
+# Project Setup Guide
 
 ## 🚀 Quick Start
 
@@ -6,6 +6,9 @@
 2. **Install dependencies:**
    ```bash
    npm install
+   npm install classnames@latest
+   npm install swiper@latest
+   npm install @a1rth/css-normalize@latest
    ```
 
 ## 📦 Installed Dependencies
