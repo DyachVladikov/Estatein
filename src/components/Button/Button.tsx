@@ -15,6 +15,7 @@ interface ButtonProps {
     hasOnlyIcon?: boolean,
     iconName?:string,
     IconAndBorder?: boolean,
+    mode?: "purple",
     onClick?: (num?:boolean) => void,
 }
 
@@ -30,6 +31,7 @@ const Button  = (props:ButtonProps) => {
         hasOnlyIcon = false,
         IconAndBorder = false,
         iconName = "",
+        mode,
         onClick,
     } = props
 
@@ -40,7 +42,12 @@ const Button  = (props:ButtonProps) => {
     const NameClass:string = isLink ? "button-link" : "button"
 
     return (
-        <Component className={classNames(NameClass, className, {"button--onlyIcon" : hasOnlyIcon}, {"button--onlyIcon-bordered" : IconAndBorder})} {...CurrentProps} aria-labelledby={title}>
+        <Component className={classNames(NameClass, className, 
+        {"button--onlyIcon" : hasOnlyIcon}, 
+        {"button--onlyIcon-bordered" : IconAndBorder},
+        {[`button--${mode}`] : mode}
+        )} 
+        {...CurrentProps} aria-labelledby={title}>
             {hasIconBefore && iconName != "" && (
                 <Icon name={iconName}/>
             )} 

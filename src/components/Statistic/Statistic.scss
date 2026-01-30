@@ -1,0 +1,27 @@
+@use "@/styles/globals.scss" as *;
+
+.statistic {
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+
+    width: fluid(240,173);
+    height: fluid(121,91);
+
+    padding: 16px fluid(24,16);
+
+    background-color: var(--color-gray-10);
+    border: var(--border);
+    border-radius: var(--border-radius-s);
+
+    @include laptop {
+        border-radius: var(--border-radius-xs);
+    }
+
+    @include mobile {
+        border-radius: var(--border-radius-xxs);
+        text-align: center;
+    }
+
+}

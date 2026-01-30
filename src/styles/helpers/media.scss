@@ -1,9 +1,22 @@
-$laptop-large: 1650px;
+$desktop: 1920px;
+$laptop-large: 1600px;
 $laptop:   1440px;
 $middle:   1280px;
 $tablet:   1023px;
 $mobile:   767px;
-$mobile-s: 480px;
+$mobile-s: 550px;
+
+@mixin desktop-above {
+  @media (width > $desktop) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (width <= $desktop) {
+    @content;
+  }
+}
 
 @mixin laptop-large-above {
   @media (width > $laptop-large) {

@@ -14,7 +14,7 @@
     background: transparent;
     backdrop-filter: blur(0);
     transition: background-color 0.5s ease, backdrop-filter 0.3s ease;
-    border-bottom: var(--border);
+    
 
     &.sticky {
 
@@ -46,9 +46,12 @@
 
             &.in-modal {
                 flex-direction: column;
-                row-gap: 100px;
+                row-gap: 40px;
                 margin-block:  auto;
                 
+                @include mobile-s {
+                    row-gap: 30px;
+                }
             }
         }
         overflow-y: auto;
@@ -124,16 +127,16 @@
 
         &-close-button {
             position: absolute;
-            right: 5%;
-            top: 5%;
-            width: 84px;
-            height: 84px;
+            right: 4%;
+            top: 4%;
+            width: 64px;
+            height: 64px;
             background-color: transparent;
             
 
             div {
-                width: 84px !important;
-                height: 84px !important;
+                width: 64px !important;
+                height: 64px !important;
                 border-radius: 50%;
                 background-color: var(--color-gray-08);
             }
@@ -145,6 +148,11 @@
             height: 150px;
             &.is-active {
                 border-radius: var(--border-radius-s);
+            }
+
+            @include mobile-s {
+                width: 300px;
+                height: 125px;
             }
             
         }
