@@ -1,0 +1,71 @@
+import { useEffect, useState, memo } from "react"
+import Bage from "../Bage"
+import Button from "../Button"
+import "./EstateCard.scss"
+import getCurrentPrice from "@/utils/getCurrentPrice";
+import getSplitedText from "@/utils/getSplitedText";
+import type { Estate } from "@/sections/FeaturedProperties/FeaturedProperties";
+
+interface EstateProps {
+  estate: Estate
+}
+
+const EstateCard = ({estate}:EstateProps) => {
+
+    const [curentStringPrice, setCurentStringPrice] = useState<string>()
+    const [isreadMoreActivated, setIsreadMoreActivated] = useState<boolean>(false)
+    const [readMoreText, setReadMoreText] = useState<string>()
+
+    useEffect(() => {
+        setCurentStringPrice(getCurrentPrice(estate?.price))
+        setReadMoreText(getSplitedText(estate?.description, 10))
+    }, [])
+
+    const onReadMoreClick = () => {
+        setIsreadMoreActivated((prev) => !prev)
+    }
+
+    return (
+        <div className="estate-card">
+            <img className="estate-card-image"  src={estate?.images?.[0] ?? "/src/assets/images/loadingGif.gif"}/>
+            <div className="estate-card__info">
+                <h3 className="estate-card__info-name h5">{estate?.name}</h3>
+                <div className="estate-card__info-description">
+                    <p className="estate-card__info-description-text description">
+                        {!isreadMoreActivated && (
+                            <>
+                                {readMoreText}
+                            </>
+                        )}
+                        {isreadMoreActivated && (
+                            <>
+                                {estate?.description}
+                            </>
+                        )}
+                        <Button className="estate-card__info-description-read-more" 
+                        title={isreadMoreActivated ? " Close" : " Read More"} label={isreadMoreActivated ? " Close" : " Read More"} 
+                        onClick={onReadMoreClick}
+                        />
+                    </p>
+                    
+                </div>
+                <div className="estate-card__info-bages">
+                    <Bage className="estate-card__info-bages--badroom" iconName="bad" info={`${estate?.bedroomsCount}-Bedroom`}/>
+                    <Bage className="estate-card__info-bages--bathroom" iconName="bathroom" info={`${estate?.bathroomsCount}-Bathroom`}/>
+                    <Bage className="estate-card__info-bages--estate" iconName="estate-small" info={estate?.type}/>
+                </div>
+                <div className="estate-card__info-price-button">
+                    <div className="estate-card__info-price">
+                        <span className="description">Price</span>
+                        <span>${curentStringPrice}</span>
+                    </div>
+                    <Button className="estate-card__info-property-button" 
+                    title="View Property Details" label="View Property Details" mode="purple" 
+                    href={`/estate/properties/${estate._id}`} linkButton/>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default memo(EstateCard)

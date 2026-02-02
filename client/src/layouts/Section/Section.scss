@@ -1,0 +1,53 @@
+@use "/src/styles/globals.scss" as *;
+
+.section {
+    margin-top: fluid(110,61);
+
+    &-stars {
+        margin-left: -20px;
+    }
+
+    &-events {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        column-gap: 120px;
+    }
+    &-description {
+        max-width: 1000px;
+    }
+    &-main {
+        margin-block: fluid(80, 40) fluid(50, 30) ;
+    }
+
+    &-slider__actions {
+        border-top: var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: fluid(80,65);
+
+        &-navigation {
+            display: flex;
+            column-gap: 15px;
+        }
+
+        &-navigation-prev, &-navigation-next {
+            width: fluid(58, 44);
+            height: fluid(58, 44);
+            padding: fluid(14,10);
+            border: var(--border);
+            border-radius: 50%;
+        }
+        &-navigation-prev {
+            div {
+                transform: rotate(180deg);
+            }
+        }
+    }
+    &-error {
+        margin: auto;
+        font-size: fluid(48,20);
+        width: max-content;
+    }
+}

@@ -1,0 +1,170 @@
+@use "@/styles/globals.scss" as *;
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+
+    background: transparent;
+    backdrop-filter: blur(0);
+    transition: background-color 0.5s ease, backdrop-filter 0.3s ease;
+    
+
+    &.sticky {
+
+        align-items: start;
+        padding-top: 10px;
+
+        background: linear-gradient(0deg, transparent 0%, var(--color-gray-08) 27%);
+        border-bottom: none;
+        backdrop-filter: blur(0);
+        animation: stickBounce 1.6s cubic-bezier(0.68, -0.55, 0.265, 1.25) forwards;
+        animation-play-state: running;
+
+        @keyframes stickBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    }
+
+
+    &__navigation {
+        &-list {
+            display: flex;
+            align-items: center;
+            column-gap: fluid-to-laptop(30,24);
+
+            &.in-modal {
+                flex-direction: column;
+                row-gap: 40px;
+                margin-block:  auto;
+                
+                @include mobile-s {
+                    row-gap: 30px;
+                }
+            }
+        }
+        overflow-y: auto;
+
+        &-link {
+            font-size: fluid-to-laptop(18,14);
+            text-align: center;
+            width: fluid-to-laptop(96,77);
+            height: fluid-to-laptop(55,45);
+            display: flex;
+            justify-content: center;  
+            align-items: center; 
+
+            &.is-active {
+                background-color: var(--color-gray-08);
+                border: var(--border);
+                border-radius: var(--border-radius-xxs);
+            }
+            @include hover {
+                border: var(--border);
+                border-color: var(--color-white);
+                border-radius: var(--border-radius-xxs);
+            }
+            
+        }
+
+        
+    }
+
+    &__button-contact-us {
+        width: fluid-to-laptop(136,109);
+        height: fluid-to-laptop(59,49);
+        font-size: fluid-to-laptop(18,14);
+        padding: 14px 20px;
+        
+        &-link {
+            display: flex;
+            justify-content: center;  
+            align-items: center; 
+            width: auto;
+            height: auto;
+            border: var(--border);
+            border-radius: var(--border-radius-xxs);
+            background-color: var(--color-gray-08);
+
+            @include hover {
+                border-color: var(--color-white)
+            }
+        }
+    }
+
+    &-burger-button {
+        width: 44px;
+        height: 44px;
+
+        div {
+            width: 28px !important;
+            height: 28px !important;
+        }
+    }
+
+    
+    &__modal {
+        position: fixed;
+        padding: 2% 2%;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        top: 0;
+        z-index: 1000;
+        background-color: var(--color-gray-40);
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &-close-button {
+            position: absolute;
+            right: 4%;
+            top: 4%;
+            width: 64px;
+            height: 64px;
+            background-color: transparent;
+            
+
+            div {
+                width: 64px !important;
+                height: 64px !important;
+                border-radius: 50%;
+                background-color: var(--color-gray-08);
+            }
+        }
+
+        &-link {
+            font-size: 64px;
+            width: 350px;
+            height: 150px;
+            &.is-active {
+                border-radius: var(--border-radius-s);
+            }
+
+            @include mobile-s {
+                width: 300px;
+                height: 125px;
+            }
+            
+        }
+
+        @include hide;
+
+        &.is-open {
+            @include show;
+        }
+    }
+}

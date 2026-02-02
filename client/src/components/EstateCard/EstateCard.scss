@@ -1,0 +1,93 @@
+@use "/src/styles/globals.scss" as *;
+
+.estate-card {
+    width: fluid(512, 358);
+    height: auto;
+
+    border: var(--border);
+    border-radius: var(--border-radius-s);
+    padding: fluid(40,24);
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: fluid(30,16);
+
+    &-image {
+        border-radius: var(--border-radius-xs);
+
+        width: fluid(432,310);
+        height: fluid(318, 210);
+
+        object-fit: cover;
+    }
+
+    &__info {
+
+        display: flex;
+        flex-direction: column;
+
+        &-description {
+            display: flex;
+            align-items: center;
+            column-gap: 4px;
+            margin-top: 6px;
+            margin-bottom: fluid(30,20);
+
+            &-read-more {
+                width: auto;
+                height: auto;
+                border: none;
+                background-color: transparent;
+                align-self: flex-end;
+                padding: 0;
+                position: relative;
+                margin-left: 3px;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 100%;
+                    height: 0.5px;
+                    background-color: var(--color-white);
+                    bottom: 4px;
+                    left: 0;
+                    border-radius: var(--border-radius-xxs);
+                }
+
+                @include hover {
+                    border: none !important;
+                }
+            } 
+        }
+
+        &-bages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            @include mobile {
+                column-gap: 6px;
+            }
+        }
+
+        &-price-button {
+            margin-top: auto;
+            display: flex;
+            column-gap: fluid(50,30);
+        }
+        &-price {
+            display: flex;
+            flex-direction: column;
+            row-gap: 2px;
+
+            & > span {
+                font-size: (24,18);
+            }
+        }
+
+        &-property-button {
+            width: fluid(279, 202);
+        }
+        
+    }
+}

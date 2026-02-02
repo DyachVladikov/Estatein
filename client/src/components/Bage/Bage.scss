@@ -1,0 +1,23 @@
+@use "/src/styles/globals.scss" as *;
+
+.bage {
+    width: auto;
+    height: fluid-to-laptop(43,33);
+
+    padding: 8px 14px;
+
+    border: var(--border);
+    border-radius: var(--border-radius-m);
+
+    display: flex;
+    column-gap: 4px;
+
+    &-icon-wrapper {
+        width: fluid-to-laptop(24,20);
+        height: fluid-to-laptop(24,20);
+    }
+
+    @include laptop {
+        padding: 6px 14px;
+    }
+}
