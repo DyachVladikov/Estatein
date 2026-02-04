@@ -40,7 +40,7 @@ const Section = (props:SectionProps) => {
             <div className={`${className}__events section-events`}>
                 <p className={`${className}-description description section-description`}>{description}</p>
                 {hasButton && (
-                    <Button title={ButtonText} label={ButtonText} className={`${className}-button`} />
+                    <Button title={ButtonText} label={ButtonText} className={`${className}-button hidden-mobile`} />
                 )}
             </div>
             <div className="section-main">
@@ -48,14 +48,23 @@ const Section = (props:SectionProps) => {
             </div>
             {hasSlider && (
                 <div className={`${className}-slider__actions section-slider__actions`} >
+                    {hasButton && (
+                        <Button title={ButtonText} label={ButtonText} className={`${className}-button visible-mobile`} />
+                    )}
                     <div className={`${className}-slider__actions-pagination section-slider__actions-pagination`}></div>
-                    <div className={`${className}-slider__actions-navigation section-slider__actions-navigation`}>
+                    <div className={`${className}-slider__actions-navigation section-slider__actions-navigation hidden-mobile`}>
                         <div className={`${className}-slider__actions-navigation-prev section-slider__actions-navigation-prev`}>
                             <Icon name="arrow-right"/>
                         </div>
                         <div className={`${className}-slider__actions-navigation-next section-slider__actions-navigation-next`}>
                             <Icon name="arrow-right"/>
                         </div>
+                    </div>
+                    <div className={`${className}-slider__actions-navigation-prev section-slider__actions-navigation-prev visible-mobile`}>
+                            <Icon name="arrow-right"/>
+                    </div>
+                    <div className={`${className}-slider__actions-navigation-next section-slider__actions-navigation-next visible-mobile`}>
+                            <Icon name="arrow-right"/>
                     </div>
                 </div>
             )}

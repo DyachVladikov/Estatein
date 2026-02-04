@@ -27,6 +27,15 @@
         justify-content: space-between;
         height: fluid(80,65);
 
+        &-pagination {
+            @include mobile {
+                max-width: max-content;
+                order: 1;
+                margin-inline: 10px;
+            }
+            
+        }
+
         &-navigation {
             display: flex;
             column-gap: 15px;
@@ -43,6 +52,16 @@
             div {
                 transform: rotate(180deg);
             }
+        }
+        &-navigation-next {
+            @include mobile {
+                order: 3;
+            }
+        }
+
+        @include mobile {
+            justify-content: flex-end;
+            padding-top: 16px;
         }
     }
     &-error {

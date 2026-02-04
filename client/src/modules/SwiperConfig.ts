@@ -4,7 +4,7 @@ interface Props {
   paginationEl?:string | boolean,
   navigationPrev?:string,
   navigationNext?: string,
-  SpaceBetween?:number,
+  spaceBetween?:number,
   slidesPerView:number | "auto",
   slidesPerGroup:number,
   centeredSlides?:boolean,
@@ -25,7 +25,7 @@ function CreateSwiperConfig({
   paginationEl,
   navigationPrev,
   navigationNext,
-  SpaceBetween = 30,
+  spaceBetween = 20,
   slidesPerView = 3,
   slidesPerGroup = 1,
   centeredSlides = true,
@@ -57,7 +57,7 @@ function CreateSwiperConfig({
 
     centeredSlides:centeredSlides,
 
-    spaceBetween:SpaceBetween,
+    spaceBetween:spaceBetween,
     slidesPerView:slidesPerView,
     slidesPerGroup:slidesPerGroup,
 

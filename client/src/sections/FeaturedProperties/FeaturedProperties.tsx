@@ -56,8 +56,35 @@ const FeaturedProperties = () => {
         navigationPrev:".featured-properties-slider__actions-navigation-prev",
         paginationEl: ".featured-properties-slider__actions-pagination",
         centeredSlides: false,
-        paginationType: "custom"
+        paginationType: "custom",
+        spaceBetween: 30,
+        breakpoints : {
+            1: {
+                spaceBetween: 0,
+                slidesPerGroup: 1,
+                slidesPerView: 1,
+                centeredSlides: true,
+            },
+            768: {
+                spaceBetween: 0,
+                slidesPerGroup: 2,
+                slidesPerView: 2,
+                centeredSlides: false,
+            },
+            1280: {
+                spaceBetween: 20,
+                slidesPerGroup: 2,
+                slidesPerView: 2,
+            },
+            1441: {
+                spaceBetween: 30,
+                slidesPerGroup: 3,
+                slidesPerView: 3,
+            },
+        }
     }
+
+    
 
     return (
         
