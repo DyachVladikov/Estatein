@@ -11,11 +11,9 @@ import type { ReviewCardProps } from "@/components/ReviewCard/ReviewCard"
 const Testimonials = () => {
 
     const [reviews, SetReviews] = useState<ReviewCardProps[]>([])
-    const [hasFetched, setHasFetched] = useState(false);
     const [hasError, setHasError] = useState<boolean>(false)
 
     useEffect(() => {
-        if (hasFetched) return; 
         fetch("http://localhost:3002/api/reviews").then(response => {
 
             if(!response.ok)
@@ -29,7 +27,6 @@ const Testimonials = () => {
             }
         }).then(data => {
             SetReviews(data) 
-            setHasFetched(true);
         })  
     }, []) 
 

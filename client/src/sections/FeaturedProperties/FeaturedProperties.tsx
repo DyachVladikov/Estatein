@@ -7,21 +7,8 @@ import {Navigation, Pagination} from "swiper/modules"
 import { useEffect, useState} from "react"
 import Slider from "@/components/Slider/Slider"
 
-export interface Estate {
-  _id: string;
-  name: string;
-  description: string;
-  place: string;
-  price: number;
-  bedroomsCount: number;
-  bathroomsCount: number;
-  area: number;
-  images: string[];
-  buildYear: number;
-  createdAt: string;  
-  updatedAt: string;  
-  type: string,
-}
+import type { Estate } from "@/interfaces/interfaces";
+
 
 const FeaturedProperties = () => {
 

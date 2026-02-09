@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
 
-import EstateRoute from "./routes/estate.js"
+import Routes from "./routes/routes.js"
 
 const app = express()
 dotenv.config()
@@ -23,7 +23,7 @@ async function Start() {
         app.listen(Port, () => {
             console.log("server start on " + Port);    
         })
-        app.use("/api" , EstateRoute)
+        app.use("/api" , Routes)
 
     } catch (error) {
         console.log(error);

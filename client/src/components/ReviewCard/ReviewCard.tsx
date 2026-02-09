@@ -1,18 +1,8 @@
 import Rating from "../Rating"
 import "./ReviewCard.scss"
 
-interface User {
-    name: string,
-    place: string,
-    img: string
-}
-interface Review {
-    rating: number,
-    description: string,
-    title: string,
-    _id: string,
-    user: User,
-}
+import type { User, Review } from "@/interfaces/interfaces"
+
 
 export type ReviewCardProps = User & Review
 

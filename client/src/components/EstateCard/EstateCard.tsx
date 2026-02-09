@@ -4,7 +4,7 @@ import Button from "../Button"
 import "./EstateCard.scss"
 import getCurrentPrice from "@/utils/getCurrentPrice";
 import getSplitedText from "@/utils/getSplitedText";
-import type { Estate } from "@/sections/FeaturedProperties/FeaturedProperties";
+import type { Estate } from "@/interfaces/interfaces";
 
 interface EstateProps {
   estate: Estate
