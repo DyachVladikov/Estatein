@@ -44,11 +44,11 @@
 
             &.in-modal {
                 flex-direction: column;
-                row-gap: 40px;
+                row-gap: 30px;
                 margin-block:  auto;
                 
                 @include mobile-s {
-                    row-gap: 30px;
+                    row-gap: 20px;
                 }
             }
         }
@@ -141,20 +141,31 @@
                 height: 64px !important;
                 border-radius: 50%;
                 background-color: var(--color-gray-08);
+
+                @include mobile-s {
+                    width: 44px !important;
+                    height: 44px !important;
+                }
+            }
+
+            @include mobile-s {
+                width: 44px;
+                height: 44px;
             }
         }
 
         &-link {
-            font-size: 64px;
-            width: 350px;
-            height: 150px;
+            font-size: 54px;
+            width: 250px;
+            height: 100px;
             &.is-active {
                 border-radius: var(--border-radius-s);
             }
 
             @include mobile-s {
-                width: 300px;
-                height: 125px;
+                font-size: 42px;
+                width: 200px;
+                height: 75px;
             }
             
         }

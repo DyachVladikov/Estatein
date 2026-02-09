@@ -68,4 +68,7 @@
         font-size: fluid(48,20);
         width: max-content;
     }
+    & > h2 {
+        margin-bottom: 6px;
+    }
 }

@@ -118,6 +118,11 @@ a {
 :has(.swiper) {
     min-width: 0;
 }
+.container {
+    @include desktop-above {
+        padding-inline: 0;
+    }
+}
 
 /*   * {
     outline: 1px solid white !important;

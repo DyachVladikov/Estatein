@@ -1,0 +1,80 @@
+.estate-banner {
+    width: 100%;
+    max-width: 1920px;
+    border: var(--border);
+    border-radius: var(--border-radius-m);
+    @include desktop-above {
+        margin-inline: auto;
+    }
+    
+    position: relative;
+
+    &-wrapper {
+        padding: 100px 162px;
+
+        display: grid;
+        grid-template-columns: 1fr 0.6fr;
+
+        @include desktop-above {
+            grid-template-columns: 1fr 0.3fr;
+        }
+
+        @include laptop {
+            padding-block: 60px;
+        }
+
+        @include mobile {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            row-gap: 30px;
+        }
+    }
+    &-button {
+        margin-block: auto;
+        margin-left: auto;
+
+        @include desktop-above {
+            margin-inline: auto;
+        }
+
+        @include mobile {
+            width: 100%;
+        }
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        row-gap: fluid(14,6);
+
+        @include desktop-above {
+            padding-left: 120px;
+        }
+    }
+
+    &-bg-1, &-bg-2 {
+        position: absolute;
+        z-index: -1;
+        top: 0px;
+    }
+    &-bg-1 {
+        transform: rotateY(180deg);
+        @include desktop-above {
+            left: 162px;
+        }
+        @include mobile {
+            // transform: rotateY(180deg);
+            transform: rotateZ(180deg);
+        }
+    }
+    &-bg-2 {
+        right: 0;
+        @include desktop-above {
+            right: 162px;
+        }
+        @include mobile {
+            bottom: 0px;
+            top:auto;
+        }
+    }
+}
