@@ -1,14 +1,18 @@
-@use "./helpers/index.scss" as *;
 @use "./fonts.scss" as *;
 @use "./variables.scss" as *;
+@use "@a1rth/css-normalize" as *;  
+@use "./resources.scss" as *;
 @use "./utils.scss" as *;
-@use "@a1rth/css-normalize" as *;
 
-@forward "./helpers/index.scss";
+
 @forward "./fonts.scss" ;
 @forward "./variables.scss" ;
+@forward "@a1rth/css-normalize" ;  
 @forward "./utils.scss" ;
-@forward "@a1rth/css-normalize" ;
+
+@use "swiper/css/pagination";
+@use "swiper/css/navigation";
+@use "swiper/css";
 
 
 

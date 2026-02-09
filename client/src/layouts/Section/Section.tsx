@@ -40,7 +40,7 @@ const Section = (props:SectionProps) => {
             <div className={`${className}__events section-events`}>
                 <p className={`${className}-description description section-description`}>{description}</p>
                 {hasButton && (
-                    <Button title={ButtonText} label={ButtonText} className={`${className}-button hidden-mobile`} />
+                    <Button title={ButtonText} label={ButtonText} className={`${className}-button hidden-mobile button--section`} />
                 )}
             </div>
             <div className="section-main">
@@ -49,7 +49,7 @@ const Section = (props:SectionProps) => {
             {hasSlider && (
                 <div className={`${className}-slider__actions section-slider__actions`} >
                     {hasButton && (
-                        <Button title={ButtonText} label={ButtonText} className={`${className}-button visible-mobile`} />
+                        <Button title={ButtonText} label={ButtonText} className={`${className}-button visible-mobile button--section`} />
                     )}
                     <div className={`${className}-slider__actions-pagination section-slider__actions-pagination`}></div>
                     <div className={`${className}-slider__actions-navigation section-slider__actions-navigation hidden-mobile`}>

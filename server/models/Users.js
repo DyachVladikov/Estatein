@@ -12,6 +12,9 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Место обязательно'],
     trim: true
   },
+  img: {
+    type: String,
+  },
   role: {
     type: String,
     enum: ['buyer', 'seller', 'agent', 'admin'],
@@ -23,6 +26,6 @@ const UserSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-});
+}, { collection: 'Users' });
 
-export default mongoose.model("User", UserSchema)
+export default mongoose.model("Users", UserSchema, "Users")

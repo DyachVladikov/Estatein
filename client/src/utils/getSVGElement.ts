@@ -6,7 +6,8 @@ export default function getSVGElement(svgName:string | unknown) {
 
 
     const modules = import.meta.glob('../../src/assets/icons/*.svg', { 
-        as: 'raw', 
+        query: '?raw', 
+        import: 'default',
         eager: true 
     });
 

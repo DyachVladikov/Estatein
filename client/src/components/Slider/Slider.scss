@@ -1,16 +1,9 @@
-@use "/src/styles/globals.scss" as *;
-@import "swiper/css/pagination";
-@import "swiper/css/navigation";
-@import "swiper/css";
-
-
-
 .swiper {
     width: 100%;
     display: flex;
 
     .swiper-slide {
-    height: auto; // высота по контенту
+    height: auto;
     display: flex;
     }
 

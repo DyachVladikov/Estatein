@@ -1,0 +1,17 @@
+.rating {
+    display: flex;
+    column-gap: 10px;
+
+    @include laptop {
+        column-gap: 8px;
+    }
+
+    &-star {
+        width: fluid(44,30);
+        height: fluid(44,30);
+        padding: fluid(10,6);
+
+        border: var(--border);
+        border-radius: 50%;
+    }
+} 

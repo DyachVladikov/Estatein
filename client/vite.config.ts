@@ -16,5 +16,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'), 
     },
   },
-  
+   css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/styles/resources.scss" as *;` 
+      }
+    }
+  }, 
 })
