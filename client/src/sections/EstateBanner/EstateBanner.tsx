@@ -4,7 +4,7 @@ import "./EstateBanner.scss"
 const EstateBanner = () => {
 
     return (
-        <section className="section estate-banner">
+        <section className="section estate-banner" data-js-section="estate-banner">
             <img className="estate-banner-bg-1" src="/src/assets/backgrounds/bg-abstract2.png" />
             <img className="estate-banner-bg-2" src="/src/assets/backgrounds/bg-abstract2.png" />
             <div className="estate-banner-wrapper container">

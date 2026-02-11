@@ -15,7 +15,7 @@ interface ButtonProps {
     hasOnlyIcon?: boolean,
     iconName?:string,
     IconAndBorder?: boolean,
-    mode?: "purple",
+    mode?: "purple" | "text-only",
     linkButton?: boolean,
     onClick?: (num?:boolean) => void,
 }

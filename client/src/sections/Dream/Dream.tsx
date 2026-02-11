@@ -40,7 +40,8 @@ const Dream = () => {
     ] as const
 
     return (
-        <section className="dream">
+        
+        <section className="dream" data-js-section="dream">
             <div className="dream-wrapper container">
                 <div className="dream__info">
                     <h1 className="dream__info-label">Discover Your Dream Property with Estatein</h1>

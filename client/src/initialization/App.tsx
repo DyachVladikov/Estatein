@@ -1,4 +1,5 @@
 import Content from "@/layouts/Content"
+import Footer from "@/layouts/Footer"
 import Header from "@/layouts/Header"
 import EstateBanner from "@/sections/EstateBanner"
 import "@/styles/globals.scss"
@@ -16,6 +17,7 @@ function App() {
         </Content>
         <EstateBanner />
       </main>
+      <Footer />
     </>
     
   )

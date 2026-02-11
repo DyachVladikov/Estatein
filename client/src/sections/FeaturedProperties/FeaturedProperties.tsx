@@ -77,7 +77,7 @@ const FeaturedProperties = () => {
         
         <Section className="featured-properties" title = "Featured Properties" 
         description ="Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click View Details for more information."
-        hasButton = {true} ButtonText="View All Properties" hasSlider
+        hasButton = {true} ButtonText="View All Properties" hasSlider dataJsSection="features"
         >
             {hasError && (
                 <div className="section-error">

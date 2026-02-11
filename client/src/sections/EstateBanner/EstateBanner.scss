@@ -6,6 +6,9 @@
     @include desktop-above {
         margin-inline: auto;
     }
+    @include mobile {
+        border-radius: 0;
+    }
     
     position: relative;
 

@@ -72,7 +72,7 @@ const Testimonials = () => {
         
         <Section className="testimonials" title = "What Our Clients Say" 
         description ="Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs."
-        hasButton = {true} ButtonText="View All Testimonials" hasSlider
+        hasButton = {true} ButtonText="View All Testimonials" hasSlider dataJsSection="testimonials"
         >
              {hasError && (
                 <div className="section-error">

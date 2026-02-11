@@ -74,7 +74,7 @@ const FAQ = () => {
     return (
         <Section className="faq" title = "Frequently Asked Questions" 
         description ="Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way."
-        hasButton = {true} ButtonText="View All FAQ’s" hasSlider
+        hasButton = {true} ButtonText="View All FAQ’s" hasSlider dataJsSection="faqs"
         >
              {hasError && (
                 <div className="section-error">
