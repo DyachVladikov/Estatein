@@ -4,6 +4,12 @@ import Icon from "@/components/Icon"
 import { Link } from "react-router-dom";
 import Button from "@/components/Button";
 import useAutoScroll from "@/hooks/useAutoScroll";
+import { useRef, useState } from "react";
+
+interface IsFormError {
+        hasErorr: boolean,
+        description: string,
+}
 
 const Footer = () => {
 
@@ -74,68 +80,124 @@ const Footer = () => {
         },    
     ]
 
+    const inputRef = useRef<HTMLInputElement>(null)
+    const [isFormInvalid, setIsFormInvalid] = useState<IsFormError>({hasErorr:false, description:""})
+    const [succsesSell, setSuccsesSell] = useState<boolean>(false);
+
 
     const scrollToSection = useAutoScroll();
 
-    return (
-        <footer className="footer container">
-            <div className="footer__main">
-                <div className="footer__main-form">
-                    <Logo />
-                    <div className="footer__main-input-wrapper">
-                        <div className="footer__main-letter-wrapper">
-                            <Icon name="letter" color="var(--color-gray-60)" userSelect={false}/>
-                        </div>
-                        
-                        <input id="footer-input" className="footer-input" placeholder="Enter Your Email"/>
+    const FormSubmit = (el:React.FormEvent) => {
+        el.preventDefault();
+        const inputValue = inputRef.current?.value || ""
+        
 
-                        <div className="footer__main-sell-wrapper">
-                            <Button className="footer__main-sell-button" hasOnlyIcon iconName="sell" title="sell" />
+        if(inputValue === "")
+        {
+            setIsFormInvalid({hasErorr:true, description:"*Write something before selling"})
+        }
+            
+        else if(inputValue != "" && !inputValue.includes("@"))
+        {
+            setIsFormInvalid({hasErorr:true, description:"Its not email"})
+        }
+        else {
+            setIsFormInvalid({hasErorr:false, description:""})
+            setSuccsesSell(true)
+            
+            console.log("form is fetching");
+            if(inputRef.current)
+                inputRef.current.value = ""
+            
+            /* fetch("http://localhost:8081/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(inputValue),
+            }).then((response) => {
+                response.json()
+
+                if(response.ok)
+                {
+                    setInputValue("")
+                    if (inputForm.current) {
+                        inputForm.current.value = ""
+                    }
+                }
+                    
+            }) */
+        }
+        
+    }
+
+    return (
+        <footer className="footer ">
+            <div className="footer__wrapper container">
+                <div className="footer__main">
+                    <form className="footer__main-form" onSubmit={(el) => {
+                        FormSubmit(el)
+                    }} >
+                        <Logo />
+                        <div className="footer__main-input-wrapper">
+                            <div className="footer__main-letter-wrapper">
+                                <Icon name="letter" color="var(--color-gray-60)" userSelect={false}/>
+                            </div>
+                            
+                            <input id="footer-input" className="footer-input"
+                            placeholder="Enter Your Email" ref={inputRef}
+                            />
+
+                            <div className="footer__main-sell-wrapper">
+                                <Button className="footer__main-sell-button" 
+                                hasOnlyIcon iconName="sell" 
+                                title="sell"
+                                type="submit"
+                                />
+                            </div>
                         </div>
+                    </form>
+                        <nav className="footer__table-menu footer__table">
+                            {footerData.map((column, index) => (
+                                <ul className="footer__table-list" key={`footer-list-${index}`}>
+                                    <Link to={column.hrefpage} className="description" style={{height: "auto"}}>
+                                        <span className="footer__table-head">{column.column}</span>
+                                    </Link>
+                                    
+                                    {column.items.map((item,index) => (
+                                        <li className="footer__table-item" key={`footer-item-${index}`}>
+                                            <Button className="footer__table-button" title={item.name} label={item.name} mode="text-only" 
+                                            onClick={() => {
+                                                scrollToSection(item.ref)
+                                            }}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            ))}
+                        </nav>
+                </div>
+                <div className="footer__links">
+                    <div className="footer__links-info">
+                        <span>@2026 Estatein. All Rights Reserved.</span>
+                        <span>Terms & Conditions</span>
+                    </div>
+                    <div className="footer__links-soc1als">
+                        <ul className="footer__links-soc1als-list">
+                            {soc1als.map((item,index) => (
+                                <li key={`footer-${item.name}-${index}`}>
+                                    <div className="footer__links-soc1als-item">
+                                        <div className="footer__links-soc1als-wrapper">
+                                            <Icon name={item.name} />
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
-                <table className="footer__table">
-                    <nav className="footer__table-menu">
-                        {footerData.map((column, index) => (
-                            <ul className="footer__table-list" key={`footer-list-${index}`}>
-                                <Link to={column.hrefpage} className="description" style={{height: "auto"}}>
-                                    <span className="footer__table-head">{column.column}</span>
-                                </Link>
-                                
-                                {column.items.map((item,index) => (
-                                    <li className="footer__table-item" key={`footer-item-${index}`}>
-                                        <Button className="footer__table-button" title={item.name} label={item.name} mode="text-only" 
-                                        onClick={() => {
-                                            scrollToSection(item.ref)
-                                        }}
-                                        />
-                                    </li>
-                                ))}
-                            </ul>
-                        ))}
-                    </nav>
-                    
-                </table>
             </div>
-            <div className="footer__links">
-                <div className="footer__links-info">
-                    <span>@2026 Estatein. All Rights Reserved.</span>
-                    <span>Terms & Conditions</span>
-                </div>
-                <div className="footer__links-soc1als">
-                    <ul className="footer__links-soc1als-list">
-                        {soc1als.map((item,index) => (
-                            <li key={`footer-${item.name}-${index}`}>
-                                <div className="footer__links-soc1als-item">
-                                    <div className="footer__links-soc1als-wrapper">
-                                        <Icon name={item.name} />
-                                    </div>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
+            
         </footer>
     )
 }

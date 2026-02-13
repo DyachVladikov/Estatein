@@ -5,7 +5,6 @@ const useAutoScroll = () => {
     const el = document.querySelector(`[data-js-section="${sectionId}"]`);
 
     el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    console.log(el);
     
   }, []);
   return scrollToSection;
