@@ -36,6 +36,10 @@
             display: flex;
             flex-direction: column;
             row-gap: 30px;
+
+            &-message {
+                margin-top: -25px;
+            }
         }
 
         &-letter-wrapper {
@@ -71,6 +75,13 @@
 
             @include mobile {
                 width: 100%;
+            }
+
+            &.error {
+                border-color: red;
+            }
+            &.succses {
+                border-color: green;
             }
         }
 

@@ -3,6 +3,7 @@ import { Router } from "express"
 import { getCollection, getEstate } from "../controllers/estate.js"
 import { getReviews } from "../controllers/reviews.js"
 import { getFAQS } from "../controllers/faqs.js"
+import { setEmails } from "../controllers/emails.js"
 
 const router = new Router()
 
@@ -20,6 +21,9 @@ router.get("/reviews", async (req, res) => {
 
 router.get("/faqs", async (req, res) => {
     return getFAQS(req,res)
+})
+router.post("/emails", async (req, res) => {
+    return setEmails(req,res)
 })
 
 export default router

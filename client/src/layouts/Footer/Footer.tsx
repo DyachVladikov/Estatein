@@ -4,7 +4,8 @@ import Icon from "@/components/Icon"
 import { Link } from "react-router-dom";
 import Button from "@/components/Button";
 import useAutoScroll from "@/hooks/useAutoScroll";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import classNames from "classnames";
 
 interface IsFormError {
         hasErorr: boolean,
@@ -87,6 +88,13 @@ const Footer = () => {
 
     const scrollToSection = useAutoScroll();
 
+    useEffect(() => {
+        setTimeout(() => {
+            setIsFormInvalid({hasErorr: false, description: ""})
+            setSuccsesSell(false)
+        }, 150000)
+    }, [isFormInvalid, succsesSell])
+
     const FormSubmit = (el:React.FormEvent) => {
         el.preventDefault();
         const inputValue = inputRef.current?.value || ""
@@ -105,28 +113,33 @@ const Footer = () => {
             setIsFormInvalid({hasErorr:false, description:""})
             setSuccsesSell(true)
             
-            console.log("form is fetching");
-            if(inputRef.current)
-                inputRef.current.value = ""
             
-            /* fetch("http://localhost:8081/users", {
+            fetch("http://localhost:3002/api/emails", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(inputValue),
+                body: JSON.stringify({
+                    email: inputValue
+                }),
             }).then((response) => {
-                response.json()
+                
+                
+                if(response.status === 409)
+                    setIsFormInvalid({hasErorr: true, description: "already sent"})
+                
 
-                if(response.ok)
+                else if(response.status === 200)
                 {
-                    setInputValue("")
-                    if (inputForm.current) {
-                        inputForm.current.value = ""
+                    if (inputRef.current) {
+                        inputRef.current.value = ""
                     }
                 }
+                return response.json()
                     
-            }) */
+            }).then (res => {
+                console.log(res.message);
+            })
         }
         
     }
@@ -139,7 +152,10 @@ const Footer = () => {
                         FormSubmit(el)
                     }} >
                         <Logo />
-                        <div className="footer__main-input-wrapper">
+                        <div className={classNames("footer__main-input-wrapper", 
+                            {"error" : isFormInvalid.hasErorr},
+                            {"succses" : succsesSell}
+                            )}>
                             <div className="footer__main-letter-wrapper">
                                 <Icon name="letter" color="var(--color-gray-60)" userSelect={false}/>
                             </div>
@@ -156,6 +172,11 @@ const Footer = () => {
                                 />
                             </div>
                         </div>
+                        {(isFormInvalid.hasErorr || succsesSell) && (
+                            <span className="footer__main-form-message" style={{color: isFormInvalid.hasErorr ? "red" : "green"}}>
+                                {isFormInvalid.hasErorr ? isFormInvalid.description : "Succses"}
+                            </span>
+                        )}
                     </form>
                         <nav className="footer__table-menu footer__table">
                             {footerData.map((column, index) => (
