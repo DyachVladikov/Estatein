@@ -8,32 +8,24 @@ import { useEffect, useState } from "react"
 import { Navigation, Pagination } from "swiper/modules"
 import { SwiperSlide } from "swiper/react"
 
-import type { FAQ as FAQTYPE } from "@/interfaces/interfaces"
+import type { FAQ as FAQTYPE, Error } from "@/interfaces/interfaces"
 import FAQCard from "@/components/FAQCard"
+import useApi from "@/hooks/useApi"
 
 
 const FAQ = () => {
 
-    const [hasError, SetHasError] = useState<boolean>(false)
-    const [FAQs, SetFAQs] = useState<FAQTYPE[]>([])
+    const [hasError, setHasError] = useState<Error>({HasError: false, status: 200})
+    const [FAQs, SetFAQs] = useState<FAQTYPE[] | null>([])
+    const [load, setLoading] = useState<boolean>(true)
 
+    const {data, loading, error} = useApi<FAQTYPE[]>("faqs")
 
     useEffect(() => {
-            fetch("http://localhost:3002/api/faqs").then(response => {
-
-                if(!response.ok)
-                {
-                    SetHasError(true)
-                    throw new Error
-                    
-                }
-                else {
-                    return response.json()
-                }
-            }).then(data => { 
-                SetFAQs(data)
-            })  
-    }, []) 
+       SetFAQs(data)
+       setHasError({HasError: true, status: 409})
+       setLoading(loading)
+    }, [data, error, loading])  
 
     const swiperConfig = {
         modules: [Navigation, Pagination],
@@ -71,23 +63,31 @@ const FAQ = () => {
         }
     }
 
+    if(load)
+    {
+        return (
+            <span style={{marginInline: "auto", fontSize: 42}}>Loading...</span>
+        )
+    }
+
     return (
         <Section className="faq" title = "Frequently Asked Questions" 
         description ="Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way."
         hasButton = {true} ButtonText="View All FAQ’s" hasSlider dataJsSection="faqs"
         >
-             {hasError && (
+             {hasError.HasError && (
                 <div className="section-error">
-                    <span>Something went wrong</span>
+                    <span>{hasError.message || "=("}</span>
                 </div>
             )} 
             <div className="testimonials-wrapper">
                  <Slider className="testimonials-slider" swiperConfig={swiperConfig}>
-                    {FAQs.map((faq) => (
+                    {FAQs?.map((faq) => (
                         <SwiperSlide key={faq._id}>
                             <FAQCard {...faq} />
                         </SwiperSlide>
                     ))}
+                    {!FAQs && (<></>)}
                 </Slider>  
                 
             </div>

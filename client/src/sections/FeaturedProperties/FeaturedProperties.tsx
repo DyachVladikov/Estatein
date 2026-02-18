@@ -7,33 +7,23 @@ import {Navigation, Pagination} from "swiper/modules"
 import { useEffect, useState} from "react"
 import Slider from "@/components/Slider/Slider"
 
-import type { Estate } from "@/interfaces/interfaces";
+import type { Estate, Error } from "@/interfaces/interfaces";
+import useApi from "@/hooks/useApi"
 
 
 const FeaturedProperties = () => {
 
-    const [estate, SetEstate] = useState<Estate[]>([])
-    const [hasFetched, setHasFetched] = useState(false);
-    const [hasError, setHasError] = useState<boolean>(false)
+    const [estates, SetEstatess] = useState<Estate[] | null>([])
+    const [hasError, setHasError] = useState<Error>({HasError: false, status: 200})
+    const [load, setLoading] = useState<boolean>(true)
+
+    const {data, loading, error} = useApi<Estate[]>("estates")
 
     useEffect(() => {
-        if (hasFetched) return; 
-        fetch("http://localhost:3002/api/estates").then(response => {
-
-            if(!response.ok)
-            {
-                setHasError(true)
-                throw new Error
-                
-            }
-            else {
-                return response.json()
-            }
-        }).then(data => {
-            SetEstate(data)
-            setHasFetched(true);
-        })  
-    }, [])
+       SetEstatess(data)
+       setHasError({HasError: true, status:409})
+       setLoading(loading)
+    }, [data, error, loading]) 
 
     const swiperConfig = {
         modules: [Navigation, Pagination],
@@ -71,6 +61,12 @@ const FeaturedProperties = () => {
         }
     }
 
+    if(load)
+    {
+        return (
+            <span>Loading...</span>
+        )
+    }
     
 
     return (
@@ -79,18 +75,19 @@ const FeaturedProperties = () => {
         description ="Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Estatein. Click View Details for more information."
         hasButton = {true} ButtonText="View All Properties" hasSlider dataJsSection="features"
         >
-            {hasError && (
+            {hasError.HasError && (
                 <div className="section-error">
-                    <span>Something went wrong</span>
+                    <span>{hasError.message || "=("}</span>
                 </div>
-            )}
+            )} 
             <div className="featured-properties-wrapper">
                 <Slider className="featured-properties-slider" swiperConfig={swiperConfig}>
-                    {estate.slice(0, estate.length).map(estate => (
+                    {estates?.slice(0, estates.length).map(estate => (
                         <SwiperSlide key={estate._id}>
                             <EstateCard  estate={estate} />
                         </SwiperSlide>
                     ))}
+                    {!estates && (<></>)}
                 </Slider>
             </div>
         </Section>

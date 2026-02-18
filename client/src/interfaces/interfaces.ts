@@ -35,3 +35,9 @@ export interface FAQ {
     datePublication: Date,
     author: User,
 }
+
+export interface Error {
+    HasError: boolean,
+    message?: string,
+    status: number,
+}

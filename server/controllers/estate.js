@@ -10,6 +10,10 @@ export const  getCollection = async(req, res) => {
 
         } 
     catch (error) {
+        return res.status(402).json({
+            message: "Estate dont found",
+            ok: 402,
+        })
             
     }
 }
@@ -27,6 +31,9 @@ export const getEstate = async(req, res) => {
     } 
 
     catch (error) {
-            
+            return res.status(402).json({
+            message: "Estate dont found",
+            ok: 402,
+        })
     }
 }

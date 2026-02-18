@@ -8,8 +8,8 @@ import { useRef, useState, useEffect } from "react";
 import classNames from "classnames";
 
 interface IsFormError {
-        hasErorr: boolean,
-        description: string,
+    hasErorr: boolean,
+    description: string,
 }
 
 const Footer = () => {
@@ -85,7 +85,6 @@ const Footer = () => {
     const [isFormInvalid, setIsFormInvalid] = useState<IsFormError>({hasErorr:false, description:""})
     const [succsesSell, setSuccsesSell] = useState<boolean>(false);
 
-
     const scrollToSection = useAutoScroll();
 
     useEffect(() => {
@@ -94,10 +93,12 @@ const Footer = () => {
             setSuccsesSell(false)
         }, 150000)
     }, [isFormInvalid, succsesSell])
+ 
 
     const FormSubmit = (el:React.FormEvent) => {
         el.preventDefault();
         const inputValue = inputRef.current?.value || ""
+
         
 
         if(inputValue === "")

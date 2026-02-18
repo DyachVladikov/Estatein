@@ -1,34 +1,27 @@
 import Section from "@/layouts/Section"
 import "./Testimonials.scss"
 import Slider from "@/components/Slider/Slider"
-
 import { Navigation, Pagination } from "swiper/modules"
 import ReviewCard from "@/components/ReviewCard"
 import { useEffect, useState } from "react"
 import { SwiperSlide } from "swiper/react"
 import type { ReviewCardProps } from "@/components/ReviewCard/ReviewCard"
+import type { Error } from '@/interfaces/interfaces';
+import useApi from "@/hooks/useApi"
 
 const Testimonials = () => {
 
-    const [reviews, SetReviews] = useState<ReviewCardProps[]>([])
-    const [hasError, setHasError] = useState<boolean>(false)
+    const [reviews, SetReviews] = useState<ReviewCardProps[] | null>([])
+    const [hasError, setHasError] = useState<Error>({HasError: false, status: 200})
+    const [load, setLoading] = useState<boolean>(true)
+
+    const {data, loading, error} = useApi<ReviewCardProps[]>("reviews")
 
     useEffect(() => {
-        fetch("http://localhost:3002/api/reviews").then(response => {
-
-            if(!response.ok)
-            {
-                setHasError(true)
-                throw new Error
-                
-            }
-            else {
-                return response.json()
-            }
-        }).then(data => {
-            SetReviews(data) 
-        })  
-    }, []) 
+       SetReviews(data)
+       setHasError({HasError: true, status:409})
+       setLoading(loading)
+    }, [data, error, loading]) 
 
     const swiperConfig = {
         modules: [Navigation, Pagination],
@@ -66,7 +59,12 @@ const Testimonials = () => {
         }
     } 
 
-    
+    if(load)
+    {
+        return (
+            <span>Loading...</span>
+        )
+    }
 
     return (
         
@@ -74,14 +72,14 @@ const Testimonials = () => {
         description ="Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs."
         hasButton = {true} ButtonText="View All Testimonials" hasSlider dataJsSection="testimonials"
         >
-             {hasError && (
+            {hasError.HasError && (
                 <div className="section-error">
-                    <span>Something went wrong</span>
+                    <span>{hasError.message || "=("}</span>
                 </div>
             )} 
             <div className="testimonials-wrapper">
                  <Slider className="testimonials-slider" swiperConfig={swiperConfig}>
-                    {reviews.map((review) => (
+                    {reviews?.map((review) => (
                         <SwiperSlide key={review._id}>
                             <ReviewCard name={review.user.name} 
                             place={review.user.place} 
@@ -94,6 +92,9 @@ const Testimonials = () => {
                             />
                         </SwiperSlide>
                     ))}
+                    {!reviews && (
+                        <></>
+                    )}
                 </Slider>  
                 
             </div>
