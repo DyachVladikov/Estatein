@@ -1,11 +1,16 @@
+import Journey from "@/sections/Journey"
 import "./AboutUs.scss"
+import Values from "@/sections/Values/Values"
+import Achievements from "@/sections/Achievements"
 
 const AboutUs = () => {
 
     return (
-        <div>
-            ABOUT US
-        </div>
+        <>
+            <Journey />
+            <Values />
+            <Achievements />
+        </>
     )
 }
 

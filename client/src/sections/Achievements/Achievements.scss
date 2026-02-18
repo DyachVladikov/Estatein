@@ -1,0 +1,9 @@
+.achievements {
+
+    &-cards {
+        display: flex;
+        row-gap: 40px;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

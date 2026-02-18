@@ -23,7 +23,7 @@ const FAQ = () => {
 
     useEffect(() => {
        SetFAQs(data)
-       setHasError({HasError: true, status: 409})
+       setHasError({HasError: error.HasError, status:error.status})
        setLoading(loading)
     }, [data, error, loading])  
 

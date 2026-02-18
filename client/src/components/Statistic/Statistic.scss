@@ -4,8 +4,8 @@
     flex-direction: column;
     row-gap: 2px;
 
-    width: fluid(240,173);
-    height: fluid(121,91);
+    width: fluid-from-desktop-to-mobile(240,173);
+    height: fluid-from-desktop-to-mobile(121,91);
 
     padding: 16px fluid(24,16);
 

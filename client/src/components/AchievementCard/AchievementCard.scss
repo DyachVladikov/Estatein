@@ -1,0 +1,21 @@
+.achievement-card {
+    width: fluid-from-desktop(505,406);
+    height: fluid-from-desktop-to-mobile(256,169);
+    box-shadow: 0 0 0 8px #191919;
+    border: var(--border);
+    border-radius: var(--border-radius-s);
+    padding: fluid-from-desktop(50,40);
+
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(30,16);
+
+    @include laptop {
+        width: fluid(406, 357);
+    }
+
+    &-label {
+        font-size: fluid(30,20);
+        font-weight: 600;
+    } 
+}

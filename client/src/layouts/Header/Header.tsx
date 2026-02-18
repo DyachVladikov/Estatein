@@ -57,7 +57,11 @@ const Header = () => {
                     <ul className={classNames("header__navigation-list", {"in-modal" : isModalOpen})}>
                         {Links.map((item,index) => (
                             <li className="header__navigation-list" key={`${item} - ${index}`}>
-                                <Link to={item.LINK} className="">
+                                <Link to={item.LINK} className="" onClick={() => {
+                                    setTimeout(() => {
+                                        setIsModalOpen(false)
+                                    }, 500)
+                                }}>
                                     <span className={classNames("header__navigation-link", 
                                         { "is-active" : path.pathname === item.LINK},
                                         {"header__modal-link" : isModalOpen})}>{item.NAME}</span>

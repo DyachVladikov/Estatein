@@ -1,0 +1,99 @@
+.journey {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: fluid(40,20) fluid-from-desktop(80,60);
+    --height-img: 545px;
+    margin-top: fluid-from-desktop-to-mobile(100,30);
+
+    @include desktop {
+        --height-img: 450px;
+    }
+
+    @include laptop {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        --height-img: 600px;
+    }
+
+    @include mobile {
+        --height-img: fluid(400,300);
+    }
+
+    &__info {
+        &-description {
+            margin-top: fluid(14,8);
+            margin-bottom: fluid(80,40);
+        }
+
+        &-statistic {
+
+            &-list {
+                display: flex;
+                column-gap: fluid-to-laptop(20,16);
+
+                @include mobile {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 1fr 1fr;
+                    gap: 12px;
+
+                    & > :nth-last-child(1) {
+                        grid-column: 1 / -1;
+                        & > div {
+                            width: 100%;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            &-item {
+
+                @include mobile {
+                     & > div {
+                        width: 100%;
+                        text-align: center;
+                    }
+                }
+               
+            }
+            
+        }
+    }
+
+    &-img {
+        
+        object-fit: cover;
+        width: 100%;
+        height: var(--height-img);
+        border: var(--border);
+        border-radius: var(--border-radius-s);
+
+        &--bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            object-fit: cover;
+            width: 100%;
+            height: var(--height-img);
+            opacity: 0.4;
+            z-index: -1;
+
+            @include laptop {
+                width: auto;
+            }
+        }
+
+        @include laptop {
+            width: auto;
+            margin-inline: auto;
+        }
+    }
+    &-images {
+        position: relative;
+
+        @include laptop {
+            order: -1;
+        }
+    }
+}
