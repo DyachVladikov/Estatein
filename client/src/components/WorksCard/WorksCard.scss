@@ -1,0 +1,63 @@
+.works-card {
+    display: flex;
+    flex-direction: column;
+
+    @include desktop-above {
+        margin-inline: auto;
+    }
+
+    &__number {
+        border-left: 1px solid rgba(112, 59, 247, 0.6);
+        padding: 16px 20px;
+        font-size: fluid(20,16);
+
+        @include laptop {
+            padding: 14px 16px;
+        }
+    }
+
+    &__main {
+        border-radius: 0 12px 12px 12px; 
+        border: var(--border);
+        background: linear-gradient(121deg, #703BF7 -49.01%, rgba(112, 59, 247, 0.00) 13.65%);
+        width: auto;
+        height: 100%;
+        padding: fluid-from-desktop(50,40);
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+
+        @include laptop {
+            padding: fluid(40,30);
+            row-gap: 14px;
+        }
+
+        & > span {
+            font-size: fluid(26,18);
+            font-weight: 600;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: 90%;
+            height: 1px;
+            background: linear-gradient(90deg, #703BF7 -135%, var(--color-gray-15)); 
+            z-index: 2;
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            height: 90%;
+            width: 1px;
+            background: linear-gradient(180deg, #703BF7 -135%, var(--color-gray-15)); 
+            z-index: 2;
+        }
+    }   
+}

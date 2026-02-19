@@ -11,7 +11,11 @@
     row-gap: fluid(30,16);
 
     @include laptop {
-        width: fluid(406, 357);
+        width: 100%;
+        padding: 30px;
+        &:nth-last-child(1) {
+            grid-column: 1 / -1;
+        }
     }
 
     &-label {

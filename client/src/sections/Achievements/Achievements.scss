@@ -5,5 +5,19 @@
         row-gap: 40px;
         justify-content: space-between;
         align-items: center;
+
+        @include laptop {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px fluid(80,40);
+            
+        }
+
+        @include mobile {
+            display: flex;
+            flex-direction: column;
+            row-gap: 30px;
+        }
     }
 }

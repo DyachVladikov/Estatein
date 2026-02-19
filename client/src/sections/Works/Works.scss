@@ -1,0 +1,23 @@
+.works {
+    --grid-colums: 3;
+    --grid-rows: 2;
+
+    &-wrapper {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-colums), 1fr);
+        grid-template-rows: repeat(var(--grid-rows), 1fr);
+        gap: 20px 50px;
+
+        @include laptop {
+            --grid-colums: 2;
+            --grid-rows: 3;
+            column-gap: 30px;
+        }
+
+        @include mobile {
+            row-gap: 30px;
+            --grid-colums: 1;
+            --grid-rows: 6;
+        }
+    }
+}

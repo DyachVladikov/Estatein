@@ -2,6 +2,7 @@ import Journey from "@/sections/Journey"
 import "./AboutUs.scss"
 import Values from "@/sections/Values/Values"
 import Achievements from "@/sections/Achievements"
+import Works from "@/sections/Works"
 
 const AboutUs = () => {
 
@@ -10,6 +11,7 @@ const AboutUs = () => {
             <Journey />
             <Values />
             <Achievements />
+            <Works />
         </>
     )
 }
