@@ -82,6 +82,7 @@ const Testimonials = () => {
                     {reviews?.map((review) => (
                         <SwiperSlide key={review._id}>
                             <ReviewCard name={review.user.name} 
+                            role={review.user.role}
                             place={review.user.place} 
                             img={review.user.img} 
                             rating={review.rating} 

@@ -40,7 +40,7 @@ const Works = () => {
         >
             <div className="works-wrapper">
                 {cards.map((card, index) => (
-                    <WorksCard index={index} label={card.label} description={card.description} />
+                    <WorksCard index={index} label={card.label} description={card.description} key={`${card.label} - ${index}`}/>
                 ))}
             </div> 
         </Section>

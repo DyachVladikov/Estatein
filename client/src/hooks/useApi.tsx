@@ -8,7 +8,7 @@ interface ApiState<T> {
   error: Error,
 }
 
-type Routes = "reviews" | "estates" | "emails" | "faqs"
+type Routes = "reviews" | "estates" | "emails" | "faqs" | "employees"
 
 const useApi = <T,>(router:Routes): ApiState<T> => {
 

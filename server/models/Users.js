@@ -1,31 +1,29 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'Имя обязательно'],
-    trim: true,
-    maxlength: [50, 'Имя не больше 50 символов']
-  },
-  place: {
-    type: String,
-    required: [true, 'Место обязательно'],
-    trim: true
-  },
-  img: {
-    type: String,
-  },
+  name: String,
+  place: String,
+  img: String,
+  createdAt: Date,
+  updatedAt: Date,
+
   role: {
     type: String,
-    enum: ['buyer', 'seller', 'agent', 'admin'],
-    default: 'buyer'
+    enum: ['buyer', 'employee', 'seller'],
+    default: 'buyer',
   },
-  reviews: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Reviews",
-  }
-}, {
-  timestamps: true
-}, { collection: 'Users' });
+
+  email: String,
+  password: String,
+
+  employeeInfo: {
+    position: String,
+    department: String,
+    salary: Number,
+  },
+  buyerInfo: {
+    loyaltyLevel: String,
+  },
+}, { timestamps: true });
 
 export default mongoose.model("Users", UserSchema, "Users")

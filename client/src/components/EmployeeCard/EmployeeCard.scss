@@ -1,0 +1,66 @@
+.employee-card {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    row-gap: 16px;
+
+    padding: 30px;
+    border: var(--border);
+    border-radius: var(--border-radius-xs);
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-position {
+            margin-top: 6px;
+            margin-bottom: 24px;
+        }
+
+        &-input {
+            width: 100%;
+            height: 72px;
+
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--color-gray-10);
+            border-radius: var(--border-radius-xl);
+            padding: 14px 24px;
+
+            & > input {
+                background-color: transparent;
+                border: none;
+
+                &::placeholder {
+                    color: var(--color-white);
+                }
+            }
+
+        }
+    }
+    &__img{
+
+        &-author {
+            margin-inline: auto;
+            border-radius: var(--border-radius-xs);
+            position: relative;
+        }
+        &-emblem {
+            margin-top: -25px;
+            width: max-content;
+            margin-inline: auto;
+        }
+        
+    }
+    &-sell-button {
+        border-radius: 50%;
+        background-color: var(--color-purple-60);
+        width: 44px;
+        height: 44px;
+
+        & > div {
+            width: 24px !important;
+            height: 24px !important;
+        }
+    }
+}

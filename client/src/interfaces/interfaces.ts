@@ -1,7 +1,11 @@
 export interface User {
+    _id: string,
     name: string,
     place: string,
-    img: string
+    img: string,
+    createdAt?: Date,
+    updatedAt?: Date,
+    role: string,
 }
 
 export interface Review {
@@ -40,4 +44,11 @@ export interface Error {
     HasError: boolean,
     message?: string,
     status: number,
+}
+
+export interface Employee extends User{
+    chatLink: String,
+    employeeInfo: {
+        position: string;
+    };
 }
