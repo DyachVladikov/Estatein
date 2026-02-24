@@ -7,4 +7,14 @@
     grid-template-columns: repeat( var(--grid-colums), 1fr);
     grid-template-rows: repeat( var(--grid-rows), 1fr);
 
+    @include laptop {
+        --grid-colums: 2;
+        --grid-rows: 2; 
+    }
+
+    @include mobile {
+        --grid-colums: 1;
+        --grid-rows: 4; 
+    }
+
 }

@@ -1,25 +1,14 @@
 import Section from "@/layouts/Section"
 import "./Team.scss"
-import { useState, useEffect } from "react"
 import useApi from "@/hooks/useApi"
 import type { Employee, Error } from "@/interfaces/interfaces"
 import EmployeeCard from "@/components/EmployeeCard"
 
 const Team = () => {
-
-    const [hasError, setHasError] = useState<Error>({HasError: false, status: 200})
-    const [load, setLoading] = useState<boolean>(true)
-
     const {data: employees, loading, error} = useApi<Employee[]>("employees")
 
-    useEffect(() => {
-       setHasError({HasError: error.HasError, status:error.status})
-       setLoading(loading)
-       
-       
-    }, [employees, error, loading])  
 
-    if(load)
+    if(loading)
     {
         return (
             <span>Loading...</span>
@@ -36,9 +25,9 @@ const Team = () => {
                 {employees?.map((employee) => (
                     <EmployeeCard {...employee} key={employee._id}/>
                 ))} 
-                {hasError.HasError && (
+                {error.HasError && (
                     <div className="section-error">
-                        <span>{hasError.message || "=("}</span>
+                        <span>{error.message || "=("}</span>
                     </div>
                 )}
             </div>

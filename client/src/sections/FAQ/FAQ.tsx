@@ -1,31 +1,16 @@
 import Slider from "@/components/Slider/Slider"
 import "./FAQ.scss"
-
 import Section from "@/layouts/Section"
-
-import { useEffect, useState } from "react"
-
 import { Navigation, Pagination } from "swiper/modules"
 import { SwiperSlide } from "swiper/react"
-
-import type { FAQ as FAQTYPE, Error } from "@/interfaces/interfaces"
+import type { FAQ as FAQTYPE } from "@/interfaces/interfaces"
 import FAQCard from "@/components/FAQCard"
 import useApi from "@/hooks/useApi"
 
 
 const FAQ = () => {
 
-    const [hasError, setHasError] = useState<Error>({HasError: false, status: 200})
-    const [FAQs, SetFAQs] = useState<FAQTYPE[] | null>([])
-    const [load, setLoading] = useState<boolean>(true)
-
     const {data, loading, error} = useApi<FAQTYPE[]>("faqs")
-
-    useEffect(() => {
-       SetFAQs(data)
-       setHasError({HasError: error.HasError, status:error.status})
-       setLoading(loading)
-    }, [data, error, loading])  
 
     const swiperConfig = {
         modules: [Navigation, Pagination],
@@ -63,7 +48,7 @@ const FAQ = () => {
         }
     }
 
-    if(load)
+    if(loading)
     {
         return (
             <span style={{marginInline: "auto", fontSize: 42}}>Loading...</span>
@@ -75,19 +60,19 @@ const FAQ = () => {
         description ="Find answers to common questions about Estatein's services, property listings, and the real estate process. We're here to provide clarity and assist you every step of the way."
         hasButton = {true} ButtonText="View All FAQ’s" hasSlider dataJsSection="faqs"
         >
-             {hasError.HasError && (
+             {error.HasError && (
                 <div className="section-error">
-                    <span>{hasError.message || "=("}</span>
+                    <span>{error.message || "=("}</span>
                 </div>
             )} 
             <div className="testimonials-wrapper">
                  <Slider className="testimonials-slider" swiperConfig={swiperConfig}>
-                    {FAQs?.map((faq) => (
+                    {data?.map((faq) => (
                         <SwiperSlide key={faq._id}>
                             <FAQCard {...faq} />
                         </SwiperSlide>
                     ))}
-                    {!FAQs && (<></>)}
+                    {!data && (<></>)}
                 </Slider>  
                 
             </div>

@@ -12,7 +12,7 @@ const AboutUs = () => {
             <Journey />
             <Values />
             <Achievements />
-            <Works />
+            <Works /> 
             <Team />
         </>
     )

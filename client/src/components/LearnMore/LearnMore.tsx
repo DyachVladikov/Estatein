@@ -15,15 +15,13 @@ const LearnMore = () => {
                     <div className="learn-more__information">
                         <span className="learn-more__information-text">✨Discover Your Dream Property with Estatein</span>
                         <Link to={"/about-us"} className="learn-more__information-link" onClick={() => {
-                            setIsModalOpen(false)
+                            setIsModalOpen(false)     
                         }}>
                             <span >Learn More</span>
                         </Link>
                     </div>
                     <Button title="close" hasOnlyIcon className="learn-more-close-button" iconName= "x-mark" onClick={() => {
-                        setIsModalOpen(false)
-                        console.log(isModalOpen);
-                        
+                        setIsModalOpen(false)     
                     }}/>
                 </div>
             )}

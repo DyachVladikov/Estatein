@@ -2,10 +2,15 @@
     display: grid;
     grid-template-rows: 1fr auto;
     row-gap: 16px;
+    width: fluid-from-desktop(370, 305);
 
-    padding: 30px;
+    padding: fluid(30,20);
     border: var(--border);
     border-radius: var(--border-radius-xs);
+
+    @include laptop {
+        width: auto;
+    }
 
     &__info {
         display: flex;
@@ -18,27 +23,58 @@
         }
 
         &-input {
-            width: 100%;
-            height: 72px;
+
+            @include desktop-above {
+                width: 100%;
+                height: 72px;
+            }
+            
+            width: fluid-from-desktop(316, 257);
+            height: fluid-from-desktop(72,56);
 
             display: flex;
             justify-content: space-between;
+            align-items: center;
             background-color: var(--color-gray-10);
             border-radius: var(--border-radius-xl);
-            padding: 14px 24px;
+            border: var(--border);
+            padding: fluid(14,8) 24px;
+            padding-right: 14px;
 
             & > input {
                 background-color: transparent;
                 border: none;
+                flex-shrink: 1;
+                max-width: calc(100% - fluid-from-desktop(44,36));
 
                 &::placeholder {
                     color: var(--color-white);
                 }
             }
 
+            @include laptop {
+                width: auto;
+                padding-right: 10px;
+            }
+
+            @include mobile {
+                padding-right: 8px;
+
+            }
+
+            @include mobile-s {
+                width: 100%;
+                
+            }
+
         }
     }
     &__img{
+        width: fluid-from-desktop(316, 256);
+        
+        & > img {
+            object-fit: cover;
+        }
 
         &-author {
             margin-inline: auto;
@@ -49,14 +85,24 @@
             margin-top: -25px;
             width: max-content;
             margin-inline: auto;
+
+            @include laptop {
+                width: 60px;
+                height: 40px;
+            }
+        }
+
+        @include laptop {
+            margin-inline: auto;
+            width: auto;
         }
         
     }
     &-sell-button {
         border-radius: 50%;
         background-color: var(--color-purple-60);
-        width: 44px;
-        height: 44px;
+        width: fluid-from-desktop(44,36);
+        height: fluid-from-desktop(44,36);
 
         & > div {
             width: 24px !important;

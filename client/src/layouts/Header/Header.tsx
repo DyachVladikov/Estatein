@@ -2,7 +2,7 @@ import LearnMore from "@/components/LearnMore"
 import "./Header.scss"
 import Logo from "@/components/Logo"
 import { Link, useLocation } from "react-router-dom"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import classNames from "classnames"
 import Button from "@/components/Button"
 
@@ -83,17 +83,17 @@ const Header = () => {
                 </Link>
                 <Button className="header-burger-button visible-mobile" title="Open Menu" 
                 hasOnlyIcon iconName="burgerButton"
-                onClick={() => {
-                    setIsModalOpen(true)
-                }}
+                onClick={useCallback(() => {
+                    setIsModalOpen(true);
+                    }, [])}
                 />
             </header>
 
              <div className={classNames("header__modal", { "is-open" : isModalOpen})}>
                 <Button className="header__modal-close-button" title="Close Menu" hasOnlyIcon iconName="x-mark"
-                onClick={() => {
-                    setIsModalOpen(false)
-                }}
+                onClick={useCallback(() => {
+                    setIsModalOpen(false);
+                    }, [])}
                 />
                 {navigation}
             </div>       

@@ -2,6 +2,7 @@ import classNames from "classnames"
 import "./Button.scss"
 import { Link  } from "react-router-dom"
 import Icon from "@/components/Icon"
+import {memo} from "react"
 
 type TYPE = "submit" | "button" | "link"
 
@@ -63,4 +64,4 @@ const Button  = (props:ButtonProps) => {
     )
 }
 
-export default Button
+export default memo(Button)

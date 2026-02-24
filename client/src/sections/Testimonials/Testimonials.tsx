@@ -3,25 +3,13 @@ import "./Testimonials.scss"
 import Slider from "@/components/Slider/Slider"
 import { Navigation, Pagination } from "swiper/modules"
 import ReviewCard from "@/components/ReviewCard"
-import { useEffect, useState } from "react"
 import { SwiperSlide } from "swiper/react"
 import type { ReviewCardProps } from "@/components/ReviewCard/ReviewCard"
-import type { Error } from '@/interfaces/interfaces';
 import useApi from "@/hooks/useApi"
 
 const Testimonials = () => {
 
-    const [reviews, SetReviews] = useState<ReviewCardProps[] | null>([])
-    const [hasError, setHasError] = useState<Error>({HasError: false, status: 200})
-    const [load, setLoading] = useState<boolean>(true)
-
     const {data, loading, error} = useApi<ReviewCardProps[]>("reviews")
-
-    useEffect(() => {
-       SetReviews(data)
-       setHasError({HasError: error.HasError, status:error.status})
-       setLoading(loading)
-    }, [data, error, loading]) 
 
     const swiperConfig = {
         modules: [Navigation, Pagination],
@@ -59,7 +47,7 @@ const Testimonials = () => {
         }
     } 
 
-    if(load)
+    if(loading)
     {
         return (
             <span>Loading...</span>
@@ -72,14 +60,14 @@ const Testimonials = () => {
         description ="Read the success stories and heartfelt testimonials from our valued clients. Discover why they chose Estatein for their real estate needs."
         hasButton = {true} ButtonText="View All Testimonials" hasSlider dataJsSection="testimonials"
         >
-            {hasError.HasError && (
+            {error.HasError && (
                 <div className="section-error">
-                    <span>{hasError.message || "=("}</span>
+                    <span>{error.message || "=("}</span>
                 </div>
             )} 
             <div className="testimonials-wrapper">
                  <Slider className="testimonials-slider" swiperConfig={swiperConfig}>
-                    {reviews?.map((review) => (
+                    {data?.map((review) => (
                         <SwiperSlide key={review._id}>
                             <ReviewCard name={review.user.name} 
                             role={review.user.role}
@@ -93,7 +81,7 @@ const Testimonials = () => {
                             />
                         </SwiperSlide>
                     ))}
-                    {!reviews && (
+                    {!data && (
                         <></>
                     )}
                 </Slider>  
