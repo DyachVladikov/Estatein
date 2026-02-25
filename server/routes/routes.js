@@ -5,6 +5,7 @@ import { getReviews } from "../controllers/reviews.js"
 import { getFAQS } from "../controllers/faqs.js"
 import { setEmails } from "../controllers/emails.js"
 import { getEmployee } from "../controllers/employees.js"
+import { getClientCard } from "../controllers/clients.js"
 
 const router = new Router()
 
@@ -28,6 +29,9 @@ router.post("/emails", async (req, res) => {
 })
 router.get("/employees", async (req, res) => {
     return getEmployee(req,res)
+})
+router.get("/clients", async (req, res) => {
+    return getClientCard(req,res)
 })
 
 export default router

@@ -1,4 +1,4 @@
-export default function getSVGElement(svgName:string | unknown) {
+export default function getSVGElement(svgName:string | unknown): string  | unknown {
     
     if(typeof(svgName) != "string")
         return ""

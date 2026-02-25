@@ -1,7 +1,7 @@
 import Section from "@/layouts/Section"
 import "./Team.scss"
 import useApi from "@/hooks/useApi"
-import type { Employee, Error } from "@/interfaces/interfaces"
+import type { Employee } from "@/interfaces/interfaces"
 import EmployeeCard from "@/components/EmployeeCard"
 
 const Team = () => {

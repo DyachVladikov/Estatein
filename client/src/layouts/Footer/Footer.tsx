@@ -158,7 +158,7 @@ const Footer = () => {
                             {"succses" : succsesSell}
                             )}>
                             <div className="footer__main-letter-wrapper">
-                                <Icon name="letter" color="var(--color-gray-60)" userSelect={false}/>
+                                <Icon name="letter" color="var(--color-gray-60)" userSelect={false} strokeFill={false}/>
                             </div>
                             
                             <input id="footer-input" className="footer-input"

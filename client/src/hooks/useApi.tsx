@@ -8,7 +8,7 @@ interface ApiState<T> {
   error: Error,
 }
 
-type Routes = "reviews" | "estates" | "emails" | "faqs" | "employees"
+type Routes = "reviews" | "estates" | "emails" | "faqs" | "employees" | "clients"
 
 const useApi = <T,>(router: Routes): ApiState<T> => {
   const query = useQuery({

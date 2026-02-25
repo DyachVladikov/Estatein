@@ -54,11 +54,13 @@
     }
 
     &--section {
-        // padding-inline: 0;
         width: auto;
 
         @include mobile {
             margin-right: auto;
+            height: 50px;
+            padding: 14px 12px;
+            width: 170px;
         }
 
     }

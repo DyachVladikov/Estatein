@@ -9,7 +9,8 @@ interface IconProps {
     width?: string,
     height?: string,
     color?: string,
-    userSelect?: boolean
+    userSelect?: boolean,
+    strokeFill?: boolean,
 }
 
 
@@ -24,9 +25,10 @@ const Icon = (props:IconProps) => {
         height = "100%",
         color = "white",
         userSelect = true,
+        strokeFill,
     } = props
 
-    const [icon, setIcon] = useState<string>("")
+    const [icon, setIcon] = useState<any>("")
 
     useEffect(() => {
         setIcon(getSVGElement(name))
@@ -36,7 +38,7 @@ const Icon = (props:IconProps) => {
 
     
     return (
-        <div className={classNames("icon" , className)} 
+        <div className={classNames("icon" , className, {"icon--stroke-fill" : strokeFill})} 
         style={{color: color, width:width, height:height, pointerEvents:poinerEvents}}  
         dangerouslySetInnerHTML={{ __html: icon }}>
             

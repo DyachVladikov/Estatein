@@ -13,11 +13,17 @@
         }
     }
     & * path,line{
-        stroke: currentColor;
         fill: currentColor;
     }
     & > svg {
         width: 100%;
         height: 100%;
+    }
+
+    &--stroke-fill {
+        & * path,line{
+            stroke: currentColor;
+            fill: none;
+        }
     }
 }

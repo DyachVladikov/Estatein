@@ -24,7 +24,7 @@ const FAQ = () => {
         spaceBetween: 30,
         breakpoints : {
             1: {
-                spaceBetween: 0,
+                spaceBetween: 10,
                 slidesPerGroup: 1,
                 slidesPerView: 1,
                 centeredSlides: true,

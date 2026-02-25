@@ -1,3 +1,4 @@
+import { useScrollToTop } from "@/hooks/useScrollToTop"
 import Content from "@/layouts/Content"
 import Footer from "@/layouts/Footer"
 import Header from "@/layouts/Header"
@@ -6,6 +7,9 @@ import "@/styles/globals.scss"
 import { Outlet } from "react-router-dom"
 
 function App() {
+  
+  useScrollToTop()
+
   return (
     <>
       <Header />

@@ -4,6 +4,7 @@ import Values from "@/sections/Values/Values"
 import Achievements from "@/sections/Achievements"
 import Works from "@/sections/Works"
 import Team from "@/sections/Team"
+import ValuedClients from "@/sections/ValuedClients"
 
 const AboutUs = () => {
 
@@ -14,6 +15,7 @@ const AboutUs = () => {
             <Achievements />
             <Works /> 
             <Team />
+            <ValuedClients />
         </>
     )
 }

@@ -1,8 +1,12 @@
+import dns from "node:dns";
+
+dns.setDefaultResultOrder('ipv4first');
+dns.setServers(['8.8.8.8', '1.1.1.1', '208.67.222.222']);
+
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
-import { setServers } from "node:dns/promises";
 
 import Routes from "./routes/routes.js"
 
@@ -15,7 +19,6 @@ const DbUser = process.env.DB_USER
 
 app.use(cors())
 app.use(express.json())
-setServers(["8.8.8.8", "1.1.1.1"]);
 
 async function Start() {
 

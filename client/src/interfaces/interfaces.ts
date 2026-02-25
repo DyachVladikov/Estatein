@@ -52,3 +52,11 @@ export interface Employee extends User{
         position: string;
     };
 }
+export interface ClientCard {
+    _id: string,
+    title: string,
+    year: number,
+    domain: string,
+    category: string,
+    description: string,
+}
