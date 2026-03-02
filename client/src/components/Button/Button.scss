@@ -32,6 +32,11 @@
 
     }
 
+    &--icon-before {
+        display: flex; 
+        column-gap: 6px;
+    }
+
     &--purple {
         border: 1px solid transparent;
         background-color: var(--color-purple-60);

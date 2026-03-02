@@ -1,10 +1,14 @@
 .estate-banner {
     width: 100%;
-    max-width: 1920px;
-    border: var(--border);
-    border-radius: var(--border-radius-m);
+    border-bottom: 1px solid var(--color-gray-15);
+    border-top: 1px solid var(--color-gray-15);
+    
+    
     @include desktop-above {
         margin-inline: auto;
+        border-radius: var(--border-radius-m);
+        max-width: 1920px;
+        border: var(--border);
     }
     @include mobile {
         border-radius: 0;

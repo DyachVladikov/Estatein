@@ -2,6 +2,7 @@ import classNames from "classnames"
 import "./Icon.scss"
 import getSVGElement from "../../utils/getSVGElement.ts"
 import { useEffect, useState } from "react"
+import { useInlineSvg } from "@/hooks/useInlineSvg.tsx"
 
 interface IconProps {
     className?: string,
@@ -28,11 +29,13 @@ const Icon = (props:IconProps) => {
         strokeFill,
     } = props
 
-    const [icon, setIcon] = useState<any>("")
+    /* const [icon, setIcon] = useState<any>("")
 
     useEffect(() => {
         setIcon(getSVGElement(name))
-    },[])
+    },[]) */
+
+    const { svg } = useInlineSvg(name)
 
     const poinerEvents = userSelect ? "all" : "none"
 
@@ -40,7 +43,7 @@ const Icon = (props:IconProps) => {
     return (
         <div className={classNames("icon" , className, {"icon--stroke-fill" : strokeFill})} 
         style={{color: color, width:width, height:height, pointerEvents:poinerEvents}}  
-        dangerouslySetInnerHTML={{ __html: icon }}>
+        dangerouslySetInnerHTML={{ __html: svg }}>
             
         </div>
     )

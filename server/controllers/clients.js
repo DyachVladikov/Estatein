@@ -1,10 +1,10 @@
 import Clients from "../models/Clients.js"
+import mongoose from "mongoose";
 
 export const getClientCard = async (req, res) => {
     try {
 
         const Client = await Clients.find()
-        
 
         if(Client) {
             return res.status(200).json(Client)

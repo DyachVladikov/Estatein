@@ -4,6 +4,7 @@ import classNames from "classnames"
 import "./Section.scss"
 import Button from "@/components/Button"
 import Icon from "@/components/Icon"
+import { img } from "@/utils/RepairOmgSrc"
 
 interface BaseProps {
     className: string,
@@ -37,7 +38,7 @@ const Section = (props:SectionProps) => {
 
     return (
         <section className={classNames("section container", className)} data-js-section={dataJsSection} >
-            <img className="section-stars" src="/src/assets/icons/stars.svg" />
+            <img className="section-stars" src={img("/icons/stars.svg")} />
             <h2 className={`${className}-title `}>{title}</h2>
             <div className={`${className}__events section-events`}>
                 <p className={`${className}-description description section-description`}>{description}</p>

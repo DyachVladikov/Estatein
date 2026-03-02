@@ -48,6 +48,7 @@ const Button  = (props:ButtonProps) => {
         <Component className={classNames(NameClass, className, 
         {"button--onlyIcon" : hasOnlyIcon}, 
         {"button--onlyIcon-bordered" : IconAndBorder},
+        {"button--icon-before" : hasIconBefore},
         {[`button--${mode}`] : mode}
         )} 
         {...CurrentProps} aria-labelledby={title}>

@@ -1,6 +1,8 @@
 import "./Journey.scss"
 import Statistic from "@/components/Statistic"
 
+import { img } from "@/utils/RepairOmgSrc"
+
 const Journey = () => {
 
     const statistic = [
@@ -21,7 +23,7 @@ const Journey = () => {
     return (
         <section className="journey container">
             <div className="journey__info">
-                <img className="section-stars" src="/src/assets/icons/stars.svg" />
+                <img className="section-stars" src={img("icons/stars.svg")}/>
                 <div className="journey__info-label">
                     <h1 className="h2">Our Journey</h1>
                 </div>
@@ -41,8 +43,8 @@ const Journey = () => {
                 </div>
             </div>
             <div className="journey-images">
-                <img className="journey-img" src="/src/assets/images/AboutUsPage/house.png" />
-                <img className="journey-img--bg" src="/src/assets/images/AboutUsPage/houseBG.png" />
+                <img className="journey-img" src={img("images/AboutUsPage/house.png")}/>
+                <img className="journey-img--bg" src={img("images/AboutUsPage/houseBG.png")} />
             </div>
             
         </section>

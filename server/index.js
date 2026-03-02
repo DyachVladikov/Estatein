@@ -23,8 +23,8 @@ app.use(express.json())
 async function Start() {
 
     try {
-        await mongoose.connect(`mongodb+srv://${DbUser}:${DbPassword}@estatein.dulha3r.mongodb.net/Estate`)
-
+        await mongoose.connect(`mongodb://estatein_db:B8MxihCHpuuAzQVw@ac-orkmymg-shard-00-00.dulha3r.mongodb.net:27017/Estate?ssl=true&authSource=admin`) 
+        //mongodb+srv://${DbUser}:${DbPassword}@estatein.dulha3r.mongodb.net/Estate
         app.listen(Port, () => {
             console.log("server start on " + Port);    
         })

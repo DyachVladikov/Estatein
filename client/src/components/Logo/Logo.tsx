@@ -1,10 +1,12 @@
 import "./Logo.scss"
 
+import { img } from "@/utils/RepairOmgSrc"
+
 const Logo = () => {
 
     return (
         <div className="logo">
-            <img src="/src/assets/icons/Logo.svg" />
+            <img src={img("icons/Logo.svg")}/>
         </div>
     )
 }

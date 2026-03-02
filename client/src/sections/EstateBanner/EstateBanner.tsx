@@ -1,12 +1,13 @@
 import Button from "@/components/Button"
 import "./EstateBanner.scss"
+import { img } from "@/utils/RepairOmgSrc"
 
 const EstateBanner = () => {
 
     return (
         <section className="section estate-banner" data-js-section="estate-banner">
-            <img className="estate-banner-bg-1" src="/src/assets/backgrounds/bg-abstract2.png" />
-            <img className="estate-banner-bg-2" src="/src/assets/backgrounds/bg-abstract2.png" />
+            <img className="estate-banner-bg-1" src={img("backgrounds/bg-abstract2.png")}/>
+            <img className="estate-banner-bg-2" src={img("backgrounds/bg-abstract2.png")} />
             <div className="estate-banner-wrapper container">
                 <div className="estate-banner__info">
                     <div className="estate-banner-title h2">

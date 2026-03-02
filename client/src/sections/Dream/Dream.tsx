@@ -2,6 +2,7 @@ import Button from "@/components/Button"
 import "./Dream.scss"
 import Statistic from "@/components/Statistic"
 import BlockLink from "@/components/BlockLink"
+import { img } from "@/utils/RepairOmgSrc"
 
 const Dream = () => {
 
@@ -60,8 +61,8 @@ const Dream = () => {
                         ))}
                     </ul>
                 </div>
-                <img className="dream__img" src="src/assets/images/HomePage/build.png"/>
-                <img className="dream__emblem" src = "src/assets/icons/emblem.svg" />
+                <img className="dream__img" src={img("images/HomePage/build.png")}/>
+                <img className="dream__emblem" src ={img("icons/emblem.svg")}/>
             </div>
             <div className="dream__actions-wrapper">
                 <div className="dream__actions">

@@ -1,6 +1,7 @@
 import Icon from "@/components/Icon"
 import "./Values.scss"
 import classNames from "classnames"
+import { img } from "@/utils/RepairOmgSrc"
 
 const Values = () => {
 
@@ -30,7 +31,7 @@ const Values = () => {
     return (
         <section className="values section container">
             <div className="values__info">
-                <img className="section-stars" src="/src/assets/icons/stars.svg" />
+                <img className="section-stars" src={img("icons/stars.svg")} />
                 <div className="values__info-label">
                     <h2>Our Values</h2>
                 </div>

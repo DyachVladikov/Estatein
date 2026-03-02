@@ -13,13 +13,15 @@ type Routes = "reviews" | "estates" | "emails" | "faqs" | "employees" | "clients
 const useApi = <T,>(router: Routes): ApiState<T> => {
   const query = useQuery({
     queryKey: ['api', router],  
-    queryFn: async (): Promise<T> => {
+    queryFn: async ({signal}): Promise<T> => {
       const response = await fetch(`http://localhost:3002/api/${router}`);
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`); 
       }
+      signal
       return response.json();
     },
+    
   });
   
   return {

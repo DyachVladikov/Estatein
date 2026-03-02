@@ -1,0 +1,23 @@
+.property-banner {
+    width: 100%;
+    background: linear-gradient(96deg, #262626 -26.82%, rgba(38, 38, 38, 0.00) 40.46%);
+    border-bottom: 1px solid var(--color-gray-15);
+    border-top: 1px solid var(--color-gray-15);
+    padding: 150px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+
+    @include desktop-above {
+        max-width: 1920px;
+        margin-inline: auto;
+        border: var(--border);
+        border-radius: var(--border-radius-m);
+        margin-top: 12px;
+    }
+
+    @include laptop {
+        padding: fluid(100,50) fluid(80,16);
+        row-gap: 10px;
+    }
+}

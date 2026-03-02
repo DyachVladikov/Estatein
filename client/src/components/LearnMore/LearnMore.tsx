@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import Button from "../Button"
 import "./LearnMore.scss"
 import { useState } from "react"
+import { img } from "@/utils/RepairOmgSrc"
 
 const LearnMore = () => {
 
@@ -11,7 +12,7 @@ const LearnMore = () => {
         <>
             {isModalOpen && (
                 <div className="learn-more">
-                    <img src="/src/assets/backgrounds/bg-abstract1.png" className="learn-more-bg" />
+                    <img src={img("backgrounds/bg-abstract1.png")} className="learn-more-bg" />
                     <div className="learn-more__information">
                         <span className="learn-more__information-text">✨Discover Your Dream Property with Estatein</span>
                         <Link to={"/about-us"} className="learn-more__information-link" onClick={() => {
