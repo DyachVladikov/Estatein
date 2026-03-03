@@ -32,4 +32,10 @@
             }
         }
     }
+
+    &__filters {
+        background-color: #191919;
+        box-shadow: 0 0 0 10px #191919;
+        border-radius: var(--border-radius-s);
+    }
 }

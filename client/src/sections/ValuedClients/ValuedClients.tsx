@@ -44,7 +44,6 @@ const ValuedClients = () => {
             <span>Loading...</span>
         )
     }
-    console.log(clientsCards);
     
 
     return (
