@@ -1,0 +1,122 @@
+.price-range-wrapper {
+  padding: 16px 20px;
+  user-select: none;
+
+  .price-range-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--color-gray-60);
+    font-weight: 500;
+  }
+
+  .price-label {
+    position: relative;
+
+    &--size {
+      &::after {
+        content: "3";
+        font-size: 10px;
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        color: var(--color-gray-60);
+      }
+    }
+  }
+
+  .price-range-bar {
+    position: relative;
+    height: 48px;
+  }
+
+  .price-range-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 12px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 2px solid var(--color-gray-60);
+    border-radius: var(--border-radius-xxs);
+  }
+
+  .price-range-selected {
+    position: absolute;
+    top: 50%;
+    height: 8px;
+    background: var(--color-purple-60);
+    transform: translateY(-50%);
+    border-radius: 999px;
+  }
+
+  .price-range-thumb {
+    position: absolute;
+    top: 50%;
+    // transform: translate(-50%, -50%);
+    margin-left: -10px;
+    margin-top: -10px;
+    width: 20px;
+    height: 20px;
+    background: #ffffff;
+    border: 3px solid var(--color-purple-60);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+     will-change: left, margin-left;
+    transform: translateZ(0); // hardware acceleration
+    transition: none !important;
+
+    &.left-thumb,
+    &.right-thumb {
+      z-index: 3;
+    }
+
+    &:hover {
+      transform:  scale(1.1);
+      border-color: var(--color-purple-80);
+    }
+  }
+
+  .price-value {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-gray-100);
+    color: var(--color-white);
+    padding: 6px 10px;
+    border-radius: var(--border-radius-xs);
+    font-size: 18px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+    .left-thumb & {
+      transform: translateX(-120%); // Левый текст → влево
+      left: 0;
+    }
+
+    .right-thumb & {
+      transform: translateX(120%);  // Правый текст → вправо
+      left: 100%;
+    }
+  }
+
+  .price-range-current {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 16px;
+    color: var(--color-gray-80);
+
+    strong {
+      color: var(--color-gray-100);
+      font-weight: 700;
+    }
+  }
+}
+

@@ -1,42 +1,62 @@
 import { useEffect, useState, useMemo } from "react"
 import useApi from "./useApi"
-import { useQueryClient, useQuery } from '@tanstack/react-query';
 import type { Estate } from "@/interfaces/interfaces";
 
 interface Filteres {
-    location: string,
-    propertyType: string,
-    pricingRange: PricingRange,
-    propertySize: number,
-    buildYear: string,
+    Name: string,
+    Location: string,
+    PropertyType: string,
+    PricingRange: Range,
+    PropertySize: Range,
+    BuildYear: Range,
 }
 
-interface PricingRange {
+interface Range {
     min: number,
     max: number,
 }
 
 export default function useFilters() {
 
-    const [filters, setFilters] = useState<Filteres>({location: "", pricingRange: {min:0, max:0}, propertySize: 0, buildYear: "2018-07-22", propertyType:""})
+    const [filters, setFilters] = useState<Filteres>(
+        {
+            Name: "",
+            Location: "", 
+            PricingRange: {min:0, max:0}, 
+            PropertySize: {min:0, max:0}, 
+            BuildYear: {min:0, max:0}, 
+            PropertyType:""
+        }
+    )
     const {data, loading, error} = useApi<Estate[]>("estates")
+
+    console.log(filters);
+    
 
     const filteredData = useMemo(() => {
     if (!data) return [];
 
     return data.filter((el) => 
-        (!filters.location || el.place === filters.location) &&
+
+        (!filters.Name || el.name.toLowerCase().includes(filters.Name.toLowerCase())) &&
+
+        (!filters.Location || el.place === filters.Location)   &&
         
-        (!filters.propertyType || el.type === filters.propertyType) &&
+        (!filters.PropertyType  || el.type === filters.PropertyType)   &&
         
-        (!filters.pricingRange?.min || !filters.pricingRange?.max || 
-        (el.price >= filters.pricingRange.min && el.price <= filters.pricingRange.max)) &&
+        (!filters.PricingRange?.min || !filters.PricingRange?.max || 
+        (el.price / 1000 >= filters.PricingRange.min && el.price /1000 <= filters.PricingRange.max))  &&
         
-        (!filters.propertySize || el.area === filters.propertySize) &&
+        (!filters.PropertySize?.min || !filters.PropertySize?.max || 
+        (el.area >= filters.PropertySize?.min && el.area <= filters.PropertySize?.max)) &&
         
-        (!filters.buildYear || String(el.buildYear) === filters.buildYear)
+        (!filters.BuildYear?.min || !filters.BuildYear?.max || 
+        (el.buildYear >= filters.BuildYear?.min && el.buildYear <= filters.BuildYear?.max)) 
     );
-    }, [data, filters.location, filters.propertyType, filters.pricingRange, filters.propertySize, filters.buildYear]);
+    }, [data, filters.Name, filters.Location, filters.PropertyType, 
+        filters.PricingRange.max, filters.PricingRange.min, 
+        filters.PropertySize.min, filters.PropertySize.max,
+        filters.BuildYear.min, filters.BuildYear.max]);
     
 
     useEffect(() => {
@@ -47,9 +67,10 @@ export default function useFilters() {
     const setFilter = (name: string, value: any) => {
 
         setFilters((prev) => {
+
             return {
                 ...prev,
-                [name]: value
+                [name]: value === "None" ? "" : value
             }
         })
     }

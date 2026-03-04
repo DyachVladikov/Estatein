@@ -33,9 +33,13 @@
         }
     }
 
-    &__filters {
+    &__filters-list {
         background-color: #191919;
         box-shadow: 0 0 0 10px #191919;
         border-radius: var(--border-radius-s);
+
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        column-gap: 20px;
     }
 }

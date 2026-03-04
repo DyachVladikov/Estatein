@@ -4,10 +4,49 @@
 
     max-width: var(--widthSelect);
 
+    @include desktop-above {
+       --widthSelect: 100%;
+       max-width: none;
+    }
+
     &-mobile {
         border: none;
         background-color: var(--color-gray-08);
         color: var(--color-white);
+        width: auto;
+        flex-grow: 1; 
+        z-index: 3;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        display: flex;
+        justify-content: flex-start;
+        padding-right: 12px;
+        color: var(--color-gray-60);
+        margin-left: 10px;
+
+         option {
+            text-align: left !important;
+            padding-left: 12px !important;
+            color: var(--color-white);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &.is-selected {
+            color: var(--color-purple-70);
+        }
+
+        &-wrapper {
+            width: var(--widthSelect);
+            height: var(--heightSelect);
+            background-color: var(--color-gray-08);
+            border-radius: var(--border-radius-s);
+            
+             
+        }
 
         &-option {
             background-color: var(--color-black);
@@ -94,7 +133,6 @@
             row-gap: 6px;
             transition-duration: var(--transition-duration-longer);
             max-height: 0;
-            max-width: 300px;
             width: var(--widthSelect);
             overscroll-behavior: none;
             margin-top: 2px;
@@ -121,7 +159,12 @@
                 @include hover {
                     border-color: var(--color-white);
                 }
+                &:last-child {
+                    color: var(--color-gray-60);
+                }
             }
+
+            
 
             &.is-expanded {
                 max-height: 250px;
