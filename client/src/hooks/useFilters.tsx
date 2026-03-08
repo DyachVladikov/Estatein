@@ -30,10 +30,7 @@ export default function useFilters() {
     )
     const {data, loading, error} = useApi<Estate[]>("estates")
 
-    console.log(filters);
-    
-
-    const filteredData = useMemo(() => {
+    /* const filteredData = useMemo(() => {
     if (!data) return [];
 
     return data.filter((el) => 
@@ -56,7 +53,9 @@ export default function useFilters() {
     }, [data, filters.Name, filters.Location, filters.PropertyType, 
         filters.PricingRange.max, filters.PricingRange.min, 
         filters.PropertySize.min, filters.PropertySize.max,
-        filters.BuildYear.min, filters.BuildYear.max]);
+        filters.BuildYear.min, filters.BuildYear.max]); */
+
+        const filteredData = useMemo(() => {ApplyFilters()}, [])
     
 
     useEffect(() => {
@@ -75,7 +74,27 @@ export default function useFilters() {
         })
     }
 
-    return setFilter
+    function ApplyFilters() {
+        if (!data) return [];
 
+        return data.filter((el) => 
 
+            (!filters.Name || el.name.toLowerCase().includes(filters.Name.toLowerCase())) &&
+
+            (!filters.Location || el.place === filters.Location)   &&
+            
+            (!filters.PropertyType  || el.type === filters.PropertyType)   &&
+            
+            (!filters.PricingRange?.min || !filters.PricingRange?.max || 
+            (el.price / 1000 >= filters.PricingRange.min && el.price /1000 <= filters.PricingRange.max))  &&
+            
+            (!filters.PropertySize?.min || !filters.PropertySize?.max || 
+            (el.area >= filters.PropertySize?.min && el.area <= filters.PropertySize?.max)) &&
+            
+            (!filters.BuildYear?.min || !filters.BuildYear?.max || 
+            (el.buildYear >= filters.BuildYear?.min && el.buildYear <= filters.BuildYear?.max)) 
+        );
+    }
+
+    return {setFilter, ApplyFilters}
 }

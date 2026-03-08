@@ -1,5 +1,5 @@
 .select {
-    --widthSelect: 300px;
+    --widthSelect: #{fluid-from-desktop(300,236)};
     --heightSelect: 72px;
 
     max-width: var(--widthSelect);
@@ -7,6 +7,13 @@
     @include desktop-above {
        --widthSelect: 100%;
        max-width: none;
+    }
+
+    @include laptop {
+        --widthSelect: 100%;
+        &:last-child {
+            order: 1;
+        }
     }
 
     &-mobile {
@@ -59,6 +66,20 @@
         position: relative;
         background-color: var(--color-gray-08);
 
+        @include laptop {
+
+            @include mobile-above {
+                &:has(.select-custom__dropdown.is-expanded) {
+                    .select-custom__button {
+                        margin-bottom: 200px; 
+                    }
+                }
+            }
+            
+        }
+
+        
+
         &__button {
             width: var(--widthSelect);
             height: var(--heightSelect);
@@ -91,6 +112,7 @@
 
             &-field {
                 color: var(--color-gray-60);
+                text-wrap: nowrap;
                 &.is-selected {
                     color: var(--color-purple-70);
                 }

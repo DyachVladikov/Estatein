@@ -93,7 +93,12 @@ const Search = () => {
         }, 
     ]
 
-    const setFilter = useFilters();
+    const {setFilter, ApplyFilters} = useFilters();
+
+    const SearchHandler = () => {
+        const data = ApplyFilters() // скорее всего придется делать констекст 
+        console.log(data);
+    }
 
 
     return (
@@ -106,14 +111,29 @@ const Search = () => {
                         setFilter("Name", el.currentTarget.value)
                     }}
                     />
-                    <Button className="search__inside-button" title="Find Property" label="Find Property" hasIconBefore={true} iconName="search" mode="purple"/>
+                    <Button className="search__inside-button hidden-mobile" 
+                    title="Find Property" 
+                    label="Find Property" 
+                    hasIconBefore={true} 
+                    iconName="search" 
+                    mode="purple"
+                    onClick={SearchHandler}
+                    />
+                    <Button className="search__inside-button-mobile visible-mobile" 
+                    title="Find Property" 
+                    iconName="search" 
+                    mode="purple" 
+                    hasOnlyIcon
+                    iconProps={{width: "20px", height: "20px", strokeFill: true}}
+                    onClick={SearchHandler}
+                    />
                 </div>
                 
             </div>
-            <ul className="search__filters-list">
+            <ul className="search__filters-list" >
                 {SelectProperties.map((propeties) => (
                     <li className="search__filters-item" key={`${propeties.placeholder}-filter`}>
-                        <Select {...propeties}
+                        <Select {...propeties} 
                         onChange={(filter: unknown) => {
                             setFilter(propeties.placeholder.replace(/\s/g, ''), filter)
                         }}

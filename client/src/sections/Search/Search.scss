@@ -1,19 +1,41 @@
 .search {
 
+    --searchWrapperHeight: #{fluid(132,68)};
+    --index: 0px;
+    display: flex;
+    flex-direction: column;
+    margin-top: calc((var(--searchWrapperHeight) / 2 * -1) + var(--index));
+
+    @include middle {
+        --index: 20px;
+    }
+    @include mobile {
+        margin-top: 40px;
+    }
     &-wrapper {
+        height: var(--searchWrapperHeight);
         padding: 16px 90px;
+
+        @include middle {
+            padding: 0;
+        }
+
+        @include mobile {
+            margin-bottom: 20px;
+        }
     }
 
     &__inside {
         border: var(--border);
         box-shadow: 0 0 0 10px #191919;
-        height: 100px;
+        height: fluid(100,68);
         padding-inline: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         column-gap: 20px;
         border-radius: 12px 12px 0 0;
+        background-color: var(--color-gray-08);
         
         
         &-input {
@@ -24,22 +46,91 @@
             font-size: 22px;
             flex-shrink: 1;
             flex-grow: 1;
+
+            @include middle {
+                font-size: 18px;
+            }
+            @include mobile {
+                font-size: 16px;
+            }
         }
 
         &-button {
+
+            width: fluid-from-desktop(196,148);
+            height: fluid-from-desktop(63,49);
+            padding: 14px 20px;
+            & > span {
+                font-size: fluid-from-desktop(18,14);
+            }
+            
             path {
                 fill: none;
             }
+
+            &-mobile {
+                width: 60px;
+                height: 48px;
+            }
+        }
+
+        @include mobile {
+             box-shadow: 0 0 0 4px #191919;
+             border-radius: var(--border-radius-s);
+             padding-inline: 10px;
         }
     }
 
-    &__filters-list {
-        background-color: #191919;
-        box-shadow: 0 0 0 10px #191919;
-        border-radius: var(--border-radius-s);
+    &__filters {
 
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        column-gap: 20px;
+        &-list {
+            background-color: #191919;
+            box-shadow: 0 0 0 10px #191919;
+            border-radius: var(--border-radius-s);
+
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+
+            @include laptop {
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-rows: auto auto;
+            }
+
+            @include middle {
+                gap: 16px;
+            }
+
+            @include mobile {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(5, auto);
+            }
+
+            &.filter-expanded {
+                row-gap: 250px;
+            }
+        }
+
+        &-item {
+            @include laptop {
+                    &:last-child {
+                        grid-column: -2 / -1;
+                    }
+
+                    &:nth-last-child(1), &:nth-last-child(2), &:nth-last-child(3)
+                    {
+
+                        .select-custom:has(.select-custom__dropdown.is-expanded) {
+                            .select-custom__button {
+                                margin-bottom: 140px; 
+                            }
+                        }
+                        
+                    }
+                
+                
+            }
+        }
+        
     }
 }

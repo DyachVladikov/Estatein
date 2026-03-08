@@ -9,8 +9,8 @@ const formatPrice = (value: number) => {
 };
 
 export const RangeBar: React.FC<{
-  min?: number;    
-  max?: number;    
+  min?: number;     
+  max?: number;     
   initialMin?: number;
   initialMax?: number;
   mode: "price" | "size" | "build",
@@ -18,9 +18,9 @@ export const RangeBar: React.FC<{
   step?: number
   onChange?: (range: { min: number; max: number }) => void;
 }> = ({ 
-  min = 100,      
+  min = 100,        
   max = 10000,     
-  initialMin = 500,   
+  initialMin = 500, 
   initialMax = 5000,
   mode,  
   rangeValues = 1,
@@ -40,40 +40,59 @@ export const RangeBar: React.FC<{
     return Math.round(rawValue / step) * step;
   };
 
-  const handleMouseDown = (which: "left" | "right") => {
-    dragging.current = which;
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
+  // Универсальная функция для получения clientX
+  const getClientX = (e: MouseEvent | TouchEvent): number => {
+    if ('touches' in e && e.touches.length > 0) {
+      return e.touches[0].clientX;
+    }
+    return (e as MouseEvent).clientX;
   };
 
-  const handleMouseUp = useCallback(() => {
-  dragging.current = null;
-  document.removeEventListener("mousemove", handleMouseMove);
-  document.removeEventListener("mouseup", handleMouseUp);
+  const handleStart = useCallback((which: "left" | "right", e: React.MouseEvent | React.TouchEvent) => {
+    dragging.current = which;
+    
+    // Mouse события
+    document.addEventListener("mousemove", handleMove);
+    document.addEventListener("mouseup", handleEnd);
+    
+    // Touch события
+    document.addEventListener("touchmove", handleMove, { passive: false });
+    document.addEventListener("touchend", handleEnd);
+  }, []);
 
-  onChange?.(currentRange.current);
-  }, []); 
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
+  const handleMove = useCallback((e: MouseEvent | TouchEvent) => {
     if (!dragging.current || !barRef.current) return;
+    e.preventDefault();
 
     const rect = barRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
+    const x = getClientX(e) - rect.left;
     const percent = clamp((x / rect.width) * 100, 0, 100);
     const value = percentToValue(percent);
 
     if (dragging.current === "left") {
       const newVal = Math.min(value, rightVal - rangeValues);
       const finalVal = clamp(newVal, min, max);
-      setLeftVal(clamp(newVal, min, max));
+      setLeftVal(finalVal);
       currentRange.current.min = finalVal;
     } else {
       const newVal = Math.max(value, leftVal + rangeValues);
       const finalVal = clamp(newVal, min, max);
-      setRightVal(clamp(newVal, min, max));
+      setRightVal(finalVal);
       currentRange.current.max = finalVal;
     }
-  }, [leftVal, rightVal, min, max]);
+  }, [leftVal, rightVal, min, max, rangeValues, percentToValue]);
+
+  const handleEnd = useCallback(() => {
+    dragging.current = null;
+    
+    // Удаляем все события
+    document.removeEventListener("mousemove", handleMove);
+    document.removeEventListener("mouseup", handleEnd);
+    document.removeEventListener("touchmove", handleMove);
+    document.removeEventListener("touchend", handleEnd);
+
+    onChange?.(currentRange.current);
+  }, [onChange]);
 
   const leftPercent = valueToPercent(leftVal);
   const rightPercent = valueToPercent(rightVal);
@@ -85,12 +104,12 @@ export const RangeBar: React.FC<{
           {mode === "price" && `${min}K`}
           {mode === "size" && `${min} m`}
           {mode === "build" && `${min}`}
-          </span>
+        </span>
         <span className={classNames("price-label", {"price-label--size" : mode === "size"})}>
           {mode === "price" && `${max}K`}
           {mode === "size" && `${max} m`}
           {mode === "build" && `${max}`}
-          </span>
+        </span>
       </div>
       
       <div
@@ -110,24 +129,30 @@ export const RangeBar: React.FC<{
         <div
           className="price-range-thumb left-thumb"
           style={{ left: `${leftPercent}%` }}
-          onMouseDown={() => handleMouseDown("left")}
+          onMouseDown={(e) => handleStart("left", e)}
+          onTouchStart={(e) => handleStart("left", e)}
           title={ mode === "price" ? `$${leftVal}K` : `${leftVal}`}
         >
           <div className="price-value">
             {mode === "price" && formatPrice(leftVal)}
             {mode === "size" && leftVal}
             {mode === "build" && leftVal}
-            </div>
+          </div>
         </div>
         
         {/* Правый ползунок */}
         <div
           className="price-range-thumb right-thumb"
           style={{ left: `${rightPercent}%` }}
-          onMouseDown={() => handleMouseDown("right")}
+          onMouseDown={(e) => handleStart("right", e)}
+          onTouchStart={(e) => handleStart("right", e)}
           title={ mode === "price" ? `$${rightVal}K` : `${rightVal}`}
         >
-          <div className="price-value">{ mode === "price" ? formatPrice(rightVal) : rightVal}</div>
+          <div className="price-value">
+            {mode === "price" && formatPrice(rightVal)}
+            {mode === "size" && rightVal}
+            {mode === "build" && rightVal}
+          </div>
         </div>
       </div>
     </div>

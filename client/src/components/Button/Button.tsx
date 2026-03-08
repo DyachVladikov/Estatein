@@ -6,6 +6,14 @@ import {memo} from "react"
 
 type TYPE = "submit" | "button" | "link"
 
+interface IconProp {
+    width?: string,
+    height?: string,
+    color?: string,
+    strokeFill?: boolean,
+
+}
+
 interface ButtonProps {
     className: string,
     href?: string,
@@ -19,6 +27,7 @@ interface ButtonProps {
     mode?: "purple" | "text-only",
     linkButton?: boolean,
     onClick?: (num?:boolean) => void,
+    iconProps?: IconProp
 }
 
 
@@ -35,6 +44,7 @@ const Button  = (props:ButtonProps) => {
         iconName = "",
         mode,
         linkButton = false,
+        iconProps,
         onClick,
     } = props
 
@@ -53,13 +63,13 @@ const Button  = (props:ButtonProps) => {
         )} 
         {...CurrentProps} aria-labelledby={title}>
             {hasIconBefore && iconName != "" && (
-                <Icon name={iconName}/>
+                <Icon name={iconName} />
             )} 
             {!hasOnlyIcon && (
-                <span className={`${NameClass}-label`}>{label}</span>
+                <span className={`${NameClass}-label`} >{label}</span>
             )}
             {!hasIconBefore && iconName != "" && (
-                <Icon name={iconName}/>
+                <Icon name={iconName} {...iconProps}/>
             )} 
         </Component>
     )

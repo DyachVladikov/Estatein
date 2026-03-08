@@ -32,7 +32,7 @@ const Select = (props:SelectProps) => {
         items,
         mode,
         name,
-        onChange
+        onChange,
     } = props
 
     const dropdownRef = useRef<HTMLDivElement>(null)
