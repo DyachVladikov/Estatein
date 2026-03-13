@@ -6,10 +6,16 @@ import Button from "@/components/Button";
 import useAutoScroll from "@/hooks/useAutoScroll";
 import { useRef, useState, useEffect } from "react";
 import classNames from "classnames";
+import useApi from "@/hooks/useApi";
 
 interface IsFormError {
     hasErorr: boolean,
     description: string,
+}
+
+interface Response {
+    ok: number,
+    message: string,
 }
 
 const Footer = () => {
@@ -86,21 +92,18 @@ const Footer = () => {
     const [succsesSell, setSuccsesSell] = useState<boolean>(false);
 
     const scrollToSection = useAutoScroll();
+    const { sendData } = useApi<String>("emails")
 
     useEffect(() => {
         setTimeout(() => {
             setIsFormInvalid({hasErorr: false, description: ""})
             setSuccsesSell(false)
-        }, 150000)
+        }, 1000 * 60 * 0.3)
     }, [isFormInvalid, succsesSell])
  
-
     const FormSubmit = (el:React.FormEvent) => {
         el.preventDefault();
         const inputValue = inputRef.current?.value || ""
-
-        
-
         if(inputValue === "")
         {
             setIsFormInvalid({hasErorr:true, description:"*Write something before selling"})
@@ -108,41 +111,26 @@ const Footer = () => {
             
         else if(inputValue != "" && !inputValue.includes("@"))
         {
-            setIsFormInvalid({hasErorr:true, description:"Its not email"})
+            setIsFormInvalid({hasErorr:true, description:"*Its not email"})
         }
         else {
-            setIsFormInvalid({hasErorr:false, description:""})
-            setSuccsesSell(true)
-            
-            
-            fetch("http://localhost:3002/api/emails", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: inputValue
-                }),
-            }).then((response) => {
-                
-                
-                if(response.status === 409)
-                    setIsFormInvalid({hasErorr: true, description: "already sent"})
-                
-
-                else if(response.status === 200)
-                {
-                    if (inputRef.current) {
-                        inputRef.current.value = ""
+                sendData(inputValue, {
+                    onSuccess: (res:Response) => {
+                    if (res.ok === 200) {
+                        setIsFormInvalid({hasErorr:false, description:""})
+                        setSuccsesSell(true)
+                        if (inputRef.current) {
+                            inputRef.current.value = ""
+                        }
                     }
-                }
-                return response.json()
-                    
-            }).then (res => {
-                console.log(res.message);
+                    if(res.ok != 200)
+                        setIsFormInvalid({hasErorr:true, description:res.message})
+                },
+                onError: (error) => {
+                    setIsFormInvalid({hasErorr:true, description:error.message})
+                },
             })
         }
-        
     }
 
     return (

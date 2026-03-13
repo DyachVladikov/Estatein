@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useCallback } from "react"
 import useApi from "./useApi"
 import type { Estate } from "@/interfaces/interfaces";
 
@@ -28,42 +28,14 @@ export default function useFilters() {
             PropertyType:""
         }
     )
-    const {data, loading, error} = useApi<Estate[]>("estates")
+    const {data} = useApi<Estate[]>("estates")
 
-    /* const filteredData = useMemo(() => {
-    if (!data) return [];
+    /* const filteredData = useMemo(() => {ApplyFilters()}, [])
 
-    return data.filter((el) => 
-
-        (!filters.Name || el.name.toLowerCase().includes(filters.Name.toLowerCase())) &&
-
-        (!filters.Location || el.place === filters.Location)   &&
-        
-        (!filters.PropertyType  || el.type === filters.PropertyType)   &&
-        
-        (!filters.PricingRange?.min || !filters.PricingRange?.max || 
-        (el.price / 1000 >= filters.PricingRange.min && el.price /1000 <= filters.PricingRange.max))  &&
-        
-        (!filters.PropertySize?.min || !filters.PropertySize?.max || 
-        (el.area >= filters.PropertySize?.min && el.area <= filters.PropertySize?.max)) &&
-        
-        (!filters.BuildYear?.min || !filters.BuildYear?.max || 
-        (el.buildYear >= filters.BuildYear?.min && el.buildYear <= filters.BuildYear?.max)) 
-    );
-    }, [data, filters.Name, filters.Location, filters.PropertyType, 
-        filters.PricingRange.max, filters.PricingRange.min, 
-        filters.PropertySize.min, filters.PropertySize.max,
-        filters.BuildYear.min, filters.BuildYear.max]); */
-
-        const filteredData = useMemo(() => {ApplyFilters()}, [])
+    console.log(filters); */
     
 
-    useEffect(() => {
-        console.log("filtered data:", filteredData);
-    }, [filteredData])
-    
-
-    const setFilter = (name: string, value: any) => {
+    const setFilter = (name: string, value: unknown) => {
 
         setFilters((prev) => {
 

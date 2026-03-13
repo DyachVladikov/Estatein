@@ -30,6 +30,7 @@ export interface Estate {
   createdAt: string;  
   updatedAt: string;  
   type: string,
+  annotation: string,
 }
 
 export interface FAQ {

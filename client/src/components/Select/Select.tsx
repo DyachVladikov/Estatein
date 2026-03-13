@@ -16,17 +16,19 @@ interface CustomItems {
 type ItemsConfig = StringItems | CustomItems;
 
 interface SelectProps {
+    className?: string,
     iconName: string,
     placeholder: string,
     items: ItemsConfig,
-    mode?: "black",
+    mode?: "blackWithIcon",
     name: string,
-    onChange: (value:string) => void
+    onChange: (value:string, name: string) => void
 }
 
 const Select = (props:SelectProps) => {
 
     const {
+        className,
         iconName,
         placeholder,
         items,
@@ -46,14 +48,16 @@ const Select = (props:SelectProps) => {
     }
 
     const SelectHandler = (item: string) => {
-        onChange?.(item);
+        onChange?.(item, name);
     }
 
     return (
-        <div className="select">
+        <div className={classNames("select", className)}>
             {items.type === "strings" && (
                 <div className="select-mobile-wrapper select-custom__button visible-mobile">
-                    <Icon className="select-custom__button-placeholder-icon" name={iconName} width="24px" color="var(--color-gray-60)"/>
+                    {mode === "blackWithIcon" && (
+                        <Icon className="select-custom__button-placeholder-icon" name={iconName} width="24px" color="var(--color-gray-60)"/>
+                    )}
                     <select name={name} className={classNames("select-mobile", {"is-selected" : selectedValue != ""})} value={selectedValue}
                     onChange={(e) => {
                         setSelectedValue(e.currentTarget.value);
@@ -76,11 +80,16 @@ const Select = (props:SelectProps) => {
                     </div>
                 </div>
             )} 
-            <div className={classNames("select-custom", {"hidden-mobile" : items.type != "custom"})}>
+            <div className={classNames("select-custom", {"hidden-mobile" : items.type != "custom"}, {"select-custom--black" : mode === "blackWithIcon"})}>
                 <div className="select-custom__button" tabIndex={1} onClick={HideOrShowDropDown}>
                     <div className="select-custom__button-placeholder">
-                        <Icon className="select-custom__button-placeholder-icon" name={iconName} width="24px" color="var(--color-gray-60)"/>
-                        <span className={classNames("select-custom__button-field", {"is-selected" : (selectedValue != "" && selectedValue != "None")})}>
+                        {mode === "blackWithIcon" && (
+                            <Icon className="select-custom__button-placeholder-icon" name={iconName} width="24px" color="var(--color-gray-60)"/>
+                        )}
+                        <span className={classNames("select-custom__button-field", 
+                            {"is-selected" : (selectedValue != "" && selectedValue != "None")},
+                            {"select-custom__button-field--light" : mode === "blackWithIcon"}
+                            )}>
                             {(selectedValue === "" || selectedValue === "None") ? placeholder : selectedValue }
                         </span>
                     </div>

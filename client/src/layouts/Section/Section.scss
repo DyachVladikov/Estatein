@@ -26,6 +26,8 @@
         justify-content: space-between;
         height: fluid(80,65);
 
+        
+
         &-pagination {
             @include mobile {
                 max-width: max-content;
@@ -59,6 +61,10 @@
         }
 
         @include mobile {
+
+            &.isWithout-button {
+                justify-content: space-between;
+            }
             justify-content: flex-end;
             padding-top: 16px;
         }

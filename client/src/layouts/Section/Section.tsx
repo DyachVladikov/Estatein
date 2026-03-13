@@ -50,7 +50,7 @@ const Section = (props:SectionProps) => {
                 {children}
             </div>
             {hasSlider && (
-                <div className={`${className}-slider__actions section-slider__actions`} >
+                <div className={classNames(`${className}-slider__actions section-slider__actions`, {"isWithout-button": !hasButton})} >
                     {hasButton && (
                         <Button title={ButtonText} label={ButtonText} className={`${className}-button visible-mobile button--section`} />
                     )}

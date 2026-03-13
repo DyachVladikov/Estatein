@@ -4,6 +4,15 @@
 
     max-width: var(--widthSelect);
 
+    &.form-mode {
+        max-width: var(--widthElFrom);
+
+        @include laptop-above {
+            max-width: none;
+            width: 100%;
+        }
+    }
+
     @include desktop-above {
        --widthSelect: 100%;
        max-width: none;
@@ -64,7 +73,12 @@
     &-custom {
 
         position: relative;
-        background-color: var(--color-gray-08);
+        background-color: var(--color-gray-10);
+
+        &--black {
+            background-color: var(--color-gray-08);
+        }
+        
 
         @include laptop {
 
@@ -111,10 +125,14 @@
             }
 
             &-field {
-                color: var(--color-gray-60);
+                color: var(--color-gray-40);
                 text-wrap: nowrap;
                 &.is-selected {
                     color: var(--color-purple-70);
+                }
+
+                &--light {
+                    color: var(--color-gray-60);
                 }
             }
 

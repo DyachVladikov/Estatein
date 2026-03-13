@@ -8,9 +8,11 @@ import type { Estate } from "@/interfaces/interfaces";
 
 interface EstateProps {
   estate: Estate
+  NeedCounterRooms?: boolean
+  NeedAnotation?: boolean,
 }
 
-const EstateCard = ({estate}:EstateProps) => {
+const EstateCard = ({estate, NeedCounterRooms = true, NeedAnotation = false}:EstateProps) => {
 
     const [curentStringPrice, setCurentStringPrice] = useState<string>()
     const [isreadMoreActivated, setIsreadMoreActivated] = useState<boolean>(false)
@@ -29,6 +31,12 @@ const EstateCard = ({estate}:EstateProps) => {
         <div className="estate-card">
             <img className="estate-card-image"  src={estate?.images?.[0] ?? "/src/assets/images/loadingGif.gif"}/>
             <div className="estate-card__info">
+                {NeedAnotation && (
+                    <div className="estate-card__info-annotation">
+                        <span>{estate.annotation}</span>
+                    </div>
+                )}
+                
                 <h3 className="estate-card__info-name h5">{estate?.name}</h3>
                 <div className="estate-card__info-description">
                     <p className="estate-card__info-description-text description">
@@ -49,11 +57,14 @@ const EstateCard = ({estate}:EstateProps) => {
                     </p>
                     
                 </div>
-                <div className="estate-card__info-bages">
-                    <Bage className="estate-card__info-bages--badroom" iconName="bad" info={`${estate?.bedroomsCount}-Bedroom`}/>
-                    <Bage className="estate-card__info-bages--bathroom" iconName="bathroom" info={`${estate?.bathroomsCount}-Bathroom`}/>
-                    <Bage className="estate-card__info-bages--estate" iconName="estate-small" info={estate?.type}/>
-                </div>
+                {NeedCounterRooms && (
+                    <div className="estate-card__info-bages">
+                        <Bage className="estate-card__info-bages--badroom" iconName="bad" info={`${estate?.bedroomsCount}-Bedroom`}/>
+                        <Bage className="estate-card__info-bages--bathroom" iconName="bathroom" info={`${estate?.bathroomsCount}-Bathroom`}/>
+                        <Bage className="estate-card__info-bages--estate" iconName="estate-small" info={estate?.type}/>
+                    </div>
+                )}
+                
                 <div className="estate-card__info-price-button">
                     <div className="estate-card__info-price">
                         <span className="description">Price</span>

@@ -44,6 +44,9 @@ const EstateSchema = new mongoose.Schema({
   type: {
     type: String,
   },
+  annotation: {
+    type: String,
+  },
 
   buildYear: {
     type: Number,

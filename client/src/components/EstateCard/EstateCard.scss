@@ -37,6 +37,33 @@
 
         display: flex;
         flex-direction: column;
+        max-width: calc(fluid-from-desktop(512, 413) - 2 * fluid-from-desktop(40,30));
+
+        &-annotation {
+            width: max-content;
+            border: var(--border);
+            border-radius: var(--border-radius-m);
+            padding: 8px 14px;
+            margin-bottom: 20px;
+            max-width: 100%;
+            text-align: start;
+
+            @include laptop {
+                padding: 6px 12px;
+                
+            }
+            @include tablet {
+                width: auto;
+                text-align: center;
+            }
+            @include mobile {
+                width: max-content;
+            }
+            @include mobile-s {
+                width: auto;
+                text-align: center;
+            }
+        }
 
         &-name {
             margin-bottom: auto !important;
@@ -133,6 +160,14 @@
                     height: max-content;
                 }
             }
+        }
+
+        @include laptop {
+            max-width: none;
+        }
+
+        @include tablet {
+            max-width: 340px;
         }
         
     }

@@ -3,6 +3,8 @@ import "./Search.scss"
 import Select from "@/components/Select"
 import useFilters from "@/hooks/useFilters"
 import ScrollBar from "@/components/RangeBar"
+import { useContext } from "react"
+import {FilteredEstateContext} from "@/context/FilteredEstate"
 
 const Search = () => {
 
@@ -95,9 +97,13 @@ const Search = () => {
 
     const {setFilter, ApplyFilters} = useFilters();
 
+    const setFilteredEstate = useContext(FilteredEstateContext)
+
     const SearchHandler = () => {
         const data = ApplyFilters() // скорее всего придется делать констекст 
-        console.log(data);
+        
+        setFilteredEstate.setFilteredEstate(data)
+        
     }
 
 
@@ -133,7 +139,7 @@ const Search = () => {
             <ul className="search__filters-list" >
                 {SelectProperties.map((propeties) => (
                     <li className="search__filters-item" key={`${propeties.placeholder}-filter`}>
-                        <Select {...propeties} 
+                        <Select {...propeties} mode="blackWithIcon"
                         onChange={(filter: unknown) => {
                             setFilter(propeties.placeholder.replace(/\s/g, ''), filter)
                         }}
