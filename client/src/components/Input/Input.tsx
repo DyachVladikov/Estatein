@@ -1,13 +1,17 @@
+import { IMaskInput } from "react-imask"
+import classNames from "classnames"
 import "./Input.scss"
 
 interface InputProps {
-    id:string,
-    title: string,
-    placeholder:string,
-    type?: "text" | "checkBox",
-    value: string,
-    modeI?: "double"
-    onChange: (el:string) => void,
+    id: string;
+    title: string;
+    placeholder: string;
+    type?: "text" | "checkBox"; 
+    value: string;
+    modeI?: "double";
+    onChange: (val: string) => void;
+    error?: { hasError: boolean; message: string };
+    mask?: any; 
 }
 
 const Input = (props: InputProps) => {
@@ -20,18 +24,51 @@ const Input = (props: InputProps) => {
         value,
         modeI,
         onChange,
+        error,
+        mask, 
     } = props
 
+    const commonClasses = classNames("input-field", {
+        [`input-field--${modeI?.toLowerCase()}`]: modeI
+    });
+
     return (
-        <div className="input">
-            {modeI != "double" && (<label className="input-title h6" htmlFor={id}>{title}</label>)}
-            <div className="input-wrapper">
-                <input id={id} placeholder={placeholder} type={type} value={value}
-                onChange={(el) => {
-                    onChange(el.currentTarget.value)
-                }}
-                />
+        <div className={classNames("input", { [`input--${modeI?.toLowerCase()}`]: modeI })}>
+            {modeI !== "double" && (
+                <label className="input-title h6" htmlFor={id}>{title}</label>
+            )}
+            
+            <div className={classNames("input-wrapper", { "has-error": error?.hasError })}>
+                {mask ? (
+                    <IMaskInput
+                        className={commonClasses}
+                        id={id}
+                        placeholder={placeholder}
+                        type={type}
+                        mask={mask}
+                        value={String(value)}
+                        unmask={true} 
+                        onAccept={(unmaskedValue) => {
+                            onChange(unmaskedValue as string); 
+                        }}
+                    />
+                ) : (
+                    <input
+                        className={commonClasses}
+                        id={id}
+                        placeholder={placeholder}
+                        type={type}
+                        value={value}
+                        onChange={(e) => {
+                            onChange(e.currentTarget.value)
+                        }}
+                    />
+                )}
             </div>
+
+            {error?.hasError && (
+                <span className="input-error-message">{`*${error.message}`}</span>
+            )}
         </div>
     )
 }

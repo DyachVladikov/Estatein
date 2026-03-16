@@ -99,7 +99,7 @@ textarea,
 svg * {
     transition-duration: var(--transition-duration);
 }
-input {
+input, textarea {
     &:focus{
         outline: none;
         
@@ -131,6 +131,13 @@ a {
     @include desktop-above {
         padding-inline: 0;
     }
+}
+fieldset:disabled {
+    opacity: 0.5;
+    pointer-events: none; 
+}
+fieldset{
+    border:none;
 }
 
 /*   * {

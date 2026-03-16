@@ -78,7 +78,7 @@
             }
 
             &.error {
-                border-color: red;
+                border-color: var(--color-error);
             }
             &.succses {
                 border-color: green;

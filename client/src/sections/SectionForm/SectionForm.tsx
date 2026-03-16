@@ -13,24 +13,30 @@ const SectionForm = () => {
                 title: "First Name",
                 placeholder: "Enter First Name",
                 name: "FirstName",
+                required: true,
             },
             {
                 type: "input",
                 title: "Last Name",
                 placeholder: "Enter Last Name",
                 name: "LastName",
+                required: true,
             },
             {
                 type: "input",
                 title: "Email",
                 placeholder: "Enter your Email",
                 name: "Email",
+                required: true,
+                mask: /^[a-zA-Z0-9@._-]+$/,
             },
             {
                 type: "input",
                 title: "Phone",
                 placeholder: "Enter Phone Number",
                 name: "Phone",
+                required: true,
+                mask: "+{7} (000) 000-00-00"
             },
             {
                 type: "select",

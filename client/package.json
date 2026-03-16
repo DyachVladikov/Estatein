@@ -13,8 +13,11 @@
     "@a1rth/css-normalize": "^1.2.4",
     "@tanstack/react-query": "^5.90.21",
     "classnames": "^2.5.1",
+    "imask": "^7.6.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-imask": "^7.6.1",
+    "react-mask": "^1.0.0",
     "react-router-dom": "^7.13.0",
     "swiper": "^12.0.3"
   },
