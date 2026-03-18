@@ -1,32 +1,43 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import type { Error } from '@/interfaces/interfaces';
+import type { Error } from "@/interfaces/interfaces";
 
 interface ApiState<T> {
   data: T | null;
   loading: boolean;
-  error: Error,
-  sendData: (data: any, options?: {
+  error: Error;
+  sendData: (
+    data: any,
+    options?: {
       onSuccess?: (data: any) => void;
       onError?: (error: any) => void;
-    }) => void;
-    isSending: boolean;
-    sendError: any | null;
-  resData: {message: string, ok: number} | null,
+    },
+  ) => void;
+  isSending: boolean;
+  sendError: any | null;
+  resData: { message: string; ok: number } | null;
 }
 
-const GET_ROUTES_LIST = ["reviews", "estates", "faqs", "employees", "clients"] as const;
-type GetRoutes = typeof GET_ROUTES_LIST[number];
+const GET_ROUTES_LIST = [
+  "reviews",
+  "estates",
+  "faqs",
+  "employees",
+  "clients",
+] as const;
+type GetRoutes = (typeof GET_ROUTES_LIST)[number];
 type PostRoutes = "orders" | "emails";
 type Routes = GetRoutes | PostRoutes;
 
-const useApi = <T,>(router: Routes) : ApiState<T> => {
+const useApi = <T,>(router: Routes): ApiState<T> => {
   const isGetRoute = (GET_ROUTES_LIST as readonly string[]).includes(router);
   // GET запрос
   const query = useQuery({
-    queryKey: ['api', router],
+    queryKey: ["api", router],
     queryFn: async ({ signal }): Promise<T> => {
-      const response = await fetch(`http://localhost:3002/api/${router}`, { signal });
+      const response = await fetch(`http://localhost:3002/api/${router}`, {
+        signal,
+      });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.json();
     },
@@ -44,14 +55,12 @@ const useApi = <T,>(router: Routes) : ApiState<T> => {
       });
       const result = await response.json();
 
-      if (!response.ok) throw new Error(result.message || 'Mutation failed');
-      
+      if (!response.ok) throw new Error(result.message || "Mutation failed");
+
       return result;
     },
     onSuccess: () => console.log("Success sent to", router),
-    onError: (err) => console.log("Error in", router, err.message)
-    
-    
+    onError: (err) => console.log("Error in", router, err.message),
   });
 
   return {
@@ -67,5 +76,4 @@ const useApi = <T,>(router: Routes) : ApiState<T> => {
   };
 };
 
-export default useApi
-
+export default useApi;

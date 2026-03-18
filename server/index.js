@@ -1,7 +1,7 @@
-import dns from "node:dns";
+/* import dns from "node:dns";
 
 dns.setDefaultResultOrder('ipv4first');
-dns.setServers(['8.8.8.8', '1.1.1.1', '208.67.222.222']);
+dns.setServers(['8.8.8.8', '1.1.1.1', '208.67.222.222']); */
 
 import express from "express"
 import mongoose from "mongoose"
