@@ -1,41 +1,41 @@
-import { Router } from "express"
+import { Router } from "express";
 
-import { getCollection, getEstate } from "../controllers/estate.js"
-import { getReviews } from "../controllers/reviews.js"
-import { getFAQS } from "../controllers/faqs.js"
-import { setEmails } from "../controllers/emails.js"
-import { getEmployee } from "../controllers/employees.js"
-import { getClientCard } from "../controllers/clients.js"
-import { setOrders } from "../controllers/orders.js"
+import { getCollection, getEstate } from "../controllers/estate.js";
+import { getReviews } from "../controllers/reviews.js";
+import { getFAQS } from "../controllers/faqs.js";
+import { setEmails } from "../controllers/emails.js";
+import { getEmployee } from "../controllers/employees.js";
+import { getClientCard } from "../controllers/clients.js";
+import { setOrders } from "../controllers/orders.js";
 
-const router = new Router()
+const router = new Router();
 
-router.get("/estate/properties/:id", async (req, res) => {
-    return getEstate(req, res)
-})
+router.get("/properties/:id", async (req, res) => {
+  return getEstate(req, res);
+});
 
 router.get("/estates", async (req, res) => {
-   return getCollection(req,res)
-})
+  return getCollection(req, res);
+});
 
 router.get("/reviews", async (req, res) => {
-    return getReviews(req,res)
-})
+  return getReviews(req, res);
+});
 
 router.get("/faqs", async (req, res) => {
-    return getFAQS(req,res)
-})
+  return getFAQS(req, res);
+});
 router.post("/emails", async (req, res) => {
-    return setEmails(req,res)
-})
+  return setEmails(req, res);
+});
 router.get("/employees", async (req, res) => {
-    return getEmployee(req,res)
-})
+  return getEmployee(req, res);
+});
 router.get("/clients", async (req, res) => {
-    return getClientCard(req,res)
-})
+  return getClientCard(req, res);
+});
 router.post("/orders", async (req, res) => {
-    return setOrders(req,res)
-})
+  return setOrders(req, res);
+});
 
-export default router
+export default router;

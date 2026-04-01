@@ -1,0 +1,21 @@
+.key {
+  padding: 18px 24px;
+  background: linear-gradient(90deg, #1a1a1a 0%, rgba(26, 26, 26, 0) 100%);
+  display: flex;
+  column-gap: 10px;
+  border-left: 1px solid var(--Purple-60, #703bf7);
+  align-items: center;
+
+  @include laptop {
+    padding: fluid(14, 10) fluid(16, 12);
+  }
+
+  .icon {
+    flex-shrink: 0;
+
+    @include laptop {
+      width: 20px !important;
+      height: 20px !important;
+    }
+  }
+}

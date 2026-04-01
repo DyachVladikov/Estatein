@@ -1,81 +1,120 @@
-import "./Section.scss"
+import "./Section.scss";
 
-import classNames from "classnames"
-import "./Section.scss"
-import Button from "@/components/Button"
-import Icon from "@/components/Icon"
-import { img } from "@/utils/RepairOmgSrc"
+import classNames from "classnames";
+import "./Section.scss";
+import Button from "@/components/Button";
+import Icon from "@/components/Icon";
+import { img } from "@/utils/RepairOmgSrc";
+import { Link } from "react-router-dom";
 
 interface BaseProps {
-    className: string,
-    children: React.ReactNode,
-    title: string,
-    description: string,
-    hasSlider?: boolean,
-    dataJsSection?: string,
+  className: string;
+  children: React.ReactNode;
+  title: string;
+  description: string;
+  hasSlider?: boolean;
+  dataJsSection?: string;
 }
 
-type SectionProps = BaseProps & ({
-    hasButton: false,
-} | {
-    hasButton: true,
-    ButtonText: string,
-})
+type SectionProps = BaseProps &
+  (
+    | {
+        hasButton: false;
+      }
+    | {
+        hasButton: true;
+        ButtonText: string;
+      }
+  );
 
-const Section = (props:SectionProps) => {
+const Section = (props: SectionProps) => {
+  const {
+    className,
+    children,
+    hasButton,
+    title,
+    description,
+    hasSlider = true,
+    dataJsSection,
+  } = props;
 
-    const {
-        className,
-        children,
-        hasButton,
-        title,
-        description,
-        hasSlider = true,
-        dataJsSection
-    } = props
+  const ButtonText = "ButtonText" in props ? (props as any).ButtonText : "";
 
-    const ButtonText = 'ButtonText' in props ? (props as any).ButtonText : '';
-
-    return (
-        <section className={classNames("section container", className)} data-js-section={dataJsSection} >
-            <img className="section-stars" src={img("/icons/stars.svg")} />
-            <h2 className={`${className}-title `}>{title}</h2>
-            <div className={`${className}__events section-events`}>
-                <p className={`${className}-description description section-description`}>{description}</p>
-                {hasButton && (
-                    <Button title={ButtonText} label={ButtonText} className={`${className}-button hidden-mobile button--section`} />
-                )}
+  return (
+    <section
+      className={classNames("section container", className)}
+      data-js-section={dataJsSection}
+    >
+      <img className="section-stars" src={img("/icons/stars.svg")} />
+      <h2 className={`${className}-title `}>{title}</h2>
+      <div className={`${className}__events section-events`}>
+        <p
+          className={`${className}-description description section-description`}
+        >
+          {description}
+        </p>
+        {hasButton && (
+          <Link to={"/properties"} className="hidden-mobile">
+            <Button
+              title={ButtonText}
+              label={ButtonText}
+              className={`${className}-button hidden-mobile button--section`}
+            />
+          </Link>
+        )}
+      </div>
+      <div className="section-main">{children}</div>
+      {hasSlider && (
+        <div
+          className={classNames(
+            `${className}-slider__actions section-slider__actions`,
+            { "isWithout-button": !hasButton },
+          )}
+        >
+          {hasButton && (
+            <Link
+              to={"/properties"}
+              className="visible-mobile"
+              style={{ maxWidth: "max-content", marginRight: "auto" }}
+            >
+              <Button
+                title={ButtonText}
+                label={ButtonText}
+                className={`${className}-button visible-mobile button--section`}
+              />
+            </Link>
+          )}
+          <div
+            className={`${className}-slider__actions-pagination section-slider__actions-pagination`}
+          ></div>
+          <div
+            className={`${className}-slider__actions-navigation section-slider__actions-navigation hidden-mobile`}
+          >
+            <div
+              className={`${className}-slider__actions-navigation-prev section-slider__actions-navigation-prev`}
+            >
+              <Icon name="arrow-right" />
             </div>
-            <div className="section-main">
-                {children}
+            <div
+              className={`${className}-slider__actions-navigation-next section-slider__actions-navigation-next`}
+            >
+              <Icon name="arrow-right" />
             </div>
-            {hasSlider && (
-                <div className={classNames(`${className}-slider__actions section-slider__actions`, {"isWithout-button": !hasButton})} >
-                    {hasButton && (
-                        <Button title={ButtonText} label={ButtonText} className={`${className}-button visible-mobile button--section`} />
-                    )}
-                    <div className={`${className}-slider__actions-pagination section-slider__actions-pagination`}></div>
-                    <div className={`${className}-slider__actions-navigation section-slider__actions-navigation hidden-mobile`}>
-                        <div className={`${className}-slider__actions-navigation-prev section-slider__actions-navigation-prev`}>
-                            <Icon name="arrow-right"/>
-                        </div>
-                        <div className={`${className}-slider__actions-navigation-next section-slider__actions-navigation-next`}>
-                            <Icon name="arrow-right"/>
-                        </div>
-                    </div>
-                    <div className={`${className}-slider__actions-navigation-prev section-slider__actions-navigation-prev visible-mobile`}>
-                            <Icon name="arrow-right"/>
-                    </div>
-                    <div className={`${className}-slider__actions-navigation-next section-slider__actions-navigation-next visible-mobile`}>
-                            <Icon name="arrow-right"/>
-                    </div>
-                </div>
-            )}
+          </div>
+          <div
+            className={`${className}-slider__actions-navigation-prev section-slider__actions-navigation-prev visible-mobile`}
+          >
+            <Icon name="arrow-right" />
+          </div>
+          <div
+            className={`${className}-slider__actions-navigation-next section-slider__actions-navigation-next visible-mobile`}
+          >
+            <Icon name="arrow-right" />
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
 
-        </section>
-    )
-}
-
-
-
-export default Section
+export default Section;

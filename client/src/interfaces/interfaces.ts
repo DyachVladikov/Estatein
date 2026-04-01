@@ -1,19 +1,19 @@
 export interface User {
-    _id: string,
-    name: string,
-    place: string,
-    img: string,
-    createdAt?: Date,
-    updatedAt?: Date,
-    role: string,
+  _id: string;
+  name: string;
+  place: string;
+  img: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  role: string;
 }
 
 export interface Review {
-    rating: number,
-    description: string,
-    title: string,
-    _id: string,
-    user: User,
+  rating: number;
+  description: string;
+  title: string;
+  _id: string;
+  user: User;
 }
 
 export interface Estate {
@@ -27,37 +27,38 @@ export interface Estate {
   area: number;
   images: string[];
   buildYear: number;
-  createdAt: string;  
-  updatedAt: string;  
-  type: string,
-  annotation: string,
+  createdAt: string;
+  updatedAt: string;
+  type: string;
+  annotation: string;
+  featuresKeys?: string[];
 }
 
 export interface FAQ {
-    _id: string,
-    question: string,
-    answer: string,
-    datePublication: Date,
-    author: User,
+  _id: string;
+  question: string;
+  answer: string;
+  datePublication: Date;
+  author: User;
 }
 
 export interface Error {
-    HasError: boolean,
-    message?: string,
-    status: number,
+  HasError: boolean;
+  message?: string;
+  status: number;
 }
 
-export interface Employee extends User{
-    chatLink: String,
-    employeeInfo: {
-        position: string;
-    };
+export interface Employee extends User {
+  chatLink: String;
+  employeeInfo: {
+    position: string;
+  };
 }
 export interface ClientCard {
-    _id: string,
-    title: string,
-    year: number,
-    domain: string,
-    category: string,
-    description: string,
+  _id: string;
+  title: string;
+  year: number;
+  domain: string;
+  category: string;
+  description: string;
 }

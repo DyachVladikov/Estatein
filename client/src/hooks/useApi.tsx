@@ -24,20 +24,25 @@ const GET_ROUTES_LIST = [
   "faqs",
   "employees",
   "clients",
+  "properties",
 ] as const;
 type GetRoutes = (typeof GET_ROUTES_LIST)[number];
 type PostRoutes = "orders" | "emails";
 type Routes = GetRoutes | PostRoutes;
 
-const useApi = <T,>(router: Routes): ApiState<T> => {
+const useApi = <T,>(router: Routes, id?: string): ApiState<T> => {
   const isGetRoute = (GET_ROUTES_LIST as readonly string[]).includes(router);
+  const currentRoute = id ? `${router}/:${id}` : router;
   // GET запрос
   const query = useQuery({
-    queryKey: ["api", router],
+    queryKey: ["api", currentRoute],
     queryFn: async ({ signal }): Promise<T> => {
-      const response = await fetch(`http://localhost:3002/api/${router}`, {
-        signal,
-      });
+      const response = await fetch(
+        `http://localhost:3002/api/${currentRoute}`,
+        {
+          signal,
+        },
+      );
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return response.json();
     },

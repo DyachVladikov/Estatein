@@ -1,22 +1,23 @@
 .swiper {
-    width: 100%;
-    display: flex;
+  user-select: none;
+  width: 100%;
+  display: flex;
 
-    .swiper-slide {
+  .swiper-slide {
     height: auto;
     display: flex;
-    }
+  }
 
-    &-custom-pagination {
-        &-total {
-            color: var(--color-gray-60)
-        }
+  &-custom-pagination {
+    &-total {
+      color: var(--color-gray-60);
     }
-    &-button-disabled {
-        .icon {
-            color: var(--color-gray-50) !important;
-            user-select: none;
-            pointer-events: none !important;
-        }
+  }
+  &-button-disabled {
+    .icon {
+      color: var(--color-gray-50) !important;
+      user-select: none;
+      pointer-events: none !important;
     }
+  }
 }
