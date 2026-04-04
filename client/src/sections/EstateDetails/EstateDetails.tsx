@@ -1,10 +1,9 @@
 import Icon from "@/components/Icon";
 import "./EstateDetails.scss";
-import { useParams } from "react-router-dom";
 import useApi from "@/hooks/useApi";
 import type { Estate } from "@/interfaces/interfaces";
 import getCurrentPrice from "@/utils/getCurrentPrice";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { SwiperSlide } from "swiper/react";
 import { Thumbs, FreeMode, Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -26,9 +25,8 @@ const BASE_SWIPER_CONFIG = {
   },
 };
 
-const EstateDetails = () => {
-  const { id: estateId } = useParams<{ id: string }>();
-  const { data, loading, error } = useApi<Estate>("properties", estateId);
+const EstateDetails = ({ id }: { id?: string }) => {
+  const { data, loading, error } = useApi<Estate>("properties", id);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   const swiperConfigs = useMemo(() => {
@@ -64,10 +62,6 @@ const EstateDetails = () => {
 
     return { miniConfig, mainConfig };
   }, [thumbsSwiper]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   if (loading) {
     return (
@@ -206,8 +200,8 @@ const EstateDetails = () => {
               Key Features and Amenities
             </h3>
             <div className="estate-details__info-aside-list">
-              {data?.featuresKeys?.map((text) => (
-                <Keys text={text} />
+              {data?.featuresKeys?.map((text, index) => (
+                <Keys text={text} key={`key-${index}`} />
               ))}
             </div>
           </div>

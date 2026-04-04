@@ -15,19 +15,28 @@ interface CustomItems {
 
 type ItemsConfig = StringItems | CustomItems;
 
-interface SelectProps {
+export interface SelectProps {
   className?: string;
   iconName: string;
   placeholder: string;
   items: ItemsConfig;
-  mode?: "blackWithIcon";
+  mode?: "blackWithIcon" | "light";
+  arrowIcon?: boolean;
   name: string;
   onChange: (value: string, name: string) => void;
 }
 
 const Select = (props: SelectProps) => {
-  const { className, iconName, placeholder, items, mode, name, onChange } =
-    props;
+  const {
+    className,
+    iconName,
+    placeholder,
+    items,
+    mode,
+    name,
+    arrowIcon,
+    onChange,
+  } = props;
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const arrowRef = useRef<HTMLDivElement>(null);
@@ -124,6 +133,9 @@ const Select = (props: SelectProps) => {
                   "select-custom__button-field--light":
                     mode === "blackWithIcon",
                 },
+                {
+                  "select-custom__button-field--white": mode === "light",
+                },
               )}
             >
               {selectedValue === "" || selectedValue === "None"
@@ -131,10 +143,13 @@ const Select = (props: SelectProps) => {
                 : selectedValue}
             </span>
           </div>
-          <div className="select-custom__button-arrow-icon" ref={arrowRef}>
+          <div
+            className="select-custom__button-arrow-icon"
+            ref={arrowIcon ? null : arrowRef}
+          >
             <Icon
-              name="select-arrow-down"
-              strokeFill
+              name={arrowIcon ? iconName : "select-arrow-down"}
+              strokeFill={arrowIcon ? false : true}
               userSelect={false}
               width="24px"
             />

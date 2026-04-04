@@ -14,6 +14,7 @@ interface BaseProps {
   description: string;
   hasSlider?: boolean;
   dataJsSection?: string;
+  isGrid?: boolean;
 }
 
 type SectionProps = BaseProps &
@@ -36,33 +37,39 @@ const Section = (props: SectionProps) => {
     description,
     hasSlider = true,
     dataJsSection,
+    isGrid,
   } = props;
 
   const ButtonText = "ButtonText" in props ? (props as any).ButtonText : "";
 
   return (
     <section
-      className={classNames("section container", className)}
+      className={classNames("section container", className, {
+        "grid-section": isGrid,
+      })}
       data-js-section={dataJsSection}
     >
-      <img className="section-stars" src={img("/icons/stars.svg")} />
-      <h2 className={`${className}-title `}>{title}</h2>
-      <div className={`${className}__events section-events`}>
-        <p
-          className={`${className}-description description section-description`}
-        >
-          {description}
-        </p>
-        {hasButton && (
-          <Link to={"/properties"} className="hidden-mobile">
-            <Button
-              title={ButtonText}
-              label={ButtonText}
-              className={`${className}-button hidden-mobile button--section`}
-            />
-          </Link>
-        )}
+      <div className="section-block">
+        <img className="section-stars" src={img("/icons/stars.svg")} />
+        <h2 className={`${className}-title `}>{title}</h2>
+        <div className={`${className}__events section-events`}>
+          <p
+            className={`${className}-description description section-description`}
+          >
+            {description}
+          </p>
+          {hasButton && (
+            <Link to={"/properties"} className="hidden-mobile">
+              <Button
+                title={ButtonText}
+                label={ButtonText}
+                className={`${className}-button hidden-mobile button--section`}
+              />
+            </Link>
+          )}
+        </div>
       </div>
+
       <div className="section-main">{children}</div>
       {hasSlider && (
         <div

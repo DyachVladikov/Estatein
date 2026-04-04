@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Input from "../Input";
 import Select from "../Select";
 import "./Form.scss";
@@ -8,16 +8,19 @@ import Button from "../Button";
 import { IMaskInput } from "react-imask";
 import useApi from "@/hooks/useApi";
 import { Link } from "react-router-dom";
+import type { SelectProps } from "../Select/Select";
 
 export interface FormProps {
   id: string;
   elements: ElementsCfg[];
+  mode?: "main" | "estate" | "connect";
+  blockValue?: string;
 }
 
 type ElementsCfg = FormElement | SelectEl;
 
 interface FormElement {
-  type: "input" | "checkbox";
+  type: "input" | "checkbox" | "block";
   title: string;
   placeholder: string;
   iconName?: string;
@@ -36,6 +39,8 @@ interface SelectEl {
   name: keyof FormValues;
   options: string[];
   required?: boolean;
+  mode?: SelectProps["mode"];
+  arrowIcon?: boolean;
 }
 
 interface FormValues {
@@ -78,28 +83,84 @@ const INITIAL_VALUES: FormValues = {
   Contact: "",
 };
 
-const Form = ({ id, elements }: FormProps) => {
+const validate = (
+  elements: ElementsCfg[],
+  values: FormValues,
+  privacyChecked: boolean,
+): FormErrors => {
+  const errors: FormErrors = {};
+
+  elements.forEach((el) => {
+    const val = values[el.name];
+    const isEmpty = !val || val.trim() === "";
+
+    if (el.required && isEmpty) {
+      errors[el.name] = { hasError: true, message: "This field is required" };
+      return;
+    }
+
+    if (!isEmpty) {
+      if (
+        (el.name === "Email" || el.name === "AdditionalEmail") &&
+        !PATTERNS.EMAIL.test(val)
+      ) {
+        errors[el.name] = {
+          hasError: true,
+          message: "Please enter a valid email address (e.g. name@mail.com)",
+        };
+      }
+      if (
+        (el.name === "Phone" || el.name === "AdditionalPhone") &&
+        !PATTERNS.PHONE.test(val)
+      ) {
+        errors[el.name] = {
+          hasError: true,
+          message: "Phone number must contain 11 digits",
+        };
+      }
+      if (el.name === "Message" && val.length < 10) {
+        errors.Message = {
+          hasError: true,
+          message: "Message is too short (min 10 characters)",
+        };
+      }
+    }
+  });
+
+  if (!privacyChecked) {
+    errors.Privacy = {
+      hasError: true,
+      message: "You must agree to the privacy policy",
+    };
+  }
+
+  return errors;
+};
+
+const Form = ({ id, elements, mode, blockValue }: FormProps) => {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [formErrors, setFormErrors] = useState<FormErrors>({});
   const [activeCheckBox, setActiveCheckBox] = useState("phone-form-input");
   const [privacyChecked, setPrivacyChecked] = useState(false);
-  const [isLocked, setIsLocked] = useState(false);
 
-  const { sendData, resData } = useApi<{ message: string; ok: number }>("orders");
+  const { sendData, resData } = useApi<{ message: string; ok: number }>(
+    "orders",
+  );
 
   const phoneRef = useRef<HTMLDivElement>(null);
   const emailRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (resData?.ok === 200) setIsLocked(true);
-  }, [resData]);
+  const isSubmitted = resData?.ok === 200;
 
   const handleChange = (name: string, value: string) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
   const clearError = (name: keyof FormValues | "Privacy") => {
-    setFormErrors((prev) => ({ ...prev, [name]: { hasError: false, message: "" } }));
+    setFormErrors((prev) => ({
+      ...prev,
+      [name]: { hasError: false, message: "" },
+    }));
   };
 
   const handleDoubleInput = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -113,54 +174,32 @@ const Form = ({ id, elements }: FormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newErrors: FormErrors = {};
-
-    elements.forEach((el) => {
-      const val = values[el.name];
-      const isEmpty = !val || val.trim() === "";
-
-      if (el.required && isEmpty) {
-        newErrors[el.name] = { hasError: true, message: "This field is required" };
-        return;
-      }
-
-      if (!isEmpty) {
-        if ((el.name === "Email" || el.name === "AdditionalEmail") && !PATTERNS.EMAIL.test(val)) {
-          newErrors[el.name] = {
-            hasError: true,
-            message: "Please enter a valid email address (e.g. name@mail.com)",
-          };
-        }
-        if ((el.name === "Phone" || el.name === "AdditionalPhone") && !PATTERNS.PHONE.test(val)) {
-          newErrors[el.name] = { hasError: true, message: "Phone number must contain 11 digits" };
-        }
-        if (el.name === "Message" && val.length < 10) {
-          newErrors.Message = { hasError: true, message: "Message is too short (min 10 characters)" };
-        }
-      }
-    });
-
-    if (!privacyChecked) {
-      newErrors.Privacy = { hasError: true, message: "You must agree to the privacy policy" };
-    }
-
-    setFormErrors(newErrors);
-
-    if (Object.keys(newErrors).length === 0 && resData?.ok !== 200) {
+    const errors = validate(elements, values, privacyChecked);
+    setFormErrors(errors);
+    if (Object.keys(errors).length === 0 && !isSubmitted) {
       sendData(values);
     }
   };
 
   return (
     <form id={id} onSubmit={handleSubmit}>
-      <fieldset disabled={isLocked} style={{ padding: 0 }}>
-        <div className={classNames("form", { "successfully-sent": isLocked })}>
+      <fieldset disabled={isSubmitted} style={{ padding: 0 }}>
+        <div
+          className={classNames(
+            "form",
+            { "successfully-sent": isSubmitted },
+            { [`form--${mode}`]: mode },
+          )}
+        >
           {elements.map((element, index) => {
+            const key = `${element.title}-${index}`;
+
             if (element.type === "input" && !element.doubleInput)
               return (
                 <Input
-                  id={`${element.title}-${index}`}
-                  key={`${element.title}-${index}`}
+                  className="input--estate"
+                  id={key}
+                  key={key}
                   {...element}
                   type="text"
                   error={formErrors[element.name]}
@@ -172,13 +211,41 @@ const Form = ({ id, elements }: FormProps) => {
                 />
               );
 
+            if (element.type === "block")
+              return (
+                <div
+                  key={key}
+                  className="form-block"
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "16px",
+                    gridColumn: "-1/1",
+                  }}
+                >
+                  <span>Selected Property</span>
+                  <div
+                    className="input-wrapper"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <span>{blockValue}</span>
+                    <Icon
+                      width="24px"
+                      height="24px"
+                      userSelect={false}
+                      name={element.iconName ?? ""}
+                    />
+                  </div>
+                </div>
+              );
+
             if (element.type === "select")
               return (
                 <div
                   className={classNames("form-select", {
                     "form-select--large": element.modification === "Large",
                   })}
-                  key={`${element.title}-${index}`}
+                  key={key}
                 >
                   <h3 className="select-title h6">{element.title}</h3>
                   <Select
@@ -193,7 +260,7 @@ const Form = ({ id, elements }: FormProps) => {
 
             if (element.doubleInput)
               return (
-                <div className="input--double" key={`${element.title}-${index}`}>
+                <div className="input--double" key={key}>
                   <h3 className="input--double-label h6">{element.title}</h3>
                   <div className="input--double-wrapper">
                     <div
@@ -201,12 +268,19 @@ const Form = ({ id, elements }: FormProps) => {
                       id="phone-form-input"
                       onClick={handleDoubleInput}
                     >
-                      <Icon name="phone" width="24px" height="24px" userSelect={false} />
+                      <Icon
+                        name="phone"
+                        width="24px"
+                        height="24px"
+                        userSelect={false}
+                      />
                       <IMaskInput
                         mask={"+{7} (000) 000-00-00"}
                         type="text"
                         placeholder="Enter Your Number"
-                        onChange={(e) => handleChange("AdditionalPhone", e.currentTarget.value)}
+                        onChange={(e) =>
+                          handleChange("AdditionalPhone", e.currentTarget.value)
+                        }
                       />
                       <div
                         className="input--double-phone-checkbox input-checkbox is-active"
@@ -218,11 +292,18 @@ const Form = ({ id, elements }: FormProps) => {
                       id="email-form-input"
                       onClick={handleDoubleInput}
                     >
-                      <Icon name="email" width="24px" height="24px" userSelect={false} />
+                      <Icon
+                        name="email"
+                        width="24px"
+                        height="24px"
+                        userSelect={false}
+                      />
                       <input
                         type="text"
                         placeholder="Enter Your Email"
-                        onChange={(e) => handleChange("AdditionalEmail", e.currentTarget.value)}
+                        onChange={(e) =>
+                          handleChange("AdditionalEmail", e.currentTarget.value)
+                        }
                       />
                       <div
                         className="input--double-email-checkbox input-checkbox"
@@ -234,9 +315,12 @@ const Form = ({ id, elements }: FormProps) => {
               );
           })}
           <div className="form-textarea">
-            <label htmlFor="user-message" className="h6">Message</label>
+            <label htmlFor="user-message" className="h6">
+              Message
+            </label>
             <div className="form-textarea-wrapper">
               <textarea
+                className={classNames({ [`form-textarea--${mode}`]: mode })}
                 placeholder="Enter your Message here.."
                 id="user-message"
                 onChange={(e) => handleChange("Message", e.currentTarget.value)}
@@ -257,15 +341,24 @@ const Form = ({ id, elements }: FormProps) => {
                   clearError("Privacy");
                 }}
               />
-              <label className="form-send__privacy-label description" htmlFor="form-checkbox">
+              <label
+                className="form-send__privacy-label description"
+                htmlFor="form-checkbox"
+              >
                 <span>I agree with </span>
-                <Link to="/"><u>Terms of Use</u></Link>
+                <Link to="/">
+                  <u>Terms of Use</u>
+                </Link>
                 <span> and </span>
-                <Link to="/"><u>Privacy Policy</u></Link>
+                <Link to="/">
+                  <u>Privacy Policy</u>
+                </Link>
               </label>
             </div>
             <Button
-              className={classNames("form-send-button", { deactivated: resData?.ok === 200 })}
+              className={classNames("form-send-button", {
+                deactivated: isSubmitted,
+              })}
               title="Send Your Message"
               label="Send Your Message"
               mode="purple"
@@ -274,9 +367,7 @@ const Form = ({ id, elements }: FormProps) => {
           </div>
         </div>
       </fieldset>
-      {resData?.ok === 200 && (
-        <div className="form-suc-message">{resData.message}</div>
-      )}
+      {isSubmitted && <div className="form-suc-message">{resData.message}</div>}
     </form>
   );
 };
