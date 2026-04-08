@@ -32,7 +32,8 @@ type Routes = GetRoutes | PostRoutes;
 
 const useApi = <T,>(router: Routes, id?: string): ApiState<T> => {
   const isGetRoute = (GET_ROUTES_LIST as readonly string[]).includes(router);
-  const currentRoute = id ? `${router}/:${id}` : router;
+  const currentRoute = id ? `${router}/${id}` : router;
+
   // GET запрос
   const query = useQuery({
     queryKey: ["api", currentRoute],

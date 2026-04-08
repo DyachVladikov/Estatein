@@ -32,6 +32,50 @@ export interface Estate {
   type: string;
   annotation: string;
   featuresKeys?: string[];
+  additionalPrices: AdditionalPrices | null;
+}
+
+export interface CostItem {
+  amount: number;
+  note: string;
+}
+
+export interface CostItemMixed {
+  amount: number | string;
+  note: string;
+}
+
+export interface DownPayment {
+  amount: number;
+  percentage: number;
+}
+
+export interface AdditionalFees {
+  propertyTransferTax: CostItem;
+  legalFees: CostItem;
+  homeInspection: CostItem;
+  propertyInsuranceAnnual: CostItem;
+  mortgageFees: CostItemMixed;
+  totalAdditionalFees: number;
+}
+
+export interface InitialCosts {
+  downPayment: DownPayment;
+  mortgageAmount: CostItem;
+}
+
+export interface MonthlyExpenses {
+  propertyTaxes: CostItem;
+  hoaFee: CostItem;
+  propertyInsurance: CostItem;
+  mortgagePayment: CostItemMixed;
+}
+
+export interface AdditionalPrices {
+  _id: string;
+  additionalFees: AdditionalFees;
+  initialCosts: InitialCosts;
+  monthlyExpenses: MonthlyExpenses;
 }
 
 export interface FAQ {

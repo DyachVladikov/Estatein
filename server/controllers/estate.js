@@ -1,5 +1,5 @@
 import Estate from "../models/Estate.js";
-
+import EstatePrices from "../models/EstatePrices.js";
 export const getCollection = async (req, res) => {
   try {
     const estate = await Estate.find();
@@ -16,12 +16,9 @@ export const getCollection = async (req, res) => {
 };
 export const getEstate = async (req, res) => {
   try {
-    const estateId = String(req.params.id).slice(
-      1,
-      String(req.params.id).length,
-    );
+    const estateId = String(req.params.id);
 
-    const estate = await Estate.findById(estateId);
+    const estate = await Estate.findById(estateId).populate("additionalPrices");
 
     if (estate) {
       return res.json(estate);

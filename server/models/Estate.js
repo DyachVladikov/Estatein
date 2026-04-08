@@ -62,6 +62,10 @@ const EstateSchema = new mongoose.Schema(
       min: [1800, "Год постройки не раньше 1800"],
       max: [new Date().getFullYear() + 1, "Год не может быть из будущего"],
     },
+    additionalPrices: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "EstatePricesList",
+    },
   },
   {
     timestamps: true,
