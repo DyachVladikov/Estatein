@@ -1,0 +1,38 @@
+.service-banner {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  &__wrapper {
+    background: linear-gradient(
+      96deg,
+      #262626 -26.82%,
+      rgba(38, 38, 38, 0) 40.46%
+    );
+    width: 100%;
+    height: fluid-from-desktop(390, 315);
+    padding: fluid-from-desktop(150, 100) fluid-from-desktop(400, 200) 100px
+      fluid-from-desktop(162, 80);
+    border-top: var(--border);
+    border-bottom: var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &-title {
+      margin-bottom: 10px;
+    }
+    @include desktop-above {
+      max-width: 1920px;
+      margin-inline: auto;
+      border: var(--border);
+      border-radius: var(--border-radius-m);
+    }
+    @include laptop {
+      padding: fluid(100, 50) fluid(80, 16);
+      height: fluid(319, 278);
+    }
+  }
+  @include mobile {
+    row-gap: 10px;
+  }
+}

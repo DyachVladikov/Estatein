@@ -1,81 +1,77 @@
 .button {
+  background-color: var(--color-gray-10);
 
-    background-color: var(--color-gray-10);
+  width: 196px;
+  height: 63px;
 
-    width: 196px;
-    height: 63px;
+  padding: 18px 24px;
 
-    padding: 18px 24px;
-    
-    border: var(--border);
-    border-radius: var(--border-radius-xs);
-    text-wrap: nowrap;
+  border: var(--border);
+  border-radius: var(--border-radius-xs);
+  text-wrap: nowrap;
+  text-align: center;
+
+  span {
+    color: var(--color-white);
+    font-size: fluid(18, 14);
     text-align: center;
-    
-    span {
-        color: var(--color-white);
-        font-size: fluid(18,14);
-        text-align: center;
-        width: 100%;
+    width: 100%;
+  }
+
+  &--onlyIcon {
+    border: none;
+    width: auto;
+    height: auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--black {
+    background-color: var(--color-gray-08);
+  }
+
+  &--icon-before {
+    display: flex;
+    column-gap: 6px;
+  }
+
+  &--purple {
+    border: 1px solid transparent;
+    background-color: var(--color-purple-60);
+  }
+  &--text-only {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    width: auto;
+    height: auto;
+    text-align: left;
+
+    @include hover {
+      transform: scale(1.05);
+      span {
+        color: var(--color-purple-75);
+      }
     }
+  }
 
-    &--onlyIcon {
-        
-        border: none;
-        width: auto;
-        height: auto;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        
+  &--section {
+    width: auto;
 
+    @include mobile {
+      margin-right: auto;
+      height: 50px;
+      padding: 14px 12px;
+      width: 170px;
     }
+  }
 
-    &--icon-before {
-        display: flex; 
-        column-gap: 6px;
+  &:not(.button--onlyIcon, .button--text-only) {
+    @include hover {
+      border: var(--border);
+      border-color: var(--color-white);
     }
-
-    &--purple {
-        border: 1px solid transparent;
-        background-color: var(--color-purple-60);
-    }
-    &--text-only {
-        border: none;
-        background-color: transparent;
-        padding: 0;
-        width: auto;
-        height: auto;
-        text-align: left;
-
-        @include hover {
-            transform: scale(1.05);
-            span {
-                color: var(--color-purple-75);
-            }
-            
-        }
-    }
-
-    &--section {
-        width: auto;
-
-        @include mobile {
-            margin-right: auto;
-            height: 50px;
-            padding: 14px 12px;
-            width: 170px;
-        }
-
-    }
-
-    &:not(.button--onlyIcon, .button--text-only)
-    {
-        @include hover {
-            border: var(--border);
-            border-color: var(--color-white);
-        }
-    }
-    
+  }
 }

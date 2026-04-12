@@ -1,0 +1,81 @@
+.unlock-card-large {
+  position: relative;
+  border: var(--border);
+  border-radius: var(--border-radius-s);
+  padding: fluid-from-desktop(50, 40);
+  display: flex;
+  flex-direction: column;
+  row-gap: fluid-from-desktop(30, 20);
+  z-index: 2;
+
+  &.in-grid {
+    grid-column: 2 / 4;
+
+    @include middle {
+      grid-column: 1/-1;
+    }
+  }
+
+  overflow: hidden;
+
+  &__title {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+
+    &-label {
+      font-size: fluid(30, 20);
+      font-weight: 700;
+    }
+    &-button {
+      width: auto;
+      padding-inline: fluid(24, 18);
+      padding-block: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include mobile-s {
+        width: 100%;
+        margin-inline: auto;
+        &-wrapper {
+          width: 100%;
+        }
+      }
+    }
+
+    @include mobile-s {
+      flex-direction: column;
+      align-items: start;
+    }
+  }
+
+  @include laptop {
+    padding: fluid(40, 24);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    // Подключи сюда свой узор из lines.svg или градиент
+    // Для примера я использую градиент, имитирующий линии
+    background-image: url("backgrounds/1.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    opacity: 0.08;
+
+    // 2. Растягиваем паттерн (scale(2) = 2x, scale(3.5) = 3.5x и т.д.)
+    // transform-origin: center; чтобы растягивался от центра
+    transform: scaleX(2);
+
+    // -----------------------------------------------------
+
+    z-index: -1; // Фон ниже контента
+  }
+}

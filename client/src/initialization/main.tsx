@@ -8,11 +8,13 @@ import AboutUs from "@/pages/AboutUs";
 import App from "./App";
 import Properties from "@/pages/Properties";
 import PropertyDetails from "@/pages/PropertyDetails";
+import Service from "@/pages/Service";
 
 const PATHS = {
   ABOUT_US: "about-us",
   PROPERTIES: "properties",
   PROPERTY_DETAILS: "properties/:id",
+  SERVICE: "service",
 } as const;
 
 const router = createBrowserRouter([
@@ -24,6 +26,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: PATHS.PROPERTIES, element: <Properties /> },
       { path: PATHS.PROPERTY_DETAILS, element: <PropertyDetails /> },
+      { path: PATHS.SERVICE, element: <Service /> },
     ],
   },
 ]);

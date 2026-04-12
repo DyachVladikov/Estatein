@@ -1,0 +1,20 @@
+.unlock-value {
+  --gridColums: 3;
+  --gridRows: 2;
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(var(--gridColums), 1fr);
+    grid-template-rows: repeat(var(--gridRows), 1fr);
+    gap: fluid(30, 20);
+
+    @include middle {
+      --gridColums: 2;
+      --gridRows: 3;
+    }
+    @include mobile {
+      --gridColums: 1;
+      --gridRows: auto;
+    }
+  }
+}

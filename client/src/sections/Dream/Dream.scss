@@ -1,244 +1,232 @@
 .dream {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: var(--border);
+  row-gap: fluid-from-desktop(20, 10);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-top: var(--border);
-    row-gap: fluid-from-desktop(20,10);
+  @include middle {
+    row-gap: 40px;
+  }
+
+  &-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+
+    @include desktop {
+      padding-right: 0 !important;
+    }
 
     @include middle {
-        row-gap: 40px;
+      grid-template-rows: auto 1fr;
+      grid-template-columns: 1fr;
+      padding-right: var(--container-padding-x) !important;
     }
 
-    
+    @include mobile {
+      margin-top: 40px;
+    }
+  }
 
-    &-wrapper {
+  &__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: fluid(60, 40);
+    padding-top: 144px;
+    padding-right: 80px;
+    margin-right: auto !important;
+
+    &-description {
+      color: var(--color-gray-60);
+      margin-top: -36px;
+    }
+
+    &-actions {
+      display: flex;
+      gap: 16px fluid(20, 16);
+
+      &-lm {
+        background-color: transparent;
+        @include hover {
+          border-color: var(--color-white);
+        }
+      }
+
+      &-bp {
+        @include hover {
+          border: var(--border);
+          border-color: var(--color-white);
+        }
+      }
+
+      @include mobile {
+        &.button,
+        &-lm,
+        &-bp {
+          width: 100%;
+        }
+        flex-direction: column;
+      }
+      @include mobile {
+        width: 100%;
+      }
+    }
+
+    &-statistic-list {
+      display: flex;
+      column-gap: fluid-to-laptop(20, 16);
+
+      @include mobile {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        position: relative;
+        grid-template-rows: 1fr 1fr;
+        gap: 12px;
 
-        @include desktop {
-            padding-right: 0 !important;
+        & > :nth-last-child(1) {
+          grid-column: 1 / -1;
+          & > div {
+            width: 100%;
+            text-align: center;
+          }
         }
-
-        @include middle {
-            grid-template-rows: auto 1fr;
-            grid-template-columns: 1fr;
-            padding-right: var(--container-padding-x) !important;
-        }
-
-        @include mobile {
-            margin-top: 40px;
-        }
-
+      }
     }
 
-    &__info {
-        
-        display: flex;
-        flex-direction: column;
-        row-gap: fluid(60,40);
-        padding-top: 144px;
-        padding-right: 80px;
-        margin-right: auto !important;
-
-        &-description {
-            color: var(--color-gray-60);
-            margin-top: -36px;
-        }
-
-        
-        &-actions {
-            display: flex;
-            gap: 16px fluid(20,16);
-
-            &-lm {
-                background-color: transparent;
-                @include hover {
-                    border-color: var(--color-white);
-                }
-            }
-
-            &-bp {
-                @include hover {
-                    border: var(--border);
-                    border-color: var(--color-white);
-                }
-            }
-
-            @include mobile {
-
-                &.button, &-lm, &-bp {
-                    
-                    width: 100%;
-                }
-                flex-direction: column;
-            }
-            @include mobile {
-                width: 100%;
-            }
-        }
-
-        &-statistic-list {
-            display: flex;
-            column-gap: fluid-to-laptop(20,16);
-
-            @include mobile {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 1fr 1fr;
-                gap: 12px;
-
-                & > :nth-last-child(1) {
-                    grid-column: 1 / -1;
-                    & > div {
-                        width: 100%;
-                        text-align: center;
-                    }
-                }
-            }
-
-            
-        }
-
-        @include middle {
-            padding-top: 40px;
-            padding-right: 0;
-            margin-inline: auto;
-            align-items: center;
-        }
-
-        @include mobile {
-            padding-top: 60px;
-        }
-        
+    @include middle {
+      padding-top: 40px;
+      padding-right: 0;
+      margin-inline: auto;
+      align-items: center;
     }
 
-    &__img {
-        width: fluid(920,358);
-        height: fluid(814,302);
-        box-shadow: -2px 0px 11px -2px var(--color-purple-75);
-        max-width: 100%;
-        
-        @include middle {
-            order: -1;
-            margin-inline: auto;
-        }
+    @include mobile {
+      padding-top: 60px;
+    }
+  }
 
-        @include mobile {
-            border-radius: var(--border-radius-s);
-        }
+  &__img {
+    width: fluid(920, 358);
+    height: fluid(814, 302);
+    box-shadow: -2px 0px 11px -2px var(--color-purple-75);
+    max-width: 100%;
 
+    @include middle {
+      order: -1;
+      margin-inline: auto;
     }
 
-    &__emblem {
-        position: absolute;
+    @include mobile {
+      border-radius: var(--border-radius-s);
+    }
+  }
 
-        width: fluid(175, 117);
-        height: fluid(175, 117);
-        top: 20px;
-        left: 52%;
-        top: 20%;
-        translate: calc(-50% + var(--container-padding-x)) -50%;
+  &__emblem {
+    position: absolute;
 
-        @include desktop-above {
-            translate: -50% -50%;
-        }
+    width: fluid(175, 117);
+    height: fluid(175, 117);
+    top: 20px;
+    left: 52%;
+    top: 20%;
+    translate: calc(-50% + var(--container-padding-x)) -50%;
 
-        @include laptop {
-            translate: 30% -80%;
-        }
-
-        @include middle {
-            left: 20%;
-            top: 55%;
-            translate: -50% -50%;
-        }
-
-        @include tablet {
-            top: 47%;
-        }
-
-        @include mobile {
-            top: 35%;
-            left: 17%;
-        }
-
-        @include mobile-s {
-            top: 30%;
-        } 
+    @include desktop-above {
+      translate: -50% -50%;
     }
 
-    &__actions {
+    @include laptop {
+      translate: 30% -80%;
+    }
 
-        border: var(--border);
+    @include middle {
+      left: 20%;
+      top: 55%;
+      translate: -50% -50%;
+    }
+
+    @include tablet {
+      top: 47%;
+    }
+
+    @include mobile {
+      top: 35%;
+      left: 17%;
+    }
+
+    @include mobile-s {
+      top: 30%;
+    }
+  }
+
+  &__actions {
+    border: var(--border);
+    width: 100%;
+
+    padding: 20px;
+
+    &-wrapper {
+      width: auto;
+      @include mobile-above {
         width: 100%;
-        
+      }
 
-        padding: 20px;
-
-        &-wrapper {
-
-            width: auto;
-            @include mobile-above {
-                width: 100%;
-            }
-
-            @include mobile {
-                width: 100%;
-                padding-inline: var(--container-padding-x);
-                max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
-            }
-            
-        }
-
-        &-list {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            column-gap: fluid-from-desktop(20,10);
-
-
-            @include desktop-above {
-                width: 100%;
-                max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
-                margin-inline: auto;
-                // padding-inline: var(--container-padding-x);
-
-                justify-content: space-between;
-            }
-
-            @include laptop {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr)); 
-                grid-template-rows: repeat(2, minmax(0, 1fr)); 
-                gap: 10px;
-            }
-        }
-
-        &-item {
-
-            @include laptop {
-                width: 100%;
-            }
-        }
-
-        @include desktop-above {
-            max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
-            margin-inline: auto;
-            padding-block: 0;
-            padding-inline: var(--container-padding-x);
-            border: none;
-            width: 100%;
-        }
-
-        @include mobile {
-            border-radius: var(--border-radius-s);
-            width: 100%;
-            padding-inline: var(--container-padding-x);
-            max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
-            padding: 10px;
-        }
-        
+      @include mobile {
+        width: 100%;
+        // padding-inline: var(--container-padding-x);
+        max-width: calc(
+          var(--container-width) + var(--container-padding-x) * 2
+        );
+      }
     }
+
+    &-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      column-gap: fluid-from-desktop(20, 10);
+
+      @include desktop-above {
+        width: 100%;
+        max-width: calc(
+          var(--container-width) + var(--container-padding-x) * 2
+        );
+        margin-inline: auto;
+
+        justify-content: space-between;
+      }
+
+      @include laptop {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+    }
+
+    &-item {
+      @include laptop {
+        width: 100%;
+        & > a {
+          width: 100%;
+        }
+      }
+    }
+
+    @include desktop-above {
+      max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+      margin-inline: auto;
+      padding-block: 0;
+      padding-inline: var(--container-padding-x);
+      border: none;
+      width: 100%;
+    }
+
+    @include mobile {
+      width: 100%;
+      padding-inline: var(--container-padding-x);
+      max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+      padding: 10px;
+    }
+  }
 }
