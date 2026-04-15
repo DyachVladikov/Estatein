@@ -6,6 +6,7 @@ import Button from "@/components/Button";
 import Icon from "@/components/Icon";
 import { img } from "@/utils/RepairOmgSrc";
 import { Link } from "react-router-dom";
+import type React from "react";
 
 interface BaseProps {
   className: string;
@@ -15,6 +16,7 @@ interface BaseProps {
   hasSlider?: boolean;
   dataJsSection?: string;
   isGrid?: boolean;
+  elementInBlock?: React.ReactNode;
 }
 
 type SectionProps = BaseProps &
@@ -38,6 +40,7 @@ const Section = (props: SectionProps) => {
     hasSlider = true,
     dataJsSection,
     isGrid,
+    elementInBlock,
   } = props;
 
   const ButtonText = "ButtonText" in props ? (props as any).ButtonText : "";
@@ -68,9 +71,12 @@ const Section = (props: SectionProps) => {
             </Link>
           )}
         </div>
+        {elementInBlock && (
+          <div className="section-element">{elementInBlock}</div>
+        )}
       </div>
 
-      <div className="section-main">{children}</div>
+      <div className={classNames("section-main", className)}>{children}</div>
       {hasSlider && (
         <div
           className={classNames(

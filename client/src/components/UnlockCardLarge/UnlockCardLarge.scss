@@ -18,6 +18,18 @@
 
   overflow: hidden;
 
+  &--compact {
+    .unlock-card-large__title-label {
+      font-size: fluid(24, 18);
+      font-weight: 600;
+    }
+
+    @include laptop {
+      max-width: 600px;
+      margin-inline: auto;
+    }
+  }
+
   &__title {
     display: flex;
     gap: 20px;
@@ -42,6 +54,11 @@
         &-wrapper {
           width: 100%;
         }
+      }
+
+      &.is-compact {
+        width: 100%;
+        height: 50px;
       }
     }
 

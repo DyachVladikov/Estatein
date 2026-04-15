@@ -34,6 +34,10 @@
     }
   }
 
+  &--dark {
+    background-color: var(--color-gray-08);
+  }
+
   @include laptop {
     padding: fluid(40, 24);
   }

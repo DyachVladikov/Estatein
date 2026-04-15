@@ -1,0 +1,24 @@
+.investments {
+  &.grid-section {
+    grid-template-columns: 1fr 2fr;
+    column-gap: fluid-from-desktop(60, 50);
+
+    @include laptop {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--color-gray-10);
+    border-radius: var(--border-radius-s);
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+}

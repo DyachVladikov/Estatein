@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import Icon from "../Icon";
 import "./ValueCard.scss";
 
@@ -5,12 +6,15 @@ interface ValueCardProps {
   title: string;
   description: string;
   iconName: string;
+  mode?: "dark";
 }
 
 const ValueCard = (props: ValueCardProps) => {
-  const { title, description, iconName } = props;
+  const { title, description, iconName, mode } = props;
   return (
-    <div className="value-card">
+    <div
+      className={classNames("value-card", { [`value-card--${mode}`]: mode })}
+    >
       <div className="value-card__title">
         <div className="value-card__title-icon block-link__wrapper-icon">
           <Icon

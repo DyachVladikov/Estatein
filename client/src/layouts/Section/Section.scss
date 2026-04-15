@@ -5,6 +5,7 @@
     display: grid;
     grid-template-columns: 1fr 2.5fr;
     column-gap: 100px;
+    row-gap: 40px;
     & > .section-main {
       margin: 0;
     }
@@ -32,6 +33,10 @@
     user-select: none;
   }
 
+  &-element {
+    margin-top: fluid-from-desktop-to-mobile(50, 30);
+  }
+
   &-events {
     display: flex;
     align-items: center;
@@ -43,6 +48,11 @@
   }
   &-main {
     margin-block: fluid(80, 40) fluid(50, 30);
+
+    &.investments {
+      display: flex;
+      align-items: center;
+    }
   }
 
   &-slider__actions {
