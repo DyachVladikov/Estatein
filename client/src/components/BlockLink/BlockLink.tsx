@@ -1,36 +1,42 @@
-import { Link } from "react-router-dom"
-import Icon from "../Icon"
-import "./BlockLink.scss"
+import { Link } from "react-router-dom";
+import Icon from "../Icon";
+import "./BlockLink.scss";
 
 interface BlockLinkProps {
-    iconName: string,
-    label: string,
+  iconName: string;
+  label: string;
+  href: string;
 }
 
-const BlockLink = (props : BlockLinkProps) => {
+const BlockLink = (props: BlockLinkProps) => {
+  const { iconName, label, href } = props;
 
-    const {
-        iconName,
-        label,
-    } = props
+  return (
+    <Link to={`${href}`} className="">
+      <div className="block-link">
+        <div className="block-link-arrow">
+          <Icon
+            className="block-link-arrow-icon"
+            name="arrow-right-up"
+            color="var(--color-gray-30)"
+            userSelect={false}
+          />
+        </div>
 
-    return (
-        <Link to={"/properties"} className="">
-            <div className="block-link">
-                <div className="block-link-arrow">
-                    <Icon className="block-link-arrow-icon" name="arrow-right-up" color="var(--color-gray-30)" userSelect = {false}/>
-                </div>
-                
-                <div className="block-link__wrapper-icon">
-                    <Icon className="block-link-icon" name={iconName} 
-                     userSelect = {false} width="34px" height="34px" color="var(--color-purple-75)"
-                     />
-                </div>
-                <span className="block-link-label">{label}</span>
-            </div>
-        </Link>
-        
-    )
-}
+        <div className="block-link__wrapper-icon">
+          <Icon
+            className="block-link-icon"
+            name={iconName}
+            userSelect={false}
+            width="34px"
+            height="34px"
+            color="var(--color-purple-75)"
+          />
+        </div>
+        <span className="block-link-label">{label}</span>
+      </div>
+    </Link>
+  );
+};
 
-export default BlockLink
+export default BlockLink;

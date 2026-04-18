@@ -1,0 +1,30 @@
+.tab-card {
+  padding: 40px;
+  height: 100%;
+  border: var(--border);
+  border-radius: var(--border-radius-xxs);
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 14px;
+
+    &-title {
+      font-size: fluid(30, 20);
+      font-size: 600;
+    }
+  }
+  &__badges-list {
+    display: flex;
+    column-gap: 10px;
+    margin-top: auto;
+  }
+  &-button {
+    &.button {
+      width: 100%;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import Input from "../Input";
 import Select from "../Select";
 import "./Form.scss";
@@ -17,7 +17,7 @@ export interface FormProps {
   blockValue?: string;
 }
 
-type ElementsCfg = FormElement | SelectEl;
+export type ElementsCfg = FormElement | SelectEl;
 
 interface FormElement {
   type: "input" | "checkbox" | "block";
@@ -57,6 +57,8 @@ interface FormValues {
   Phone: string;
   Type: string;
   Contact: string;
+  Inquiry: string;
+  Hear: string;
 }
 
 type FormError = { hasError: boolean; message: string };
@@ -81,6 +83,8 @@ const INITIAL_VALUES: FormValues = {
   Phone: "",
   Type: "",
   Contact: "",
+  Inquiry: "",
+  Hear: "",
 };
 
 const validate = (

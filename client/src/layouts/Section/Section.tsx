@@ -7,6 +7,8 @@ import Icon from "@/components/Icon";
 import { img } from "@/utils/RepairOmgSrc";
 import { Link } from "react-router-dom";
 import type React from "react";
+import useIsMobile from "@/hooks/useIsMobile";
+import { useEffect } from "react";
 
 interface BaseProps {
   className: string;
@@ -45,6 +47,9 @@ const Section = (props: SectionProps) => {
 
   const ButtonText = "ButtonText" in props ? (props as any).ButtonText : "";
 
+  const isMobile = useIsMobile(1023);
+  const indexSliceText = description.search(/[.!?]/);
+
   return (
     <section
       className={classNames("section container", className, {
@@ -57,9 +62,14 @@ const Section = (props: SectionProps) => {
         <h2 className={`${className}-title `}>{title}</h2>
         <div className={`${className}__events section-events`}>
           <p
-            className={`${className}-description description section-description`}
+            className={classNames(
+              `${className}-description description section-description`,
+              { "section-description--wide": !hasButton },
+            )}
           >
-            {description}
+            {isMobile && indexSliceText != -1
+              ? description.slice(0, indexSliceText + 1)
+              : description}
           </p>
           {hasButton && (
             <Link to={"/properties"} className="hidden-mobile">

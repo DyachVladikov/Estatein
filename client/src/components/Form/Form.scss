@@ -16,6 +16,15 @@
     }
   }
 
+  &--connect {
+    --GridColumns: 3;
+    --GridRows: 4;
+
+    & > .form-select {
+      max-width: none;
+    }
+  }
+
   padding: fluid-from-desktop(100, 50);
   border: var(--border);
   border-radius: var(--border-radius-s);

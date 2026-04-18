@@ -4,7 +4,7 @@ import "./PriceCard.scss";
 import getCurrentPrice from "@/utils/getCurrentPrice";
 
 const PriceCard = (props: PriceCardType) => {
-  const { title, rows, total } = props;
+  const { title, rows } = props;
 
   return (
     <div className="price-card">

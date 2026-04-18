@@ -45,6 +45,15 @@
   }
   &-description {
     max-width: 1000px;
+
+    &--wide {
+      max-width: none;
+      padding-right: 20%;
+
+      @include laptop-large {
+        padding: 0;
+      }
+    }
   }
   &-main {
     margin-block: fluid(80, 40) fluid(50, 30);

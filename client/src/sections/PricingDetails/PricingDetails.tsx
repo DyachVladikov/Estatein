@@ -4,7 +4,6 @@ import useApi from "@/hooks/useApi";
 import type { AdditionalPrices, Estate } from "@/interfaces/interfaces";
 import getCurrentPrice from "@/utils/getCurrentPrice";
 import PriceCardComponent from "@/components/PriceCard";
-import { data } from "react-router-dom";
 
 export interface PriceRow {
   label: string;

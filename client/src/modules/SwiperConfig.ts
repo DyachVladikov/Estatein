@@ -76,7 +76,7 @@ function CreateSwiperConfig({
       config.pagination = {
         el: paginationEl,
         type: "custom",
-        renderCustom: (swiper, current, total) => {
+        renderCustom: (_swiper, current, total) => {
           const formattedCurrent = String(current).padStart(2, "0");
           const formattedTotal = String(total).padStart(2, "0");
           return `<span class="swiper-custom-pagination">

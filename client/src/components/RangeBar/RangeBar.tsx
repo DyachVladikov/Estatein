@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import "./RangeBar.scss";
 import classNames from "classnames";
 
@@ -48,7 +48,7 @@ export const RangeBar: React.FC<{
     return (e as MouseEvent).clientX;
   };
 
-  const handleStart = useCallback((which: "left" | "right", e: React.MouseEvent | React.TouchEvent) => {
+  const handleStart = useCallback((which: "left" | "right", _e: React.MouseEvent | React.TouchEvent) => {
     dragging.current = which;
     
     // Mouse события

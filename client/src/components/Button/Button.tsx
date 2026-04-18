@@ -67,7 +67,9 @@ const Button = (props: ButtonProps) => {
       {...CurrentProps}
       aria-labelledby={title}
     >
-      {hasIconBefore && iconName != "" && <Icon name={iconName} />}
+      {hasIconBefore && iconName != "" && (
+        <Icon name={iconName} userSelect={false} />
+      )}
       {!hasOnlyIcon && <span className={`${NameClass}-label`}>{label}</span>}
       {!hasIconBefore && iconName != "" && (
         <Icon name={iconName} {...iconProps} />

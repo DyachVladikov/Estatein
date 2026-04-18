@@ -47,7 +47,7 @@ const Header = () => {
 
   useEffect(() => {
     const htmlEl = document.querySelector("[data-js-html]");
-    htmlEl?.classList.toggle("is-lock");
+    htmlEl?.classList.toggle("is-lock", isModalOpen);
   }, [isModalOpen]);
 
   const navigation = (

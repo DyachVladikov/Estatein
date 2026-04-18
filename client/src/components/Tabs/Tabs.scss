@@ -1,0 +1,26 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+
+  &__headers {
+    display: flex;
+    column-gap: 10px;
+
+    &-button {
+      width: 158px;
+      height: 63px;
+      padding: 0;
+
+      &.tab-active {
+        background-color: var(--color-gray-08);
+      }
+    }
+  }
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 30px;
+  }
+}

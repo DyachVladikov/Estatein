@@ -1,7 +1,5 @@
 import classNames from "classnames"
 import "./Icon.scss"
-import getSVGElement from "../../utils/getSVGElement.ts"
-import { useEffect, useState } from "react"
 import { useInlineSvg } from "@/hooks/useInlineSvg.tsx"
 
 interface IconProps {

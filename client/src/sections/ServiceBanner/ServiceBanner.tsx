@@ -1,35 +1,29 @@
 import BlockLink from "@/components/BlockLink";
 import "./ServiceBanner.scss";
+import classNames from "classnames";
 
-const ServiceBanner = () => {
-  const actions = [
-    {
-      iconName: "home",
-      label: "Find Your Dream Home",
-    },
-    {
-      iconName: "camera",
-      label: "Unlock Property Value",
-    },
-    {
-      iconName: "buildings",
-      label: "Effortless Property Management",
-    },
-    {
-      iconName: "light",
-      label: "Smart Investments, Informed Decisions",
-    },
-  ] as const;
+interface ServiceBannerProps {
+  title: string;
+  description: string;
+  className?: string;
+  actions: Actions[];
+}
+
+interface Actions {
+  iconName: string;
+  label: string;
+  href: string;
+}
+
+const ServiceBanner = (props: ServiceBannerProps) => {
+  const { title, description, actions, className } = props;
+
   return (
-    <section className="service-banner">
+    <section className={classNames("service-banner", className)}>
       <div className="service-banner__wrapper">
-        <h1 className="service-banner__wrapper-title h2">
-          Elevate Your Real Estate Experience
-        </h1>
+        <h1 className="service-banner__wrapper-title h2">{title}</h1>
         <p className="service-banner__wrapper-description description">
-          Welcome to Estatein, where your real estate aspirations meet expert
-          guidance. Explore our comprehensive range of services, each designed
-          to cater to your unique needs and dreams.
+          {description}
         </p>
       </div>
       <div className="service-banner__actions dream__actions-wrapper">

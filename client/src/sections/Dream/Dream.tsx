@@ -90,7 +90,7 @@ const Dream = () => {
                 className="dream__actions-item"
                 key={`link-to-properties-${index}`}
               >
-                <BlockLink {...action} />
+                <BlockLink {...action} href="/properties" />
               </li>
             ))}
           </ul>
