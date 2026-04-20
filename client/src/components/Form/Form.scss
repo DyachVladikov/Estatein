@@ -187,7 +187,7 @@
 
     &-button {
       width: 250px;
-      height: 60px;
+      height: fluid(60, 52);
       // padding: 18px 46px;
       text-align: center;
       padding: 0;

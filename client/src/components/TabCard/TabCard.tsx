@@ -24,8 +24,8 @@ const TabCard = (props: TabCardProps) => {
         <p className="tab-card__info-description description">{description}</p>
       </div>
       <ul className="tab-card__badges-list">
-        {badges.map((bage) => (
-          <li className="tab-card__badges-item">
+        {badges.map((bage, index) => (
+          <li className="tab-card__badges-item" key={`${bage}-${index}`}>
             <Bage className="tab-card-bage" {...bage} />
           </li>
         ))}

@@ -11,6 +11,7 @@ const Locations = () => {
       id: ["All"] as HeadersTypes[],
       cards: [
         <TabCard
+          key="main-headquarters"
           type="Main Headquarters"
           title="123 Estatein Plaza, City Center, Metropolis"
           description="Our main headquarters serve as the heart of Estatein. Located in the bustling city center, this is where our core team of experts operates, driving the excellence and innovation that define us."
@@ -26,6 +27,7 @@ const Locations = () => {
       id: ["Regional"] as HeadersTypes[],
       cards: [
         <TabCard
+          key="regional-offices"
           type="Regional Offices"
           title="456 Urban Avenue, Downtown District, Metropolis"
           description="Estatein's presence extends to multiple regions, each with its own dynamic real estate landscape. Discover our regional offices, staffed by local experts who understand the nuances of their respective markets."

@@ -1,16 +1,20 @@
 .tab-card {
-  padding: 40px;
+  padding: fluid(40, 24);
   height: 100%;
   border: var(--border);
   border-radius: var(--border-radius-xxs);
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: fluid-from-desktop(40, 30);
+
+  @include laptop {
+    row-gap: fluid(30, 24);
+  }
 
   &__info {
     display: flex;
     flex-direction: column;
-    row-gap: 14px;
+    row-gap: fluid(14, 8);
 
     &-title {
       font-size: fluid(30, 20);
@@ -19,12 +23,19 @@
   }
   &__badges-list {
     display: flex;
-    column-gap: 10px;
+    gap: 10px;
     margin-top: auto;
+    flex-wrap: wrap;
   }
   &-button {
     &.button {
       width: 100%;
+      height: fluid(60, 43);
+      padding: 0;
+
+      @include mobile {
+        border-radius: var(--border-radius-xxs);
+      }
     }
   }
 }

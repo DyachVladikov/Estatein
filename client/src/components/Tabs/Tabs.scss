@@ -1,16 +1,31 @@
 .tabs {
   display: flex;
   flex-direction: column;
-  row-gap: 50px;
+  row-gap: fluid-from-desktop(50, 40);
+
+  @include mobile {
+    row-gap: 30px;
+  }
 
   &__headers {
     display: flex;
     column-gap: 10px;
 
+    &-wrapper {
+      background-color: var(--color-gray-10);
+      max-width: max-content;
+      padding: 10px;
+      border-radius: var(--border-radius-xxs);
+    }
+
     &-button {
-      width: 158px;
-      height: 63px;
+      width: fluid(158, 105);
+      height: fluid(63, 49);
       padding: 0;
+
+      @include mobile {
+        border-radius: var(--border-radius-xxs);
+      }
 
       &.tab-active {
         background-color: var(--color-gray-08);
@@ -21,6 +36,10 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
-    gap: 30px;
+    gap: fluid-from-desktop(30, 20);
+
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
   }
 }

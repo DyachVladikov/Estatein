@@ -125,6 +125,13 @@ const Header = () => {
           }, [])}
         />
         {navigation}
+        <Link
+          to="/contact-us"
+          className="header__modal-contact-link"
+          onClick={() => setIsModalOpen(false)}
+        >
+          Contact Us
+        </Link>
       </div>
     </>
   );

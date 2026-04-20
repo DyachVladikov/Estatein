@@ -20,20 +20,24 @@ const Tabs = (props: TbasProps) => {
   const [activeTab, setActiveTab] = useState<HeadersTypes>("All");
   return (
     <div className="tabs">
-      <div className="tabs__headers">
-        {headers.map((headerTitle) => (
-          <Button
-            className={classNames("tabs__headers-button", {
-              "tab-active": activeTab === headerTitle,
-            })}
-            title={headerTitle}
-            label={headerTitle}
-            onClick={() => {
-              setActiveTab(headerTitle);
-            }}
-          />
-        ))}
+      <div className="tabs__headers-wrapper">
+        <div className="tabs__headers">
+          {headers.map((headerTitle, index) => (
+            <Button
+              className={classNames("tabs__headers-button", {
+                "tab-active": activeTab === headerTitle,
+              })}
+              title={headerTitle}
+              label={headerTitle}
+              onClick={() => {
+                setActiveTab(headerTitle);
+              }}
+              key={`${headerTitle}-${index}`}
+            />
+          ))}
+        </div>
       </div>
+
       <div className="tabs__main">
         {(() => {
           const filtered = cards?.filter(

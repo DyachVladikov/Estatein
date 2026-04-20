@@ -2,6 +2,7 @@ import ServiceBanner from "@/sections/ServiceBanner";
 import "./Contact.scss";
 import Connect from "@/sections/Connect";
 import Locations from "@/sections/Locations";
+import Explore from "@/sections/Explore/Explore";
 
 const Contact = () => {
   const actionsForContacnBanner = [
@@ -36,6 +37,7 @@ const Contact = () => {
       ></ServiceBanner>
       <Connect />
       <Locations />
+      <Explore />
     </>
   );
 };

@@ -1,186 +1,185 @@
 .estate-card {
-    width: fluid-from-desktop(512, 413); //fluid-from-desktop-to-mobile(512, 300);
-    height: auto;
+  width: fluid-from-desktop(512, 413); //fluid-from-desktop-to-mobile(512, 300);
+  height: auto;
 
-    border: var(--border);
-    border-radius: var(--border-radius-s);
-    padding: fluid-from-desktop(40,30);
+  border: var(--border);
+  border-radius: var(--border-radius-s);
+  padding: fluid-from-desktop(40, 30);
 
-    display: grid;
-    grid-template-rows: auto 1fr;
-    row-gap: fluid(30,16);
-    &-image {
-        border-radius: var(--border-radius-xs);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  row-gap: fluid(30, 16);
+  &-image {
+    border-radius: var(--border-radius-xs);
 
-        width: fluid-from-desktop(432,353);
-        height: fluid-from-desktop(318, 255); 
-        object-fit: cover;
+    width: fluid-from-desktop(432, 353);
+    height: fluid-from-desktop(318, 255);
+    object-fit: cover;
 
-        @include laptop {
-            width: 100%;
-            height: fluid(400,130);
-            
-        }
-
-        @include mobile {
-            width: 100%;
-            height: 260px;
-        }
-
-        @include mobile-s {
-            width: 310px;
-            height: 210px;
-        }
+    @include laptop {
+      width: 100%;
+      height: fluid(400, 130);
     }
 
-    &__info {
+    @include mobile {
+      width: 100%;
+      height: 260px;
+    }
 
-        display: flex;
-        flex-direction: column;
-        max-width: calc(fluid-from-desktop(512, 413) - 2 * fluid-from-desktop(40,30));
+    @include mobile-s {
+      width: 310px;
+      height: 210px;
+    }
+  }
 
-        &-annotation {
-            width: max-content;
-            border: var(--border);
-            border-radius: var(--border-radius-m);
-            padding: 8px 14px;
-            margin-bottom: 20px;
-            max-width: 100%;
-            text-align: start;
+  &__info {
+    display: flex;
+    flex-direction: column;
+    max-width: calc(
+      fluid-from-desktop(512, 413) - 2 * fluid-from-desktop(40, 30)
+    );
 
-            @include laptop {
-                padding: 6px 12px;
-                
-            }
-            @include tablet {
-                width: auto;
-                text-align: center;
-            }
-            @include mobile {
-                width: max-content;
-            }
-            @include mobile-s {
-                width: auto;
-                text-align: center;
-            }
+    &-annotation {
+      width: max-content;
+      border: var(--border);
+      border-radius: var(--border-radius-m);
+      padding: 8px 14px;
+      margin-bottom: 20px;
+      max-width: 100%;
+      text-align: start;
+
+      @include laptop {
+        padding: 6px 12px;
+      }
+      @include tablet {
+        width: auto;
+        text-align: center;
+      }
+      @include mobile {
+        width: max-content;
+      }
+      @include mobile-s {
+        width: auto;
+        text-align: center;
+      }
+    }
+
+    &-name {
+      margin-bottom: auto !important;
+    }
+
+    &-description {
+      display: flex;
+      align-items: center;
+      column-gap: 4px;
+      margin-top: 6px;
+      margin-bottom: fluid(30, 20);
+
+      &-read-more {
+        width: auto;
+        height: auto;
+        border: none;
+        background-color: transparent;
+        align-self: flex-end;
+        padding: 0;
+        position: relative;
+        margin-left: 3px;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 0.5px;
+          background-color: var(--color-white);
+          bottom: 4px;
+          left: 0;
+          border-radius: var(--border-radius-xxs);
         }
 
-        &-name {
-            margin-bottom: auto !important;
+        @include hover {
+          border: none !important;
         }
+      }
+    }
 
-        &-description {
-            display: flex;
-            align-items: center;
-            column-gap: 4px;
-            margin-top: 6px;
-            margin-bottom: fluid(30,20);
+    &-bages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
 
-            &-read-more {
-                width: auto;
-                height: auto;
-                border: none;
-                background-color: transparent;
-                align-self: flex-end;
-                padding: 0;
-                position: relative;
-                margin-left: 3px;
+      @include mobile {
+        column-gap: 6px;
+      }
+    }
 
-                &::after {
-                    content: "";
-                    position: absolute;
-                    width: 100%;
-                    height: 0.5px;
-                    background-color: var(--color-white);
-                    bottom: 4px;
-                    left: 0;
-                    border-radius: var(--border-radius-xxs);
-                }
+    &-price-button {
+      margin-top: auto;
+      display: flex;
+      column-gap: fluid(50, 30);
 
-                @include hover {
-                    border: none !important;
-                }
-            } 
+      @include tablet {
+        justify-content: space-between;
+      }
+      @include tablet {
+        margin-top: auto;
+      }
+    }
+    &-price {
+      display: flex;
+      flex-direction: column;
+      row-gap: 2px;
+
+      & > span {
+        font-size: (24, 18);
+      }
+    }
+
+    &-property-button {
+      width: fluid-from-desktop(279, 227);
+      height: fluid(63, 49);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include tablet {
+        width: 150px;
+        padding-inline: 20px;
+        padding-block: 10px;
+
+        & > span {
+          text-wrap: wrap;
         }
-
-        &-bages {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 16px;
-
-            @include mobile {
-                column-gap: 6px;
-            }
+      }
+      @include mobile {
+        width: auto;
+        padding-block: 14px;
+        & > span {
+          text-wrap: nowrap;
+          text-align: center;
+          height: max-content;
         }
-
-        &-price-button {
-            margin-top: auto;
-            display: flex;
-            column-gap: fluid(50,30);
-
-            @include tablet {
-                justify-content: space-between;
-            }
-            @include tablet {
-                margin-top: auto;
-            }
-        }
-        &-price {
-            display: flex;
-            flex-direction: column;
-            row-gap: 2px;
-
-            & > span {
-                font-size: (24,18);
-            }
-        }
-
-        &-property-button {
-            width: fluid-from-desktop(279, 227);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            @include tablet {
-                width: 150px;
-                padding-inline: 20px;
-                padding-block: 10px;
-
-                & > span {
-                    text-wrap: wrap;
-                }
-            }
-            @include mobile {
-                width: auto;
-                padding-block: 14px;
-                & > span {
-                    text-wrap: nowrap;
-                    text-align: center;
-                    height: max-content;
-                }
-            }
-        }
-
-        @include laptop {
-            max-width: none;
-        }
-
-        @include tablet {
-            max-width: 340px;
-        }
-        
+      }
     }
 
     @include laptop {
-        width: fluid(600,220);
-        padding: 24px;
+      max-width: none;
     }
-    @include mobile {
-        margin-inline: auto;
-        width: 450px;
+
+    @include tablet {
+      max-width: 340px;
     }
-    @include mobile-s {
-        width: 358px;
-    }
+  }
+
+  @include laptop {
+    width: fluid(600, 220);
+    padding: 24px;
+  }
+  @include mobile {
+    margin-inline: auto;
+    width: 450px;
+  }
+  @include mobile-s {
+    width: 358px;
+  }
 }
