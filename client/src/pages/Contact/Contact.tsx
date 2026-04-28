@@ -3,8 +3,10 @@ import "./Contact.scss";
 import Connect from "@/sections/Connect";
 import Locations from "@/sections/Locations";
 import Explore from "@/sections/Explore/Explore";
+import useScrollOnMount from "@/hooks/useScrollOnMount";
 
 const Contact = () => {
+  useScrollOnMount();
   const actionsForContacnBanner = [
     {
       iconName: "email",

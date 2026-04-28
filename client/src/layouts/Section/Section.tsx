@@ -8,7 +8,7 @@ import { img } from "@/utils/RepairOmgSrc";
 import { Link } from "react-router-dom";
 import type React from "react";
 import useIsMobile from "@/hooks/useIsMobile";
-import { useEffect } from "react";
+import useTypewriter from "@/hooks/useTypewriter";
 
 interface BaseProps {
   className: string;
@@ -19,6 +19,9 @@ interface BaseProps {
   dataJsSection?: string;
   isGrid?: boolean;
   elementInBlock?: React.ReactNode;
+  buttonHref?: string;
+  hasErorrFetching?: boolean;
+  loadingData?: boolean;
 }
 
 type SectionProps = BaseProps &
@@ -43,12 +46,24 @@ const Section = (props: SectionProps) => {
     dataJsSection,
     isGrid,
     elementInBlock,
+    buttonHref,
+    hasErorrFetching,
+    loadingData,
   } = props;
 
   const ButtonText = "ButtonText" in props ? (props as any).ButtonText : "";
 
   const isMobile = useIsMobile(1023);
   const indexSliceText = description.search(/[.!?]/);
+  const shortDescription =
+    isMobile && indexSliceText !== -1
+      ? description.slice(0, indexSliceText + 1)
+      : description;
+  const {
+    displayed: typedDescription,
+    isDone,
+    ref: descriptionRef,
+  } = useTypewriter(shortDescription);
 
   return (
     <section
@@ -62,17 +77,17 @@ const Section = (props: SectionProps) => {
         <h2 className={`${className}-title `}>{title}</h2>
         <div className={`${className}__events section-events`}>
           <p
+            ref={descriptionRef as React.RefObject<HTMLParagraphElement>}
             className={classNames(
               `${className}-description description section-description`,
               { "section-description--wide": !hasButton },
+              { "section-description--done": isDone },
             )}
           >
-            {isMobile && indexSliceText != -1
-              ? description.slice(0, indexSliceText + 1)
-              : description}
+            {typedDescription}
           </p>
           {hasButton && (
-            <Link to={"/properties"} className="hidden-mobile">
+            <Link to={buttonHref ?? "/properties"} className="hidden-mobile">
               <Button
                 title={ButtonText}
                 label={ButtonText}
@@ -85,8 +100,17 @@ const Section = (props: SectionProps) => {
           <div className="section-element">{elementInBlock}</div>
         )}
       </div>
-
-      <div className={classNames("section-main", className)}>{children}</div>
+      {loadingData ? (
+        <div className="section-loading">
+          <span>Loading</span>
+        </div>
+      ) : hasErorrFetching ? (
+        <div className="section-error">
+          <span>Something wrong</span>
+        </div>
+      ) : (
+        <div className={classNames("section-main", className)}>{children}</div>
+      )}
       {hasSlider && (
         <div
           className={classNames(

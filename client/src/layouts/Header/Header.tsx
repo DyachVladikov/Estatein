@@ -2,91 +2,60 @@ import LearnMore from "@/components/LearnMore";
 import "./Header.scss";
 import Logo from "@/components/Logo";
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import classNames from "classnames";
 import Button from "@/components/Button";
+
+const LINKS = [
+  { NAME: "Home", LINK: "/" },
+  { NAME: "About Us", LINK: "/about-us" },
+  { NAME: "Properties", LINK: "/properties" },
+  { NAME: "Services", LINK: "/service" },
+] as const;
 
 const Header = () => {
   const path = useLocation();
 
-  const Links = [
-    {
-      NAME: "Home",
-      LINK: "/",
-    },
-    {
-      NAME: "About Us",
-      LINK: "/about-us",
-    },
-    {
-      NAME: "Properties",
-      LINK: "/properties",
-    },
-    {
-      NAME: "Services",
-      LINK: "/service",
-    },
-  ] as const;
-
-  const [isStuck, setIsStuck] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isStuck, setIsStuck] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean | "closing">(false);
   const stickyRef = useRef<HTMLHeadElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const element = stickyRef.current;
       if (!element) return;
-
-      const rect = element.getBoundingClientRect();
-      setIsStuck(rect.top <= 10);
+      setIsStuck(element.getBoundingClientRect().top <= 10);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    const htmlEl = document.querySelector("[data-js-html]");
-    htmlEl?.classList.toggle("is-lock", isModalOpen);
+    document
+      .querySelector("[data-js-html]")
+      ?.classList.toggle("is-lock", isModalOpen === true);
   }, [isModalOpen]);
 
-  const navigation = (
-    <nav
-      className={classNames("header__navigation", {
-        "hidden-mobile": !isModalOpen,
-      })}
-    >
-      <ul
-        className={classNames("header__navigation-list", {
-          "in-modal": isModalOpen,
-        })}
-      >
-        {Links.map((item, index) => (
-          <li className="header__navigation-list" key={`${item} - ${index}`}>
-            <Link
-              to={item.LINK}
-              className=""
-              onClick={() => {
-                setTimeout(() => {
-                  setIsModalOpen(false);
-                }, 500);
-              }}
-            >
-              <span
-                className={classNames(
-                  "header__navigation-link",
-                  { "is-active": path.pathname === item.LINK },
-                  { "header__modal-link": isModalOpen },
-                )}
-              >
-                {item.NAME}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  );
+  const closeModal = () => {
+    setIsModalOpen("closing");
+    setTimeout(() => setIsModalOpen(false), 300);
+  };
+  const openModal = () => setIsModalOpen(true);
+
+  const renderLinks = (onLinkClick?: () => void) =>
+    LINKS.map((item, index) => (
+      <li className="header__navigation-item" key={`${item.NAME}-${index}`}>
+        <Link to={item.LINK} onClick={onLinkClick} className="">
+          <span
+            className={classNames("header__navigation-link", {
+              "is-active": path.pathname === item.LINK,
+            })}
+          >
+            {item.NAME}
+          </span>
+        </Link>
+      </li>
+    ));
 
   return (
     <>
@@ -96,9 +65,11 @@ const Header = () => {
         className={classNames("header container", { sticky: isStuck })}
       >
         <Logo />
-        {navigation}
+        <nav className="header__navigation hidden-mobile">
+          <ul className="header__navigation-list">{renderLinks()}</ul>
+        </nav>
         <Link
-          to={"/contact-us"}
+          to="/contact-us"
           className="header__button-contact-us-link hidden-mobile"
         >
           <span className="header__button-contact-us">Contact US</span>
@@ -108,27 +79,32 @@ const Header = () => {
           title="Open Menu"
           hasOnlyIcon
           iconName="burgerButton"
-          onClick={useCallback(() => {
-            setIsModalOpen(true);
-          }, [])}
+          onClick={openModal}
         />
       </header>
 
-      <div className={classNames("header__modal", { "is-open": isModalOpen })}>
+      <div
+        className={classNames("header__modal", {
+          "is-open": isModalOpen === true,
+          "is-closing": isModalOpen === "closing",
+        })}
+      >
         <Button
           className="header__modal-close-button"
           title="Close Menu"
           hasOnlyIcon
           iconName="x-mark"
-          onClick={useCallback(() => {
-            setIsModalOpen(false);
-          }, [])}
+          onClick={closeModal}
         />
-        {navigation}
+        <nav className="header__navigation in-modal">
+          <ul className="header__navigation-list in-modal">
+            {renderLinks(closeModal)}
+          </ul>
+        </nav>
         <Link
           to="/contact-us"
           className="header__modal-contact-link"
-          onClick={() => setIsModalOpen(false)}
+          onClick={closeModal}
         >
           Contact Us
         </Link>

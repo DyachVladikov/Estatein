@@ -18,19 +18,15 @@ const EstateCard = ({
   NeedCounterRooms = true,
   NeedAnotation = false,
 }: EstateProps) => {
-  const [curentStringPrice, setCurentStringPrice] = useState<string>();
   const [isreadMoreActivated, setIsreadMoreActivated] =
     useState<boolean>(false);
-  const [readMoreText, setReadMoreText] = useState<string>();
-
-  useEffect(() => {
-    setCurentStringPrice(getCurrentPrice(estate?.price));
-    setReadMoreText(getSplitedText(estate?.description, 10));
-  }, []);
 
   const onReadMoreClick = () => {
     setIsreadMoreActivated((prev) => !prev);
   };
+
+  const readMoreText = getSplitedText(estate?.description, 10);
+  const currentStringPrice = getCurrentPrice(estate?.price);
 
   return (
     <div className="estate-card">
@@ -85,7 +81,7 @@ const EstateCard = ({
         <div className="estate-card__info-price-button">
           <div className="estate-card__info-price">
             <span className="description">Price</span>
-            <span>${curentStringPrice}</span>
+            <span>${currentStringPrice}</span>
           </div>
           <Button
             className="estate-card__info-property-button"

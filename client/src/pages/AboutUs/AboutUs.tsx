@@ -5,9 +5,10 @@ import Achievements from "@/sections/Achievements"
 import Works from "@/sections/Works"
 import Team from "@/sections/Team"
 import ValuedClients from "@/sections/ValuedClients"
+import useScrollOnMount from "@/hooks/useScrollOnMount"
 
 const AboutUs = () => {
-
+    useScrollOnMount();
     return (
         <>
             <Journey />

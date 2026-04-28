@@ -64,6 +64,7 @@ const UnlockValue = () => {
         description="Selling your property should be a rewarding experience, and at Estatein, we make sure it is. Our Property Selling Service is designed to maximize the value of your property, ensuring you get the best deal possible. Explore the categories below to see how we can help you at every step of your selling journey"
         hasSlider={false}
         hasButton={false}
+        dataJsSection="data-js-valuation-mastery"
       >
         <div className="unlock-value__cards">
           {valuesCardsfirst.map((card) => (
@@ -82,6 +83,7 @@ const UnlockValue = () => {
         description="Owning a property should be a pleasure, not a hassle. Estatein's Property Management Service takes the stress out of property ownership, offering comprehensive solutions tailored to your needs. Explore the categories below to see how we can make property management effortless for you"
         hasSlider={false}
         hasButton={false}
+        dataJsSection="data-js-property-management"
       >
         <div className="unlock-value__cards property managment__cards">
           {valuesCardsSecond.map((card) => (

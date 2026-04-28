@@ -1,6 +1,8 @@
+import type { RefObject } from "react";
 import BlockLink from "@/components/BlockLink";
 import "./ServiceBanner.scss";
 import classNames from "classnames";
+import useTypewriter from "@/hooks/useTypewriter";
 
 interface ServiceBannerProps {
   title: string;
@@ -17,13 +19,17 @@ interface Actions {
 
 const ServiceBanner = (props: ServiceBannerProps) => {
   const { title, description, actions, className } = props;
+  const { displayed, isDone, ref } = useTypewriter(description);
 
   return (
     <section className={classNames("service-banner", className)}>
       <div className="service-banner__wrapper">
         <h1 className="service-banner__wrapper-title h2">{title}</h1>
-        <p className="service-banner__wrapper-description description">
-          {description}
+        <p
+          ref={ref as RefObject<HTMLParagraphElement>}
+          className={`service-banner__wrapper-description description${isDone ? " section-description--done" : ""}`}
+        >
+          {displayed}
         </p>
       </div>
       <div className="service-banner__actions dream__actions-wrapper">

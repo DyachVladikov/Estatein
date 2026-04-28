@@ -4,9 +4,10 @@ import Search from "@/sections/Search"
 import FilteredEstateContextProvider from "@/context/FilteredEstate"
 import Discover from "@/sections/Discover"
 import SectionForm from "@/sections/SectionForm"
+import useScrollOnMount from "@/hooks/useScrollOnMount"
 
 const Properties = () => {
-
+    useScrollOnMount();
     return (
         <FilteredEstateContextProvider>
             <PropertyBanner />

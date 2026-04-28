@@ -28,7 +28,7 @@ const Footer = () => {
         { name: "Testimonials", ref: "testimonials" },
         { name: "FAQ's", ref: "faqs" },
       ],
-      hrefpage: "/",
+      hrefpage: "",
     },
     {
       column: "About Us",
@@ -43,8 +43,8 @@ const Footer = () => {
     {
       column: "Properties",
       items: [
-        { name: "Portfolio", ref: "data-js-portfolio" },
-        { name: "Categories", ref: "data-js-categories" },
+        { name: "Portfolio", ref: "data-js-properties" },
+        { name: "Categories", ref: "data-js-properties" },
       ],
       hrefpage: "properties",
     },
@@ -52,11 +52,10 @@ const Footer = () => {
       column: "Services",
       items: [
         { name: "Valuation Mastery", ref: "data-js-valuation-mastery" },
-        { name: "Strategic Marketing", ref: "data-js-strategic-marketing" },
-        { name: "Negotiation Wizardry", ref: "data-js-negotiation-wizardry" },
         { name: "Property Management", ref: "data-js-property-management" },
+        { name: "Strategic Marketing", ref: "data-js-strategic-marketing" },
       ],
-      hrefpage: "services",
+      hrefpage: "service",
     },
     {
       column: "Contact",
@@ -64,7 +63,7 @@ const Footer = () => {
         { name: "Contact Form", ref: "data-js-contact-form" },
         { name: "Our Offices", ref: "data-js-offices" },
       ],
-      hrefpage: "contact",
+      hrefpage: "contact-us",
     },
   ];
   const soc1als = [
@@ -218,7 +217,7 @@ const Footer = () => {
                       label={item.name}
                       mode="text-only"
                       onClick={() => {
-                        scrollToSection(item.ref);
+                        scrollToSection(item.ref, `/${column.hrefpage}`);
                       }}
                     />
                   </li>

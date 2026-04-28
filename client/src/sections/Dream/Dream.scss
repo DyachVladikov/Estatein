@@ -36,6 +36,7 @@
     padding-top: 144px;
     padding-right: 80px;
     margin-right: auto !important;
+    animation: slideFromLeft 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 
     &-description {
       color: var(--color-gray-60);
@@ -110,6 +111,7 @@
     height: fluid(814, 302);
     box-shadow: -2px 0px 11px -2px var(--color-purple-75);
     max-width: 100%;
+    animation: slideFromRight 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 
     @include middle {
       order: -1;
@@ -123,6 +125,7 @@
 
   &__emblem {
     position: absolute;
+    animation: slideFromRight 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 
     width: fluid(175, 117);
     height: fluid(175, 117);
@@ -167,6 +170,7 @@
 
     &-wrapper {
       width: auto;
+      animation: slideFromBottom 1.4s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
       @include mobile-above {
         width: 100%;
       }
@@ -228,5 +232,47 @@
       max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
       padding: 10px;
     }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

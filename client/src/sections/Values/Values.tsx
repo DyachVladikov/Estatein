@@ -1,9 +1,14 @@
+import { RefObject } from "react"
 import Icon from "@/components/Icon"
 import "./Values.scss"
 import classNames from "classnames"
 import { img } from "@/utils/RepairOmgSrc"
+import useTypewriter from "@/hooks/useTypewriter"
+
+const TEXT = "Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform that transcended the ordinary.";
 
 const Values = () => {
+    const { displayed, isDone, ref } = useTypewriter(TEXT);
 
     const cards = [
         {
@@ -36,9 +41,7 @@ const Values = () => {
                     <h2>Our Values</h2>
                 </div>
                 <div className="values__info-description description">
-                    <p>Our story is one of continuous growth and evolution. We started as a small team with big dreams, determined to create a real estate platform 
-                        that transcended the ordinary. 
-                    </p>
+                    <p ref={ref as RefObject<HTMLParagraphElement>} className={isDone ? "section-description--done" : ""}>{displayed}</p>
                 </div>
             </div>
             <div className="values__cards">

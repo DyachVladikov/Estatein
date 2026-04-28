@@ -38,6 +38,7 @@ const Investments = () => {
       hasButton={false}
       hasSlider={false}
       isGrid
+      dataJsSection="data-js-strategic-marketing"
       elementInBlock={
         <UnlockCardLarge
           title="Unlock Your Investment Potential"

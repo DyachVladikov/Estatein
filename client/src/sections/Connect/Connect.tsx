@@ -69,6 +69,7 @@ const Connect = () => {
       description="We're excited to connect with you and learn more about your real estate goals. Use the form below to get in touch with Estatein. Whether you're a prospective client, partner, or simply curious about our services, we're here to answer your questions and provide the assistance you need."
       hasButton={false}
       hasSlider={false}
+      dataJsSection="data-js-contact-form"
     >
       <Form id="connect" elements={formElements} mode="connect" />
     </Section>

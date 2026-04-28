@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import Icon from "@/components/Icon";
 import { memo } from "react";
 
-type TYPE = "submit" | "button" | "link";
-
 interface IconProp {
   width?: string;
   height?: string;
@@ -13,10 +11,8 @@ interface IconProp {
   strokeFill?: boolean;
 }
 
-interface ButtonProps {
+interface BaseProps {
   className: string;
-  href?: string;
-  type?: TYPE;
   title: string;
   label?: string;
   hasIconBefore?: boolean;
@@ -24,16 +20,16 @@ interface ButtonProps {
   iconName?: string;
   IconAndBorder?: boolean;
   mode?: "purple" | "text-only" | "black";
-  linkButton?: boolean;
-  onClick?: (num?: boolean) => void;
   iconProps?: IconProp;
 }
+
+type ButtonProps =
+  | (BaseProps & { href: string; linkButton?: boolean; type?: never; onClick?: never })
+  | (BaseProps & { href?: never; linkButton?: never; type?: "submit" | "button"; onClick?: () => void });
 
 const Button = (props: ButtonProps) => {
   const {
     className,
-    href,
-    type,
     label,
     title,
     hasIconBefore = false,
@@ -41,40 +37,43 @@ const Button = (props: ButtonProps) => {
     IconAndBorder = false,
     iconName = "",
     mode,
-    linkButton = false,
     iconProps,
-    onClick,
   } = props;
 
-  const Component: any = href != undefined ? Link : "button";
-  const isLink = Boolean(href);
+  const content = (
+    <>
+      {hasIconBefore && iconName !== "" && <Icon name={iconName} userSelect={false} />}
+      {!hasOnlyIcon && <span className={`${props.href && !props.linkButton ? "button-link" : "button"}-label`}>{label}</span>}
+      {!hasIconBefore && iconName !== "" && <Icon name={iconName} {...iconProps} />}
+    </>
+  );
 
-  let CurrentProps: object = isLink
-    ? { to: href }
-    : { type: type, onClick: onClick };
-  const NameClass: string = isLink && !linkButton ? "button-link" : "button";
+  const sharedClass = classNames(
+    props.href && !props.linkButton ? "button-link" : "button",
+    className,
+    { "button--onlyIcon": hasOnlyIcon },
+    { "button--onlyIcon-bordered": IconAndBorder },
+    { "button--icon-before": hasIconBefore },
+    { [`button--${mode}`]: mode },
+  );
+
+  if (props.href) {
+    return (
+      <Link to={props.href} className={sharedClass} aria-labelledby={title}>
+        {content}
+      </Link>
+    );
+  }
 
   return (
-    <Component
-      className={classNames(
-        NameClass,
-        className,
-        { "button--onlyIcon": hasOnlyIcon },
-        { "button--onlyIcon-bordered": IconAndBorder },
-        { "button--icon-before": hasIconBefore },
-        { [`button--${mode}`]: mode },
-      )}
-      {...CurrentProps}
+    <button
+      type={props.type ?? "button"}
+      onClick={props.onClick}
+      className={sharedClass}
       aria-labelledby={title}
     >
-      {hasIconBefore && iconName != "" && (
-        <Icon name={iconName} userSelect={false} />
-      )}
-      {!hasOnlyIcon && <span className={`${NameClass}-label`}>{label}</span>}
-      {!hasIconBefore && iconName != "" && (
-        <Icon name={iconName} {...iconProps} />
-      )}
-    </Component>
+      {content}
+    </button>
   );
 };
 

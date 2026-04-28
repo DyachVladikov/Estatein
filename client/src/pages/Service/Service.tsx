@@ -2,8 +2,10 @@ import ServiceBanner from "@/sections/ServiceBanner";
 import "./Service.scss";
 import UnlockValue from "@/sections/UnlockValue";
 import Investments from "@/sections/Investments";
+import useScrollOnMount from "@/hooks/useScrollOnMount";
 
 const Service = () => {
+  useScrollOnMount();
   const actionsForServiceBanner = [
     {
       iconName: "home",
