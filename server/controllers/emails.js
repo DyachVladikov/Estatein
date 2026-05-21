@@ -21,5 +21,10 @@ export const setEmails = async (req, res) => {
       message: "Email sent successfully",
       ok: 200,
     });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({
+      message: "Something wrong",
+      ok: 500,
+    });
+  }
 };
