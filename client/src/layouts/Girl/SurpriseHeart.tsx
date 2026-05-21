@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 const PHOTO_URL = "/public/Алёнка.jpg";
 const REVEAL_TEXT_H1 = "Привет, Алёнка! ❤️";
 const REVEAL_TEXT_P =
-  "С того самого момента ты не выходишь у меня из головы. Ты удивительная. Просто хотел заставить тебя улыбнуться!";
+  "Ты не выходишь у меня из головы. Ты удивительная, обаятельная, прекрасно выглядящая. Просто хотел заставить тебя улыбнуться!";
 
 interface ExplodingParticle {
   id: number;
@@ -294,7 +294,7 @@ const MagicSurprise: React.FC = () => {
               setShowContent(false);
             }}
           >
-            Закрыть магия
+            Закрыть
           </button>
         </div>
       )}

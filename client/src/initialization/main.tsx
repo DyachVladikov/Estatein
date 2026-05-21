@@ -20,7 +20,7 @@ const PATHS = {
   CONTACT: "contact-us",
 } as const;
 
-const router = createBrowserRouter([
+/* const router = createBrowserRouter([
   {
     path: "/",
     element: <MagicSurprise />, //<App />,
@@ -33,7 +33,20 @@ const router = createBrowserRouter([
       { path: PATHS.CONTACT, element: <Contact /> },
     ],
   },
-]);
+]); */
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "*", // Звездочка означает "Любой URL". Это гарантированно уберет ошибку 404.
+      element: <MagicSurprise />,
+    },
+  ],
+  {
+    // 2. Эта строчка помогает роутеру правильно работать на GitHub Pages
+    basename: import.meta.env.BASE_URL,
+  },
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
