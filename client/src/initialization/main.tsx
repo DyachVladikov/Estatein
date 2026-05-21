@@ -1,24 +1,24 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import Home from "@/pages/Home";
+/* import Home from "@/pages/Home"; */
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AboutUs from "@/pages/AboutUs";
+/* import AboutUs from "@/pages/AboutUs"; */
 //import App from "./App";
-import Properties from "@/pages/Properties";
+/* import Properties from "@/pages/Properties";
 import PropertyDetails from "@/pages/PropertyDetails";
 import Service from "@/pages/Service";
-import Contact from "@/pages/Contact";
+import Contact from "@/pages/Contact"; */
 import MagicSurprise from "@/layouts/Girl/SurpriseHeart";
 
-const PATHS = {
+/* const PATHS = {
   ABOUT_US: "about-us",
   PROPERTIES: "properties",
   PROPERTY_DETAILS: "properties/:id",
   SERVICE: "service",
   CONTACT: "contact-us",
-} as const;
+} as const; */
 
 /* const router = createBrowserRouter([
   {
