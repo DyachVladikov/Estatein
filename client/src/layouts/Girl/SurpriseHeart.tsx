@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from "react";
+import PHOTO_URL from "../../assets/alenka.jpg";
 
 // Путь к фото в папке public
-const PHOTO_URL = "/public/Алёнка.jpg";
+// const PHOTO_URL = "/public/Алёнка.jpg";
 const REVEAL_TEXT_H1 = "Привет, Алёнка! ❤️";
 const REVEAL_TEXT_P =
   "Ты не выходишь у меня из головы. Ты удивительная, обаятельная, прекрасно выглядящая. Просто хотел заставить тебя улыбнуться!";
@@ -333,7 +334,7 @@ const styles: Record<string, React.CSSProperties> = {
     marginBottom: "5px",
   },
   subText: {
-    fontSize: "clamp(2rem, 6vw, 1.6rem)",
+    fontSize: "clamp(2rem, 6vw, 1.2rem)",
     opacity: 0.85,
     fontWeight: "normal",
     letterSpacing: "1px",
