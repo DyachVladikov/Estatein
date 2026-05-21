@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import { type RefObject } from "react";
 import "./Journey.scss";
 import Statistic from "@/components/Statistic";
 import { img } from "@/utils/RepairOmgSrc";

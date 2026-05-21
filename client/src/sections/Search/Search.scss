@@ -56,6 +56,8 @@
     &-button {
       width: fluid-from-desktop(196, 148);
       height: fluid-from-desktop(63, 49);
+      padding: fluid-from-desktop(18, 14) fluid-from-desktop(24, 20);
+      align-items: center;
       & > span {
         font-size: fluid-from-desktop(18, 14);
       }
@@ -67,6 +69,10 @@
       &-mobile {
         width: 60px;
         height: 48px;
+      }
+
+      @include laptop {
+        padding: fluid(14, 8) fluid(20, 12);
       }
     }
 

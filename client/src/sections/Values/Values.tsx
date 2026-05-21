@@ -1,4 +1,4 @@
-import { RefObject } from "react"
+import { type RefObject } from "react"
 import Icon from "@/components/Icon"
 import "./Values.scss"
 import classNames from "classnames"

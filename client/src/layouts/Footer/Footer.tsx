@@ -4,157 +4,78 @@ import Icon from "@/components/Icon";
 import { Link } from "react-router-dom";
 import Button from "@/components/Button";
 import useAutoScroll from "@/hooks/useAutoScroll";
-import { useRef, useState, useEffect } from "react";
 import classNames from "classnames";
-import useApi from "@/hooks/useApi";
+import { useEmailForm } from "./useEmailForm";
+const FOOTER_DATA = [
+  {
+    column: "Home",
+    hrefpage: "",
+    items: [
+      { name: "Hero section", ref: "dream" },
+      { name: "Features", ref: "features" },
+      { name: "Testimonials", ref: "testimonials" },
+      { name: "FAQ's", ref: "faqs" },
+    ],
+  },
+  {
+    column: "About Us",
+    hrefpage: "about-us",
+    items: [
+      { name: "Our Story", ref: "data-js-story" },
+      { name: "Our Works", ref: "data-js-works" },
+      { name: "How It Works", ref: "data-js-how-it-works" },
+      { name: "Our Clients", ref: "data-js-clients" },
+    ],
+  },
+  {
+    column: "Properties",
+    hrefpage: "properties",
+    items: [
+      { name: "Portfolio", ref: "data-js-properties" },
+      { name: "Categories", ref: "data-js-properties" },
+    ],
+  },
+  {
+    column: "Services",
+    hrefpage: "service",
+    items: [
+      { name: "Valuation Mastery", ref: "data-js-valuation-mastery" },
+      { name: "Property Management", ref: "data-js-property-management" },
+      { name: "Strategic Marketing", ref: "data-js-strategic-marketing" },
+    ],
+  },
+  {
+    column: "Contact",
+    hrefpage: "contact-us",
+    items: [
+      { name: "Contact Form", ref: "data-js-contact-form" },
+      { name: "Our Offices", ref: "data-js-offices" },
+    ],
+  },
+] as const;
 
-interface IsFormError {
-  hasErorr: boolean;
-  description: string;
-}
-
-interface Response {
-  ok: number;
-  message: string;
-}
+const SOCIALS = [
+  { name: "facebook", href: "/" },
+  { name: "in", href: "/" },
+  { name: "twitter", href: "/" },
+  { name: "youtube", href: "/" },
+] as const;
 
 const Footer = () => {
-  const footerData = [
-    {
-      column: "Home",
-      items: [
-        { name: "Hero section", ref: "dream" },
-        { name: "Features", ref: "features" },
-        { name: "Testimonials", ref: "testimonials" },
-        { name: "FAQ's", ref: "faqs" },
-      ],
-      hrefpage: "",
-    },
-    {
-      column: "About Us",
-      items: [
-        { name: "Our Story", ref: "data-js-story" },
-        { name: "Our Works", ref: "data-js-works" },
-        { name: "How It Works", ref: "data-js-how-it-works" },
-        { name: "Our Clients", ref: "data-js-clients" },
-      ],
-      hrefpage: "about-us",
-    },
-    {
-      column: "Properties",
-      items: [
-        { name: "Portfolio", ref: "data-js-properties" },
-        { name: "Categories", ref: "data-js-properties" },
-      ],
-      hrefpage: "properties",
-    },
-    {
-      column: "Services",
-      items: [
-        { name: "Valuation Mastery", ref: "data-js-valuation-mastery" },
-        { name: "Property Management", ref: "data-js-property-management" },
-        { name: "Strategic Marketing", ref: "data-js-strategic-marketing" },
-      ],
-      hrefpage: "service",
-    },
-    {
-      column: "Contact",
-      items: [
-        { name: "Contact Form", ref: "data-js-contact-form" },
-        { name: "Our Offices", ref: "data-js-offices" },
-      ],
-      hrefpage: "contact-us",
-    },
-  ];
-  const soc1als = [
-    {
-      name: "facebook",
-      href: "/",
-    },
-    {
-      name: "in",
-      href: "/",
-    },
-    {
-      name: "twitter",
-      href: "/",
-    },
-    {
-      name: "youtube",
-      href: "/",
-    },
-  ];
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [isFormInvalid, setIsFormInvalid] = useState<IsFormError>({
-    hasErorr: false,
-    description: "",
-  });
-  const [succsesSell, setSuccsesSell] = useState<boolean>(false);
-
   const scrollToSection = useAutoScroll();
-  const { sendData } = useApi<String>("emails");
-
-  useEffect(() => {
-    setTimeout(
-      () => {
-        setIsFormInvalid({ hasErorr: false, description: "" });
-        setSuccsesSell(false);
-      },
-      1000 * 60 * 0.3,
-    );
-  }, [isFormInvalid, succsesSell]);
-
-  const FormSubmit = (el: React.FormEvent) => {
-    el.preventDefault();
-    const inputValue = inputRef.current?.value || "";
-    if (inputValue === "") {
-      setIsFormInvalid({
-        hasErorr: true,
-        description: "*Write something before selling",
-      });
-    } else if (inputValue != "" && !inputValue.includes("@")) {
-      setIsFormInvalid({ hasErorr: true, description: "*Its not email" });
-    } else {
-      sendData(
-        { email: inputValue },
-        {
-          onSuccess: (res: Response) => {
-            if (res.ok === 200) {
-              setIsFormInvalid({ hasErorr: false, description: "" });
-              setSuccsesSell(true);
-              if (inputRef.current) {
-                inputRef.current.value = "";
-              }
-            }
-            if (res.ok != 200)
-              setIsFormInvalid({ hasErorr: true, description: res.message });
-          },
-          onError: (error) => {
-            setIsFormInvalid({ hasErorr: true, description: error.message });
-          },
-        },
-      );
-    }
-  };
+  const { inputRef, status, message, handleSubmit } = useEmailForm();
 
   return (
-    <footer className="footer ">
+    <footer className="footer">
       <div className="footer__wrapper container">
         <div className="footer__main">
-          <form
-            className="footer__main-form"
-            onSubmit={(el) => {
-              FormSubmit(el);
-            }}
-          >
+          <form className="footer__main-form" onSubmit={handleSubmit}>
             <Logo />
             <div
-              className={classNames(
-                "footer__main-input-wrapper",
-                { error: isFormInvalid.hasErorr },
-                { succses: succsesSell },
-              )}
+              className={classNames("footer__main-input-wrapper", {
+                error: status === "error",
+                success: status === "success",
+              })}
             >
               <div className="footer__main-letter-wrapper">
                 <Icon
@@ -164,14 +85,12 @@ const Footer = () => {
                   strokeFill={false}
                 />
               </div>
-
               <input
                 id="footer-input"
                 className="footer-input"
                 placeholder="Enter Your Email"
                 ref={inputRef}
               />
-
               <div className="footer__main-sell-wrapper">
                 <Button
                   className="footer__main-sell-button"
@@ -182,43 +101,38 @@ const Footer = () => {
                 />
               </div>
             </div>
-            {(isFormInvalid.hasErorr || succsesSell) && (
+            {status !== "idle" && (
               <span
-                className="footer__main-form-message"
-                style={{
-                  color: isFormInvalid.hasErorr
-                    ? "var(--color-error)"
-                    : "var(--color-purple-70)",
-                }}
+                className={classNames("footer__main-form-message", {
+                  "footer__main-form-message--error": status === "error",
+                  "footer__main-form-message--success": status === "success",
+                })}
               >
-                {isFormInvalid.hasErorr ? isFormInvalid.description : "Succses"}
+                {message}
               </span>
             )}
           </form>
+
           <nav className="footer__table-menu footer__table">
-            {footerData.map((column, index) => (
+            {FOOTER_DATA.map((column, index) => (
               <ul className="footer__table-list" key={`footer-list-${index}`}>
                 <Link
-                  to={column.hrefpage}
+                  to={`/${column.hrefpage}`}
                   className="description"
                   style={{ height: "auto" }}
                 >
                   <span className="footer__table-head">{column.column}</span>
                 </Link>
-
-                {column.items.map((item, index) => (
-                  <li
-                    className="footer__table-item"
-                    key={`footer-item-${index}`}
-                  >
+                {column.items.map((item, i) => (
+                  <li className="footer__table-item" key={`footer-item-${i}`}>
                     <Button
                       className="footer__table-button"
                       title={item.name}
                       label={item.name}
                       mode="text-only"
-                      onClick={() => {
-                        scrollToSection(item.ref, `/${column.hrefpage}`);
-                      }}
+                      onClick={() =>
+                        scrollToSection(item.ref, `/${column.hrefpage}`)
+                      }
                     />
                   </li>
                 ))}
@@ -226,24 +140,23 @@ const Footer = () => {
             ))}
           </nav>
         </div>
+
         <div className="footer__links">
           <div className="footer__links-info">
             <span>@2026 Estatein. All Rights Reserved.</span>
             <span>Terms & Conditions</span>
           </div>
-          <div className="footer__links-soc1als">
-            <ul className="footer__links-soc1als-list">
-              {soc1als.map((item, index) => (
-                <li key={`footer-${item.name}-${index}`}>
-                  <div className="footer__links-soc1als-item">
-                    <div className="footer__links-soc1als-wrapper">
-                      <Icon name={item.name} />
-                    </div>
+          <ul className="footer__links-socials-list">
+            {SOCIALS.map((item, index) => (
+              <li key={`footer-${item.name}-${index}`}>
+                <div className="footer__links-socials-item">
+                  <div className="footer__links-socials-wrapper">
+                    <Icon name={item.name} />
                   </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>

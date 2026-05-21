@@ -17,10 +17,6 @@ const Discover = () => {
 
   const ViewEstates = filteredEstate.length > 1 ? filteredEstate : data;
 
-  if (loading) {
-    return <span>Loading...</span>;
-  }
-
   return (
     <Section
       className="discover"
@@ -28,6 +24,8 @@ const Discover = () => {
       description="Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home"
       hasSlider={true}
       hasButton={false}
+      loadingData={loading}
+      hasErorrFetching={error.HasError}
     >
       {error.HasError && (
         <div className="section-error">

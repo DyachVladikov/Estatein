@@ -1,1 +1,1 @@
-import { default } from "./Explore"
+export { default } from "./Explore";

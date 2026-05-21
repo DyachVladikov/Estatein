@@ -42,10 +42,6 @@ const ValuedClients = () => {
     },
   };
 
-  if (loading) {
-    return <span>Loading...</span>;
-  }
-
   return (
     <Section
       className="valued-clients"
@@ -53,6 +49,8 @@ const ValuedClients = () => {
       description="At Estatein, we have had the privilege of working with a diverse range of clients across various industries. Here are so me of the clients we've had the pleasure of serving"
       hasButton={false}
       dataJsSection="data-js-clients"
+      loadingData={loading}
+      hasErorrFetching={error.HasError}
     >
       {error.HasError && (
         <div className="section-error">

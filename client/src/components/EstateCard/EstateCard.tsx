@@ -1,4 +1,4 @@
-import { useEffect, useState, memo } from "react";
+import { useState, memo } from "react";
 import Bage from "../Bage";
 import Button from "../Button";
 import "./EstateCard.scss";

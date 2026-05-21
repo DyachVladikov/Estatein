@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import type { RefObject } from "react";
 import { img } from "@/utils/RepairOmgSrc";
 import "./Explore.scss";
 import useTypewriter from "@/hooks/useTypewriter";
@@ -7,7 +7,8 @@ type gridValues =
   | { type: "img"; src: string; gridArea: string }
   | { type: "text"; title: string; description: string; gridArea: string };
 
-const EXPLORE_TEXT = "Step inside the world of Estatein, where professionalism meets warmth, and expertise meets passion. Our gallery offers a glimpse into our team and workspaces, inviting you to get to know us better.";
+const EXPLORE_TEXT =
+  "Step inside the world of Estatein, where professionalism meets warmth, and expertise meets passion. Our gallery offers a glimpse into our team and workspaces, inviting you to get to know us better.";
 
 const Explore = () => {
   const { displayed, isDone, ref } = useTypewriter(EXPLORE_TEXT);
@@ -72,7 +73,10 @@ const Explore = () => {
               >
                 <img className="section-stars" src={img("/icons/stars.svg")} />
                 <h2 className="explore__body-title">{item.title}</h2>
-                <p ref={ref as RefObject<HTMLParagraphElement>} className={`explore__body-description description${isDone ? " section-description--done" : ""}`}>
+                <p
+                  ref={ref as RefObject<HTMLParagraphElement>}
+                  className={`explore__body-description description${isDone ? " section-description--done" : ""}`}
+                >
                   {displayed}
                 </p>
               </div>

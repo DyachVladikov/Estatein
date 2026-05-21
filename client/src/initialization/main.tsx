@@ -5,11 +5,12 @@ import Home from "@/pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AboutUs from "@/pages/AboutUs";
-import App from "./App";
+//import App from "./App";
 import Properties from "@/pages/Properties";
 import PropertyDetails from "@/pages/PropertyDetails";
 import Service from "@/pages/Service";
 import Contact from "@/pages/Contact";
+import MagicSurprise from "@/layouts/Girl/SurpriseHeart";
 
 const PATHS = {
   ABOUT_US: "about-us",
@@ -22,7 +23,7 @@ const PATHS = {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <MagicSurprise />, //<App />,
     children: [
       { path: PATHS.ABOUT_US, element: <AboutUs /> },
       { index: true, element: <Home /> },

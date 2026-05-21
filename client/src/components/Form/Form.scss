@@ -230,6 +230,19 @@
     }
   }
 
+  &-error-message {
+    margin-inline: auto;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-error);
+    text-align: center;
+    margin-top: 10px;
+
+    @include tablet {
+      font-size: 14px;
+    }
+  }
+
   &.successfully-sent {
     border: 1px solid var(--color-purple-70);
   }

@@ -1,4 +1,4 @@
-import { RefObject } from "react";
+import { type RefObject } from "react";
 import "./PropertyBanner.scss";
 import useTypewriter from "@/hooks/useTypewriter";
 
