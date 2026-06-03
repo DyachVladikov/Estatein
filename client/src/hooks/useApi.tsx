@@ -38,35 +38,65 @@ const useApi = <T,>(router: Routes, id?: string): ApiState<T> => {
   const query = useQuery({
     queryKey: ["api", currentRoute],
     queryFn: async ({ signal }): Promise<T> => {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/${currentRoute}`,
-        {
-          signal,
-        },
+      // 1. Достаем ссылку и убираем случайные двойные слэши (на случай если в env ссылка со слэшем на конце)
+      const baseUrl = import.meta.env.VITE_API_URL || "";
+      const fullUrl = `${baseUrl}/api/${currentRoute}`.replace(
+        /([^:]\/)\/+/g,
+        "$1",
       );
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
+
+      console.log(`📡 [useApi] Делаю запрос на:`, fullUrl);
+
+      const response = await fetch(fullUrl, { signal });
+
+      // 2. Сначала читаем ответ КАК ТЕКСТ, чтобы поймать подвох
+      const text = await response.text();
+
+      if (!response.ok) {
+        console.error(`❌ [useApi] Ошибка HTTP ${response.status}`, text);
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      try {
+        // 3. Пытаемся превратить текст в JSON
+        const data = JSON.parse(text);
+        console.log(`✅ [useApi] Успешно получены данные:`, data);
+        return data;
+      } catch (err) {
+        // 4. Если парсер упал — сервер прислал HTML! Выводим кусок этого HTML в консоль.
+        console.error(
+          `💥 [useApi] СЕРВЕР ПРИСЛАЛ НЕ JSON! Вот что пришло:`,
+          text.substring(0, 200),
+        );
+        throw new Error("Server returned invalid JSON");
+      }
     },
     enabled: isGetRoute && !!router,
   });
 
-  // POST мутация
+  // POST мутация (ее тоже немного обезопасим)
   const mutation = useMutation({
     mutationKey: ["api", router],
     mutationFn: async (payload: any) => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/${router}`, {
+      const baseUrl = import.meta.env.VITE_API_URL || "";
+      const fullUrl = `${baseUrl}/api/${router}`.replace(/([^:]\/)\/+/g, "$1");
+
+      const response = await fetch(fullUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const result = await response.json();
 
-      if (!response.ok) throw new Error(result.message || "Mutation failed");
+      const text = await response.text();
+      if (!response.ok) {
+        console.error(`❌ [useApi POST] Ошибка:`, text);
+        throw new Error("Mutation failed");
+      }
 
-      return result;
+      return JSON.parse(text);
     },
-    onSuccess: () => console.log("Success sent to", router),
-    onError: (err) => console.log("Error in", router, err.message),
+    onSuccess: () => console.log("✅ Success sent to", router),
+    onError: (err) => console.log("❌ Error in", router, err.message),
   });
 
   return {
