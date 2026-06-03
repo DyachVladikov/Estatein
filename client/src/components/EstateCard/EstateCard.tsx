@@ -33,7 +33,7 @@ const EstateCard = ({
       <Link to={`/properties/${estate._id}`} className="">
         <img
           className="estate-card-image"
-          src={estate?.images?.[0] ?? "/src/assets/images/loadingGif.gif"}
+          src={estate?.images?.[0] ?? "/images/loadingGif.gif"}
         />
       </Link>
 

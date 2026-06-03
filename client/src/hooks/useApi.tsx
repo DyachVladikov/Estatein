@@ -38,18 +38,13 @@ const useApi = <T,>(router: Routes, id?: string): ApiState<T> => {
   const query = useQuery({
     queryKey: ["api", currentRoute],
     queryFn: async ({ signal }): Promise<T> => {
-      // 1. Достаем ссылку и убираем случайные двойные слэши (на случай если в env ссылка со слэшем на конце)
       const baseUrl = import.meta.env.VITE_API_URL || "";
       const fullUrl = `${baseUrl}/api/${currentRoute}`.replace(
         /([^:]\/)\/+/g,
         "$1",
       );
 
-      console.log(`📡 [useApi] Делаю запрос на:`, fullUrl);
-
       const response = await fetch(fullUrl, { signal });
-
-      // 2. Сначала читаем ответ КАК ТЕКСТ, чтобы поймать подвох
       const text = await response.text();
 
       if (!response.ok) {
@@ -58,16 +53,9 @@ const useApi = <T,>(router: Routes, id?: string): ApiState<T> => {
       }
 
       try {
-        // 3. Пытаемся превратить текст в JSON
         const data = JSON.parse(text);
-        console.log(`✅ [useApi] Успешно получены данные:`, data);
         return data;
       } catch (err) {
-        // 4. Если парсер упал — сервер прислал HTML! Выводим кусок этого HTML в консоль.
-        console.error(
-          `💥 [useApi] СЕРВЕР ПРИСЛАЛ НЕ JSON! Вот что пришло:`,
-          text.substring(0, 200),
-        );
         throw new Error("Server returned invalid JSON");
       }
     },
