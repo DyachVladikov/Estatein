@@ -1,29 +1,28 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-/* import Home from "@/pages/Home"; */
+import Home from "@/pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-/* import AboutUs from "@/pages/AboutUs"; */
-//import App from "./App";
-/* import Properties from "@/pages/Properties";
+import AboutUs from "@/pages/AboutUs";
+import App from "./App";
+import Properties from "@/pages/Properties";
 import PropertyDetails from "@/pages/PropertyDetails";
 import Service from "@/pages/Service";
-import Contact from "@/pages/Contact"; */
-import MagicSurprise from "@/layouts/Girl/SurpriseHeart";
+import Contact from "@/pages/Contact";
 
-/* const PATHS = {
+const PATHS = {
   ABOUT_US: "about-us",
   PROPERTIES: "properties",
   PROPERTY_DETAILS: "properties/:id",
   SERVICE: "service",
   CONTACT: "contact-us",
-} as const; */
+} as const;
 
-/* const router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
-    element: <MagicSurprise />, //<App />,
+    element: <App />,
     children: [
       { path: PATHS.ABOUT_US, element: <AboutUs /> },
       { index: true, element: <Home /> },
@@ -33,20 +32,7 @@ import MagicSurprise from "@/layouts/Girl/SurpriseHeart";
       { path: PATHS.CONTACT, element: <Contact /> },
     ],
   },
-]); */
-
-const router = createBrowserRouter(
-  [
-    {
-      path: "*", // Звездочка означает "Любой URL". Это гарантированно уберет ошибку 404.
-      element: <MagicSurprise />,
-    },
-  ],
-  {
-    // 2. Эта строчка помогает роутеру правильно работать на GitHub Pages
-    basename: import.meta.env.BASE_URL,
-  },
-);
+]);
 
 const queryClient = new QueryClient({
   defaultOptions: {

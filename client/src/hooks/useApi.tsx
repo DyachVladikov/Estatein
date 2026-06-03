@@ -39,7 +39,7 @@ const useApi = <T,>(router: Routes, id?: string): ApiState<T> => {
     queryKey: ["api", currentRoute],
     queryFn: async ({ signal }): Promise<T> => {
       const response = await fetch(
-        `http://localhost:3002/api/${currentRoute}`,
+        `${import.meta.env.VITE_API_URL}/api/${currentRoute}`,
         {
           signal,
         },
@@ -54,7 +54,7 @@ const useApi = <T,>(router: Routes, id?: string): ApiState<T> => {
   const mutation = useMutation({
     mutationKey: ["api", router],
     mutationFn: async (payload: any) => {
-      const response = await fetch(`http://localhost:3002/api/${router}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/${router}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

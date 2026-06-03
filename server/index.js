@@ -10,30 +10,21 @@ import cors from "cors"
 
 import Routes from "./routes/routes.js"
 
-const app = express()
 dotenv.config()
 
-const Port = process.env.PORT || 3001
-const DbPassword = process.env.DB_PASSWORD
-const DbUser = process.env.DB_USER
+const app = express()
 
-app.use(cors())
+app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }))
 app.use(express.json())
+app.use("/api", Routes)
 
-async function Start() {
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@estatein.dulha3r.mongodb.net/Estate`)
+    .catch(err => console.log(err))
 
-    try {
-        await mongoose.connect(`mongodb://estatein_db:B8MxihCHpuuAzQVw@ac-orkmymg-shard-00-00.dulha3r.mongodb.net:27017/Estate?ssl=true&authSource=admin`) 
-        //mongodb+srv://${DbUser}:${DbPassword}@estatein.dulha3r.mongodb.net/Estate
-        app.listen(Port, () => {
-            console.log("server start on " + Port);    
-        })
-        app.use("/api" , Routes)
-
-    } catch (error) {
-        console.log(error);
-        
-    }
+// локальный запуск
+if (process.env.NODE_ENV !== "production") {
+    const Port = process.env.PORT || 3002
+    app.listen(Port, () => console.log("server start on " + Port))
 }
 
-Start()
+export default app
